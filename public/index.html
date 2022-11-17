@@ -6,11 +6,15 @@
     </head>
     <body>
         <script>
-            fetch('http://localhost:8080', {
-                method: "POST",
-                headers: { "ContentType": "application/json; charset=UTF-8" }
-            }).then(res => {
-                if (res.ok) console.log('foi e voltou!')
+            const options = {
+                method: 'POST',
+                headers: { ContentType: 'application/json; charset=UTF-8' },
+                body: JSON.stringify({
+                    lixo: 'lixo'
+                })
+            }
+            fetch('http://localhost:3000', options).then(res => {
+                console.log(res.ok)
             })
         </script>
     </body>
