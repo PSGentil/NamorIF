@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Test</title>
+    </head>
+    <body>
+        <script>
+            fetch('http://localhost:8080', {
+                method: "POST",
+                headers: { "ContentType": "application/json; charset=UTF-8" }
+            }).then(res => {
+                if (res.ok) console.log('foi e voltou!')
+            })
+        </script>
+    </body>
+</html>
