@@ -1,0 +1,75 @@
+*{
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 200vh;
+}
+
+ul{
+    list-style: none;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    top: 0;
+}
+nav {
+    width: 70px;
+    height: 100%;
+    background-color: rgba(126, 126, 126, 0.226);
+    position: relative;
+    left: 0;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.377);
+    padding-top: 10px ;
+    transition: .1s;
+}
+
+main, nav {
+    margin: 0;
+    height: 100%;
+    text-align: center;
+}
+
+figure{
+    width: 50px;
+    margin: 0 auto;
+}
+
+#img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+figure:hover {
+    filter: invert();
+    cursor: pointer;
+}
+section {
+    background-color: black;
+    width: 24em;
+    height: 36em;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    border-radius: 20px;
+    box-shadow: 0 0 1em black;
+}
+#foto {
+    width: 24em;
+    height: 30em;
+    border-radius: 20px 20px 0 0;
+    background-image: url(https://img.freepik.com/fotos-gratis/mulher-de-negocios-elegante-e-confiante-sorrindo_176420-19466.jpg?w=2000);
+    background-size: 100% 30em;
+}
+#legenda {
+    height: 6em;
+    width: 24em;
+    background-color: rgb(221, 221, 221);
+    border-radius: 0 0 20px 20px;
+}

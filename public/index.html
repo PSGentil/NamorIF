@@ -2,22 +2,21 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
+        <script defer src="./index.js"></script>
         <title>Test</title>
+        <link rel="stylesheet" type="text/css" href="css/index.css">
     </head>
     <body>
-        <script>
-            const options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                body: JSON.stringify({
-                    lixo: 'lixo'
-                })
-            }
-            fetch('http://localhost:3000/api', options).then(res => {
-                if (res.ok) return res.json()
-            }).then(body => {
-                console.log(body)
-            })
-        </script>
+        <main>
+            <nav>
+                <figure id="menuButton" onclick="expand()">
+                    <img id="img" src="images/menu.png" alt="">
+                </figure>
+            </nav>
+            <section>
+                <div id="foto"></div>
+                <div id="legenda"></div>
+            </section>
+        </main>
     </body>
 </html>
