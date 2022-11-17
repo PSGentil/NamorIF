@@ -8,13 +8,15 @@
         <script>
             const options = {
                 method: 'POST',
-                headers: { ContentType: 'application/json; charset=UTF-8' },
+                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                 body: JSON.stringify({
                     lixo: 'lixo'
                 })
             }
-            fetch('http://localhost:3000', options).then(res => {
-                console.log(res.ok)
+            fetch('http://localhost:3000/api', options).then(res => {
+                if (res.ok) return res.json()
+            }).then(body => {
+                console.log(body)
             })
         </script>
     </body>
