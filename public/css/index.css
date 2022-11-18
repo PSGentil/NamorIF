@@ -32,7 +32,7 @@ nav img{
     margin: 0 auto;
 }
 
-figure:hover {
+nav img:hover {
     filter: invert();
     cursor: pointer;
 }

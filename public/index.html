@@ -8,27 +8,29 @@
         <link rel="stylesheet" type="text/css" href="css/login.css">
     </head>
     <body>
-
-        <div id="logPage">
-
-            <h1>Logue imediatamente!</h1>
-
-            <input type="email" placeholder="email">
-            <button>Criar Conta</button>
-
-        </div>
-
         <main>
-            
+          
+            <nav>
+                <img src="images/menu.png" class="icons" alt="" onclick="expand()">
+                <img src="images/login.png" class="icons" alt="" onclick="logPage()">
+            </nav>
+    
+            <div id="logPage">
+    
+                <h1>Criar Conta!</h1>
+    
+                <input type="email" placeholder="email" id="getEmail">
+                <input type="password" min="8" placeholder="Senha" id="getPass">
+                <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
+
+                <button onclick="login()">Criar Conta</button>
+    
+            </div>
+
             <section id="nextProfile">
                 <div id="foto"></div>
                 <div id="legenda"></div>
             </section>
-
-            <nav>
-                <img src="images/menu.png" class="icons" alt="" onclick="expand()">
-                <img src="images/login.png" class="icons" alt="" onclick="loginPage()">
-            </nav>
 
         </main>
     </body>

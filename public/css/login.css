@@ -1,6 +1,16 @@
-#logPage{
-    width: 30px;
-    height: 30px;
-    margin: 0 auto;
-    z-index: 0;
+div#logPage{
+    background-color: greenyellow;
+    position: absolute;
+    display: none;
+    width: 30%;
+    height: 30%;
+    top: 20%;
+    left: 40%;
+    padding: 30px;
+    border-radius: 15px;
+    z-index: 10;
+}
+
+div#logPage input{
+    display: block;
 }
