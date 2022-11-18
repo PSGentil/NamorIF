@@ -2,21 +2,36 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <script defer src="./index.js"></script>
+        <script defer src="js/index.js"></script>
         <title>Test</title>
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/login.css">
     </head>
     <body>
         <main>
+          
             <nav>
-                <figure id="menuButton" onclick="expand()">
-                    <img id="img" src="images/menu.png" alt="">
-                </figure>
+                <img src="images/menu.png" class="icons" alt="" onclick="expand()">
+                <img src="images/login.png" class="icons" alt="" onclick="logPage()">
             </nav>
-            <section>
+    
+            <div id="logPage">
+    
+                <h1>Criar Conta!</h1>
+    
+                <input type="email" placeholder="email" id="getEmail">
+                <input type="password" min="8" placeholder="Senha" id="getPass">
+                <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
+
+                <button onclick="login()">Criar Conta</button>
+    
+            </div>
+
+            <section id="nextProfile">
                 <div id="foto"></div>
                 <div id="legenda"></div>
             </section>
+
         </main>
     </body>
 </html>
