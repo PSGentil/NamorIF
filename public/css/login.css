@@ -1,4 +1,4 @@
-div#logPage{
+div#logPage {
     background-color: greenyellow;
     position: absolute;
     display: none;
@@ -11,6 +11,6 @@ div#logPage{
     z-index: 10;
 }
 
-div#logPage input{
+div#logPage input {
     display: block;
 }

@@ -1,30 +1,30 @@
 // Index Buttons Functions
-import{ enviarLogin } from './login.js'
+import { enviarLogin } from './login.js'
 
+let menuActive, logPageOn
 
-let menuActive, logPageOn = false
-
-function expand() {
-
+const menu = document.getElementById('menu')
+menu.onclick = () => {
     let navBar = document.getElementsByTagName('nav')
     let icons = document.getElementsByClassName('icons')
 
     if (!menuActive) {
         navBar[0].style.width = '50%'
-        icons[0].style.margin = '0 0 0 90%'
-        icons[1].style.margin = '0 0 0 90%'
+        for (const icon of icons) {
+            icon.style.margin = '0 0 0 90%'
+        }
         menuActive = true
     } else {
         navBar[0].style.width = '5%'
-        icons[0].style.margin = '0 auto'
-        icons[1].style.margin = '0 auto'
+        for (const icon of icons) {
+            icon.style.margin = '0 auto'
+        }
         menuActive = false
     }
-
 }
 
-function logPage() {
-
+const loginIcon = document.getElementById('loginIcon')
+loginIcon.onclick = () => {
     let logPage = document.getElementById('logPage')
 
     if (!logPageOn) {
@@ -34,21 +34,26 @@ function logPage() {
         logPage.style.display = 'none'
         logPageOn = false
     }
-
 }
 
-function login() {
+const loginButton = document.getElementById('loginButton')
+loginButton.onclick = () => {
+    let email = document.getElementById('getEmail').value
+    let password = document.getElementById('getPass').value
+    let passConfirm = document.getElementById('getPassConfirm').value
 
-    let email = document.getElementById('getEmail')
-    let pass =  document.getElementById('getPass')
-    let passConfirm =  document.getElementById('getPassConfirm')
+    if (password == passConfirm) {
+        enviarLogin(email, password).then(async res => {
+            let body = await res.json()
 
-    if(pass == passConfirm){
-        enviarLogin(email, pass).then(res => {
-            
+            if (body.isLogged) {
+                window.localStorage.setItem('email', email)
+                window.localStorage.setItem('password', password)
+            } else {
+                window.alert("senha incorreta")
+            }
         })
-    }else{
+    } else {
         window.alert("MUDA")
     }
-
 }

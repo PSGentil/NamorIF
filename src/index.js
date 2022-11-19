@@ -2,10 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import { Low } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
-import { login } from './routes/Login.js'
+import login from './routes/login.js'
 
-const db = new Low(new JSONFile('./db.json'))
-await db.read(); db.data ||= {}
+export const db = new Low(new JSONFile('./db.json'))
+await db.read(); db.data ||= { registeredUsers: [] }; await db.write()
 
 const app = express()
 

@@ -2,16 +2,13 @@ let email = window.localStorage.getItem('email')
 let password = window.localStorage.getItem('password')
 
 if (email) {
-
     enviarLogin(email, password).then(async res => {
         let body = await res.json()
 
         if (body.isLogged) {
 
         }
-
     })
-
 }
 
 export function enviarLogin(email, pass) {
@@ -24,4 +21,3 @@ export function enviarLogin(email, pass) {
         })
     })
 }
-

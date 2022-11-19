@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
 }
 
@@ -27,8 +27,8 @@ nav {
     transition: .1s;
 }
 
-nav img{
-    display:block;
+nav img {
+    display: block;
     margin: 0 auto;
 }
 
@@ -63,7 +63,7 @@ section {
     border-radius: 0 0 20px 20px;
 }
 
-#logPage{
+#logPage {
     width: 30px;
     height: 30px;
     margin: 0 auto;
