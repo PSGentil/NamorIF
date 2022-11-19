@@ -8,7 +8,7 @@ if (email) {
         if (body.isLogged) {
             window.localStorage.setItem('isLogged', true)
         } else {
-            window.localStorage.setItem('isLogged', false)
+            window.localStorage.setItem('isLogged', '')
         }
     })
 }

@@ -25,43 +25,46 @@ menu.onclick = () => {
 
 const loginIcon = document.getElementById('loginIcon')
 loginIcon.onclick = () => {
-    let logPage = document.getElementById('logPage')
+    let isLogged = window.localStorage.getItem('isLogged')
 
-    if (!logPageOn) {
-        logPage.style.display = 'block'
-        logPageOn = true
+    if (!isLogged) {
+        let logPage = document.getElementById('logPage')
+
+        if (!logPageOn) {
+            logPage.style.display = 'block'
+            logPageOn = true
+        } else {
+            logPage.style.display = 'none'
+            logPageOn = false
+        }
     } else {
-        logPage.style.display = 'none'
-        logPageOn = false
+        window.location.href = '../pages/account.html'
     }
 }
 
 const loginButton = document.getElementById('loginButton')
 loginButton.onclick = () => {
-    let isLogged = window.localStorage.getItem('isLogged')
+    let email = document.getElementById('getEmail').value
+    let password = document.getElementById('getPass').value
+    let passConfirm = document.getElementById('getPassConfirm').value
 
-    if (!isLogged) {
-        let email = document.getElementById('getEmail').value
-        let password = document.getElementById('getPass').value
-        let passConfirm = document.getElementById('getPassConfirm').value
+    if (password == passConfirm) {
+        enviarLogin(email, password).then(async res => {
+            let body = await res.json()
 
-        if (password == passConfirm) {
-            enviarLogin(email, password).then(async res => {
-                let body = await res.json()
+            if (body.isLogged) {
+                window.localStorage.setItem('email', email)
+                window.localStorage.setItem('password', password)
+                window.localStorage.setItem('isLogged', true)
 
-                if (body.isLogged) {
-                    window.localStorage.setItem('email', email)
-                    window.localStorage.setItem('password', password)
-                    window.localStorage.setItem('isLogged', true)
-                } else {
-                    window.alert("senha incorreta")
-                    window.localStorage.setItem('isLogged', false)
-                }
-            })
-        } else {
-            window.alert("MUDA")
-        }
+                document.getElementById('logPage').style.display = 'none'
+                logPageOn = false
+            } else {
+                window.alert("senha incorreta")
+                window.localStorage.setItem('isLogged', '')
+            }
+        })
     } else {
-        window.location.href = '../pages/account.html'
+        window.alert("MUDA")
     }
 }
