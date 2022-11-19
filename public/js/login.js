@@ -6,7 +6,9 @@ if (email) {
         let body = await res.json()
 
         if (body.isLogged) {
-
+            window.localStorage.setItem('isLogged', true)
+        } else {
+            window.localStorage.setItem('isLogged', false)
         }
     })
 }

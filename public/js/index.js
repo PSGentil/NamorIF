@@ -38,22 +38,30 @@ loginIcon.onclick = () => {
 
 const loginButton = document.getElementById('loginButton')
 loginButton.onclick = () => {
-    let email = document.getElementById('getEmail').value
-    let password = document.getElementById('getPass').value
-    let passConfirm = document.getElementById('getPassConfirm').value
+    let isLogged = window.localStorage.getItem('isLogged')
 
-    if (password == passConfirm) {
-        enviarLogin(email, password).then(async res => {
-            let body = await res.json()
+    if (!isLogged) {
+        let email = document.getElementById('getEmail').value
+        let password = document.getElementById('getPass').value
+        let passConfirm = document.getElementById('getPassConfirm').value
 
-            if (body.isLogged) {
-                window.localStorage.setItem('email', email)
-                window.localStorage.setItem('password', password)
-            } else {
-                window.alert("senha incorreta")
-            }
-        })
+        if (password == passConfirm) {
+            enviarLogin(email, password).then(async res => {
+                let body = await res.json()
+
+                if (body.isLogged) {
+                    window.localStorage.setItem('email', email)
+                    window.localStorage.setItem('password', password)
+                    window.localStorage.setItem('isLogged', true)
+                } else {
+                    window.alert("senha incorreta")
+                    window.localStorage.setItem('isLogged', false)
+                }
+            })
+        } else {
+            window.alert("MUDA")
+        }
     } else {
-        window.alert("MUDA")
+        window.location.href = '../pages/account.html'
     }
 }
