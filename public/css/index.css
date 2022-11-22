@@ -39,24 +39,28 @@ nav img:hover {
 }
 
 section {
-    background-color: black;
-    width: 24em;
-    height: 36em;
     position: absolute;
-    bottom: 20%;
+    bottom: 5%;
     left: 41%;
-    border-radius: 20px;
-    box-shadow: 0 0 1em rgba(0, 0, 0, 0.411); 
+    border-radius: 0 0 20px 20px;
+    padding: 5px;    
 }
 
 #foto {
     width: 24em;
-    height: 30em;
     border-radius: 20px 20px 0 0;
-    background-image: url(https://www2.pictures.zimbio.com/gi/Cruzeiro+v+Internacional+Brasileirao+Series+8yXR4byX2Uax.jpg);
-    background-size: 100% 30em;
+    position: relative;
+    bottom: -6.2em;
 }
 
+#options {
+    height: 6em;
+    width: 24em;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0 0 20px 20px;
+    display: block;
+    margin-top: 6.2em;
+}
 #legenda {
     height: 6em;
     width: 24em;
@@ -72,6 +76,7 @@ section {
     margin: 0 auto;
     z-index: 0;
 }
+
 #nome {
     color: white;
     position: absolute;
@@ -81,18 +86,23 @@ section {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 0 0 1em black;
 }
-.bangers {
-    background-color: #4158D0;
-    width: 25%;
-    height: 80%;
+
+.botao {
     border-radius: 10px;
     border: none;
     flex-direction: row;
     margin: 0 auto;
 }
-#lixo {
-    background-image: linear-gradient(to right, red, rgb(56, 1, 1));
+
+#love {
+    filter: grayscale(100%);
+    transition: .1s;
 }
-#mecome {
-    background-image: linear-gradient(to left, green, rgb(183, 255, 124));
+#love:hover {
+    filter: none;
+    width: 14%;
+}
+.profile {
+    width: 24em;
+
 }

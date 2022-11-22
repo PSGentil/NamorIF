@@ -13,6 +13,7 @@ div#logPage {
     border-radius: 15px;
     box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.363);
     z-index: 10;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 div#logPage h1{
@@ -34,7 +35,7 @@ div#logPage button{
     margin-top: 10%;
 }
 
-div#logPage input, button{
+div#logPage input, button{ 
     width: 40%;
     padding: 5px;
     border-radius: 10px;
@@ -45,4 +46,13 @@ div#logPage img#closeLogin{
     position: absolute;
     right: 15px;
     top: 15px;
+}
+
+span#loginAccount{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button {
+    cursor: pointer;
 }

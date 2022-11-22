@@ -11,8 +11,27 @@ if (email) {
     })
 }
 
+/**
+ * @param {string} email 
+ * @param {string} pass 
+ */
 export function enviarLogin(email, pass) {
     return fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({
+            email: email,
+            pass: pass
+        })
+    })
+}
+
+/**
+ * @param {string} email 
+ * @param {string} pass 
+ */
+export function criarConta(email, pass) {
+    return fetch('http://localhost:3000/api/login/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
         body: JSON.stringify({

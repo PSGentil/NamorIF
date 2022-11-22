@@ -5,7 +5,7 @@ import { JSONFile } from 'lowdb/node'
 import login from './routes/login.js'
 import account from './routes/account.js'
 
-export const db = new Low<DB>(new JSONFile('./db.json'))
+export const db = new Low(new JSONFile('./db.json'))
 await db.read(); db.data ||= { registeredUsers: [] }; await db.write()
 
 const app = express()
