@@ -56,6 +56,7 @@ document.getElementById('loginButton').addEventListener('click', e => {
 
                 document.getElementById('logPage').style.display = 'none'
                 logPageOn = false
+                window.location.href = '../pages/account.html'
             } else {
                 window.alert("senha incorreta")
                 window.localStorage.setItem('isLogged', '')
