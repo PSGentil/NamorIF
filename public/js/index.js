@@ -11,7 +11,7 @@ document.getElementById('menu').addEventListener('click', e => {
         navBar[0].style.width = '25%'
         for (const icon of icons) {
             icon.style.margin = '0 0 0 5%'
-            //icon.style.transition = '.3s'
+            //icon.style.transition = '.3s
         }
         menuActive = true
     } else {
@@ -23,7 +23,7 @@ document.getElementById('menu').addEventListener('click', e => {
     }
 })
 
-document.getElementById('loginIcon').addEventListener('click', e => {
+function logPageSwitch(e){
     let isLogged = window.localStorage.getItem('isLogged')
 
     if (!isLogged) {
@@ -39,7 +39,9 @@ document.getElementById('loginIcon').addEventListener('click', e => {
     } else {
         window.location.href = '../pages/account.html'
     }
-})
+}
+document.getElementById('loginIcon').addEventListener('click', logPageSwitch)
+document.getElementById('closeLogin').addEventListener('click', logPageSwitch)
 
 document.getElementById('loginButton').addEventListener('click', e => {
     let email = document.getElementById('getEmail').value

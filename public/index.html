@@ -9,20 +9,36 @@
     </head>
     <body>
         <main>
+
+            <!-- Nav Bar -->
+
             <nav>
                 <img id="menu" src="images/menu.png" class="icons">
                 <img id="loginIcon" src="images/login.png" class="icons">
             </nav>
     
-            <div id="logPage">
-                <h1>Criar Conta!</h1>
-    
-                <input type="email" placeholder="email" id="getEmail">
-                <input type="password" min="8" placeholder="Senha" id="getPass">
-                <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
+            <!-- Log in pop up -->
 
-                <button id="loginButton">Criar Conta</button>
+            <div id="logPage">
+
+                <header id="logHeader">
+                    <h1>Criar Conta</h1>
+                    <img id="closeLogin" src="images/close.png" alt="" onclick="logPageSwitch()">
+                </header>
+    
+                <div>
+                    <input type="email" placeholder="Email" id="getEmail">
+                    <input type="password" min="8" placeholder="Senha" id="getPass">
+                    <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
+                </div>
+
+                <div>
+                    <button id="loginButton">Criar Conta</button>
+                </div>
+
             </div>
+
+            <!-- Profile section -->
 
             <section id="nextProfile">
                 <h1 id="nome">Cruzeirense</h1>
@@ -32,6 +48,7 @@
                     <input type="button" id="lixo" class="bangers" value="Lixo">
                 </div>
             </section>
+
         </main>
     </body>
 </html>

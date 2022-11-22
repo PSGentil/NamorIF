@@ -5,7 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    height: 200vh;
+    height: 100vh;
 }
 
 main {
@@ -94,5 +94,5 @@ section {
     background-image: linear-gradient(to right, red, rgb(56, 1, 1));
 }
 #mecome {
-    background-image: linear-gradient(to left, green, rgb(183, 255, 124)) ;
+    background-image: linear-gradient(to left, green, rgb(183, 255, 124));
 }
