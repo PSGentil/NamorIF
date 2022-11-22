@@ -2,10 +2,8 @@ let email = window.localStorage.getItem('email')
 let password = window.localStorage.getItem('password')
 
 if (email) {
-    enviarLogin(email, password).then(async res => {
-        let body = await res.json()
-
-        if (body.isLogged) {
+    enviarLogin(email, password).then(res => {
+        if (res.status == 202) {
             window.localStorage.setItem('isLogged', true)
         } else {
             window.localStorage.setItem('isLogged', '')

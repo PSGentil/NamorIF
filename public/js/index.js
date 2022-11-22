@@ -8,15 +8,16 @@ document.getElementById('menu').addEventListener('click', e => {
     let icons = document.getElementsByClassName('icons')
 
     if (!menuActive) {
-        navBar[0].style.width = '30%'
+        navBar[0].style.width = '25%'
         for (const icon of icons) {
-            icon.style.margin = '0 0 0 85%'
+            icon.style.margin = '0 0 0 5%'
+            //icon.style.transition = '.3s'
         }
         menuActive = true
     } else {
         navBar[0].style.width = '5%'
         for (const icon of icons) {
-            icon.style.margin = '0 auto'
+            icon.style.margin = '0 0 0 20%'
         }
         menuActive = false
     }
@@ -46,10 +47,8 @@ document.getElementById('loginButton').addEventListener('click', e => {
     let passConfirm = document.getElementById('getPassConfirm').value
 
     if (password == passConfirm) {
-        enviarLogin(email, password).then(async res => {
-            let body = await res.json()
-
-            if (body.isLogged) {
+        enviarLogin(email, password).then(res => {
+            if (res.status == 202) {
                 window.localStorage.setItem('email', email)
                 window.localStorage.setItem('password', password)
                 window.localStorage.setItem('isLogged', true)
