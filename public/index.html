@@ -20,29 +20,38 @@
             <!-- Log in pop up -->
 
             <div id="logPage">
-
                 <header id="logHeader">
-                    <h1>Criar Conta</h1>
-                    <img id="closeLogin" src="images/close.png" alt="" onclick="logPageSwitch()">
+                    <h1 id="titleLogPage">Criar Conta</h1>
+                    <img id="closeLogin" src="images/close.png">
                 </header>
     
-                <div>
-                    <input type="email" placeholder="Email" id="getEmail">
-                    <input type="password" min="8" placeholder="Senha" id="getPass">
-                    <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
-                </div>
+                <form>
+                    <div>
+                        <input type="email" placeholder="Email" id="getEmail">
+                        <input type="password" min="8" placeholder="Senha" id="getPass">
+                        <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
+                    </div>
 
-                <div>
-                    <button id="loginButton">Criar Conta</button>
-                </div>
+                    <span id="switchLogCreate">Já tem uma conta? </span><span id="loginAccount">Clique aqui para logar.</span>
 
+                    <div>
+                        <button id="logButton">Criar Conta</button>
+                    </div>
+                </form>
             </div>
 
             <!-- Profile section -->
 
             <section id="nextProfile">
-                <div id="foto"></div>
-                <div id="legenda"></div>
+                <div id="foto">
+                    <img class="profile" src="https://pbs.twimg.com/media/DAM_i7uVYAEiXzE.jpg:large"  alt="">
+                </div>
+                <div id="options">
+                    <div id="legenda">
+                        <img src="images/love_red.png" type="button" id="love" class="botao " >
+                        <img src="images/deny.png" type="button" id="lixo" class="botao" >
+                    </div>
+                </div>
             </section>
 
         </main>
