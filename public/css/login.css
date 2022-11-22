@@ -1,16 +1,48 @@
 div#logPage {
-    background-color: greenyellow;
+    background-color: white;
+    text-align: center;
     position: absolute;
     display: none;
-    width: 30%;
-    height: 30%;
-    top: 20%;
-    left: 40%;
+    width: 60%;
+    min-width: 17em;
+    height: 80%;
+    min-height: 20em;
+    top: 5%;
+    left: 20%;
     padding: 30px;
     border-radius: 15px;
+    box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.363);
     z-index: 10;
 }
 
+div#logPage h1{
+    margin: 10px 0px 50px 0px;
+}
+
 div#logPage input {
+    height: 3em;
+    border: 1px solid rgb(141, 141, 141);
+    margin: 10px auto;
     display: block;
+}
+
+div#logPage button{
+    height: 3.5em;
+    color: white;
+    background-color: black;
+    border: 0;
+    margin-top: 10%;
+}
+
+div#logPage input, button{
+    width: 40%;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+div#logPage img#closeLogin{
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 15px;
 }

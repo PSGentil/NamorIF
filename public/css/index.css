@@ -5,7 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    height: 200vh;
+    height: 100vh;
 }
 
 main {
@@ -52,7 +52,7 @@ section {
     width: 24em;
     height: 30em;
     border-radius: 20px 20px 0 0;
-    background-image: url(https://img.freepik.com/fotos-gratis/mulher-de-negocios-elegante-e-confiante-sorrindo_176420-19466.jpg?w=2000);
+    background-image: url(https://cdn.pixabay.com/photo/2017/10/26/01/04/woman-2889882_960_720.jpg);
     background-size: 100% 30em;
 }
 
@@ -63,9 +63,6 @@ section {
     border-radius: 0 0 20px 20px;
 }
 
-#logPage {
-    width: 30px;
-    height: 30px;
-    margin: 0 auto;
-    z-index: 0;
+button{
+    cursor: pointer;
 }
