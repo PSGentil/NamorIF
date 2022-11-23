@@ -1,4 +1,5 @@
 // Index Buttons Functions
+import login from '../../src/routes/login.js'
 import { enviarLogin, criarConta } from './login.js'
 
 let menuActive, logPageOn
@@ -46,27 +47,38 @@ document.getElementById('closeLogin').addEventListener('click', logPageSwitch)
 
 document.getElementById('loginAccount').addEventListener('click', e => {
     let title = document.getElementById('titleLogPage')
-    let confirmarSenha = document.getElementById('getPassConfirm')
+    let email = document.getElementById('getEmail')
+    let senha = document.getElementById('getPass')
     let logButton = document.getElementById('logButton')
     let switchLog = document.getElementById('switchLogCreate')
+    let switchLogClick = document.getElementById('loginAccount')
 
     if (document.getElementById('loginAccount').method == 'login') {
         title.innerText = 'Criar Conta'
         switchLog.innerText = 'Já tem uma conta? '
-        confirmarSenha.style.display = 'block'
-        logButton.innerText = 'Criar Conta'
+        email.style.display = 'none'
+        senha.style.display = 'none'
+        logButton.style.display = 'none'
 
         document.getElementById('loginAccount').method = 'createAccount'
     } else {
-        title.innerText = 'Log in LoveIF'
+        title.innerText = 'Log in NamorIF'
         switchLog.innerText = 'Ainda não tem uma conta? '
-        confirmarSenha.style.display = 'none'
         logButton.innerText = 'Log in'
+        logButton.style.display = "none"
+        emailCreate.style.display = "none"
+        switchLogClick.style.display = 'inline'
+        logButton.style.display = 'inline'
+        email.style.display = 'block'
+        senha.style.display = 'block'
+
+
+        
 
         document.getElementById('loginAccount').method = 'login'
     }
 })
-
+ 
 document.getElementById('logButton').addEventListener('click', e => {
     e.preventDefault()
     let email = document.getElementById('getEmail').value

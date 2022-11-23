@@ -4,8 +4,7 @@
         <meta charset="UTF-8">
         <script defer src="js/index.js" type="module"></script>
         <title>Test</title>
-        <link media="screen and (min-width: 1025px)" rel="stylesheet" type="text/css" href="css/index.css">
-
+        <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/login.css">
     </head>
     <body>
@@ -30,14 +29,19 @@
                     <div>
                         <input type="email" placeholder="Email" id="getEmail">
                         <input type="password" min="8" placeholder="Senha" id="getPass">
-                        <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
+
+                        <button id="emailCreate"><a href="pages/createAccount.html" target="blank">Criar conta com email</a></button>
                     </div>
 
-                    <span id="switchLogCreate">Já tem uma conta? </span><span id="loginAccount">Clique aqui para logar.</span>
+                   
 
                     <div>
                         <button id="logButton">Criar Conta</button>
                     </div>
+
+                    <footer>
+                        <span id="switchLogCreate">Já tem uma conta? </span><span id="loginAccount">Clique aqui para logar.</span>
+                    </footer>
                 </form>
             </div>
 

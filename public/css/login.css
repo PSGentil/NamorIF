@@ -24,10 +24,10 @@ div#logPage input {
     height: 3em;
     border: 1px solid rgb(141, 141, 141);
     margin: 10px auto;
-    display: block;
+    display: none;
 }
 
-div#logPage button{
+div#logPage button#logButton{
     height: 3.5em;
     color: white;
     background-color: black;
@@ -35,7 +35,7 @@ div#logPage button{
     margin-top: 10%;
 }
 
-div#logPage input, button{ 
+div#logPage input, button#logButton{ 
     width: 40%;
     padding: 5px;
     border-radius: 10px;
@@ -48,11 +48,24 @@ div#logPage img#closeLogin{
     top: 15px;
 }
 
+footer{
+    position: absolute;
+    color: rgb(163, 163, 163);
+    bottom: 1em;
+    left: 1em;
+}
+
 span#loginAccount{
     cursor: pointer;
+    color: #008fee;
     font-weight: bold;
 }
 
-button {
+span#loginAccount:hover{
+    text-decoration: underline;
+}
+
+button#logButton {
     cursor: pointer;
+    display: none;
 }
