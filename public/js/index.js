@@ -1,5 +1,4 @@
 // Index Buttons Functions
-import login from '../../src/routes/login.js'
 import { enviarLogin, criarConta } from './login.js'
 
 let menuActive, logPageOn
