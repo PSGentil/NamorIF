@@ -1,7 +1,7 @@
 // Index Buttons Functions
 import { enviarLogin, criarConta } from './login.js'
 
-let menuActive, logPageOn
+let menuActive, logPageOn, loginAccountMethod
 
 document.getElementById('menu').addEventListener('click', e => {
     let navBar = document.getElementsByTagName('nav')
@@ -37,7 +37,7 @@ function logPageSwitch(e) {
             logPageOn = false
         }
     } else {
-        window.location.href = '../pages/account.html'
+        window.open('../pages/account.html', '_blank')
     }
 }
 
@@ -48,21 +48,25 @@ document.getElementById('loginAccount').addEventListener('click', e => {
     let title = document.getElementById('titleLogPage')
     let email = document.getElementById('getEmail')
     let senha = document.getElementById('getPass')
+    let confirmarSenha = document.getElementById('getPassConfirm')
     let logButton = document.getElementById('logButton')
     let switchLog = document.getElementById('switchLogCreate')
     let switchLogClick = document.getElementById('loginAccount')
 
-    if (document.getElementById('loginAccount').method == 'login') {
+    if (loginAccountMethod == 'login') {
         title.innerText = 'Criar Conta'
         switchLog.innerText = 'Já tem uma conta? '
+        switchLogClick.innerText = 'Clique aqui para logar.'
+        emailCreate.style.display = 'inline'
         email.style.display = 'none'
         senha.style.display = 'none'
         logButton.style.display = 'none'
 
-        document.getElementById('loginAccount').method = 'createAccount'
+        loginAccountMethod = 'createAccount'
     } else {
         title.innerText = 'Log in NamorIF'
         switchLog.innerText = 'Ainda não tem uma conta? '
+        switchLogClick.innerText = 'Clique aqui para criar uma conta.'
         logButton.innerText = 'Log in'
         logButton.style.display = "none"
         emailCreate.style.display = "none"
@@ -71,49 +75,48 @@ document.getElementById('loginAccount').addEventListener('click', e => {
         email.style.display = 'block'
         senha.style.display = 'block'
 
-
-        
-
-        document.getElementById('loginAccount').method = 'login'
+        loginAccountMethod = 'login'
     }
 })
- 
+
 document.getElementById('logButton').addEventListener('click', e => {
     e.preventDefault()
     let email = document.getElementById('getEmail').value
     let password = document.getElementById('getPass').value
-    let passConfirm = document.getElementById('getPassConfirm').value
 
-    if (document.getElementById('loginAccount').method == 'login') {
-        enviarLogin(email, password).then(res => {
-            if (res.status == 202) {
-                window.localStorage.setItem('email', email)
-                window.localStorage.setItem('password', password)
-                window.localStorage.setItem('isLogged', true)
-
-                document.getElementById('logPage').style.display = 'none'
-                logPageOn = false
-                window.location.href = '../pages/account.html'
-            } else {
-                window.alert("senha incorreta")
-                window.localStorage.setItem('isLogged', '')
-            }
-        })
-    } else {
-        if (password == passConfirm) {
-            criarConta(email, password).then(res => {
+    if (loginAccountMethod == 'login') {
+        if (email.includes('@')) {
+            enviarLogin('', email, password).then(res => {
                 if (res.status == 202) {
-                    window.localStorage.setItem('email', email)
+
                     window.localStorage.setItem('password', password)
                     window.localStorage.setItem('isLogged', true)
 
                     document.getElementById('logPage').style.display = 'none'
                     logPageOn = false
-                    window.location.href = '../pages/account.html'
+                    window.open('../pages/account.html', '_blank')
+                } else {
+                    window.alert("senha incorreta")
+                    window.localStorage.setItem('isLogged', '')
                 }
             })
+            window.localStorage.setItem('email', username)
         } else {
-            window.alert("MUDA")
+            enviarLogin(email, '', password).then(res => {
+                if (res.status == 202) {
+
+                    window.localStorage.setItem('password', password)
+                    window.localStorage.setItem('isLogged', true)
+
+                    document.getElementById('logPage').style.display = 'none'
+                    logPageOn = false
+                    window.open('../pages/account.html', '_blank')
+                } else {
+                    window.alert("senha incorreta")
+                    window.localStorage.setItem('isLogged', '')
+                }
+            })
+            window.localStorage.setItem('email', email)
         }
     }
 })

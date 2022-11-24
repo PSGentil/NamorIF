@@ -2,7 +2,12 @@ import { Router } from 'express'
 import { db } from '../index.js'
 
 export default Router().post('/', async (req, res) => {
-    const serverUser = db.data.registeredUsers.find(u => u.email == req.body.email)
+    let serverUser
+    if (req.body.email) {
+        serverUser = db.data.registeredUsers.find(u => u.email == req.body.email)
+    } else {
+        serverUser = db.data.registeredUsers.find(u => u.username == req.body.username)
+    }
 
     if (serverUser) {
         if (serverUser.pass == req.body.pass) res.status(202).send() // accepted
@@ -10,10 +15,7 @@ export default Router().post('/', async (req, res) => {
     } else res.status(404).send() // not found
 
 }).post('/create', async (req, res) => {
-    db.data.registeredUsers.push({
-        email: req.body.email,
-        pass: req.body.pass
-    })
+    db.data.registeredUsers.push(req.body)
     await db.write()
     res.status(202).send()
 })
