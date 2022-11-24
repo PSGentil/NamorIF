@@ -1,9 +1,31 @@
-export function uploadImg() {
-    /*const image_input = document.querySelector("#profileImg")
-    image_input.addEventListener("change", () => {
-        image_input.files[0].text()
-        Buffer.from()
-    })*/
+const input = document.querySelector("#profileImg")
+input.addEventListener("change", () => {
+    const reader = new FileReader()
+    reader.readAsDataURL(input.files[0])
+    reader.addEventListener('load', () => {
+        uploadImg(reader.result)
+    })
+})
+
+/**
+ * @param {string} dataURL 
+ * preciso mexer
+ */
+export async function uploadImg(dataURL) {
+    let i, id
+    for (i = 0; i <= dataURL.length; i += 100) {
+        fetch('', {
+            body: JSON.stringify({
+                string: dataURL.slice(i, i + 100),
+                complete: !(i + 100 < dataURL.length)
+            })
+        })
+    }
+    fetch(`/api/img/${id}`, {
+        body: JSON.stringify({
+            string: dataURL.slice(i)
+        })
+    })
 }
 
 export async function getImg(id) {
@@ -12,3 +34,5 @@ export async function getImg(id) {
         return URL.createObjectURL(blob)
     })*/
 }
+
+export const imgs = new Map()
