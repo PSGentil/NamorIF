@@ -1,8 +1,8 @@
 let email = window.localStorage.getItem('email')
-let password = window.localStorage.getItem('password')
+let pass = window.localStorage.getItem('pass')
 
 if (email) {
-    enviarLogin('', email, password).then(res => {
+    enviarLogin('', email, pass).then(res => {
         if (res.status == 202) {
             window.localStorage.setItem('isLogged', true)
         } else {
@@ -31,24 +31,15 @@ export function enviarLogin(username, email, pass) {
  * @param {string} email 
  * @param {string} pass 
  */
-export function criarConta(email, pass, username) {
+export function criarConta(username, email, pass, profilePhoto) {
     return fetch('/api/login/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
         body: JSON.stringify({
             username: username,
             email: email,
-            pass: pass
+            pass: pass,
+            profilePhoto: profilePhoto
         })
     })
-}
-
-export async function getAccount(username) {
-    return (await fetch('/api/account', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-        body: JSON.stringify({
-            username: username
-        })
-    }))
 }

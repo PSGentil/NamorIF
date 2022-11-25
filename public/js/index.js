@@ -1,5 +1,5 @@
 // Index Buttons Functions
-import { enviarLogin, criarConta } from './login.js'
+import { enviarLogin } from './login.js'
 
 let menuActive, logPageOn, loginAccountMethod
 
@@ -36,7 +36,7 @@ function logPageSwitch(e) {
             logPage.style.display = 'none'
             logPageOn = false
         }
-    } else {
+    } else if (e.target.id == 'loginIcon') {
         window.open('../pages/account.html', '_blank')
     }
 }
@@ -48,7 +48,6 @@ document.getElementById('loginAccount').addEventListener('click', e => {
     let title = document.getElementById('titleLogPage')
     let email = document.getElementById('getEmail')
     let senha = document.getElementById('getPass')
-    let confirmarSenha = document.getElementById('getPassConfirm')
     let logButton = document.getElementById('logButton')
     let switchLog = document.getElementById('switchLogCreate')
     let switchLogClick = document.getElementById('loginAccount')
@@ -86,10 +85,12 @@ document.getElementById('logButton').addEventListener('click', e => {
 
     if (loginAccountMethod == 'login') {
         if (email.includes('@')) {
-            enviarLogin('', email, password).then(res => {
+            enviarLogin('', email, password).then(async res => {
                 if (res.status == 202) {
-
-                    window.localStorage.setItem('password', password)
+                    let body = await res.json()
+                    for (const key in body) {
+                        window.localStorage.setItem(key, body[key])
+                    }
                     window.localStorage.setItem('isLogged', true)
 
                     document.getElementById('logPage').style.display = 'none'
@@ -100,12 +101,13 @@ document.getElementById('logButton').addEventListener('click', e => {
                     window.localStorage.setItem('isLogged', '')
                 }
             })
-            window.localStorage.setItem('email', username)
         } else {
-            enviarLogin(email, '', password).then(res => {
+            enviarLogin(email, '', password).then(async res => {
                 if (res.status == 202) {
-
-                    window.localStorage.setItem('password', password)
+                    let body = await res.json()
+                    for (const key in body) {
+                        window.localStorage.setItem(key, body[key])
+                    }
                     window.localStorage.setItem('isLogged', true)
 
                     document.getElementById('logPage').style.display = 'none'
@@ -116,7 +118,6 @@ document.getElementById('logButton').addEventListener('click', e => {
                     window.localStorage.setItem('isLogged', '')
                 }
             })
-            window.localStorage.setItem('email', email)
         }
     }
 })

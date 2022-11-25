@@ -1,13 +1,3 @@
-const input = document.querySelector("#profileImg")
-input.addEventListener("change", () => {
-    const reader = new FileReader()
-    reader.readAsDataURL(input.files[0])
-    reader.addEventListener('load', async () => {
-        await uploadImg(reader.result)
-        
-    })
-})
-
 /**
  * @param {string} dataURL
  * @returns {Promise<string>} the image id
@@ -41,7 +31,7 @@ export async function uploadImg(dataURL) {
 
 /**
  * @param {string} id imgId
- * @returns {Promise<string>} dataURL
+ * @returns {Promise<string> | null} `dataURL` **OR** `null` if not found
  */
 export async function getImg(id) {
     if (imgs.has(id)) return imgs.get(id).string
@@ -49,17 +39,22 @@ export async function getImg(id) {
     const img = { id: id, string: '', completed: false }
 
     for (let i = 0; !img.completed; i += 100) {
-        await fetch(`/api/img/${id}/${i}`, { method: 'GET' }).then(async res => {
-            let body = await res.json()
-            img.string += body.string
-            if (body.completed) {
-                img.completed = true
-            }
+        let status = await fetch(`/api/img/${id}/${i}`, { method: 'GET' }).then(async res => {
+            if (res.ok) {
+                let body = await res.json()
+                img.string += body.string
+                if (body.completed) {
+                    img.completed = true
+                }
+            } else return 404
         })
+        if (status == 404) break
     }
 
-    imgs.set(img.id, img)
-    return img.string
+    if (img.completed) {
+        imgs.set(img.id, img)
+        return img.string
+    } else return null
 }
 
 export const imgs = new Map()

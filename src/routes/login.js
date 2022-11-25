@@ -10,7 +10,7 @@ export default Router().post('/', async (req, res) => {
     }
 
     if (serverUser) {
-        if (serverUser.pass == req.body.pass) res.status(202).send() // accepted
+        if (serverUser.pass == req.body.pass) res.status(202).send(serverUser) // accepted
         else res.status(401).send() // not authorized
     } else res.status(404).send() // not found
 

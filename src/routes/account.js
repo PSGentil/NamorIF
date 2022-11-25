@@ -2,12 +2,17 @@ import { Router } from 'express'
 import { db } from '../index.js'
 
 export default Router().post('/', async (req, res) => {
-    const serverUser = db.data.registeredUsers.find(u => u.email == req.body.email && u.pass == req.body.pass)
+    const serverUser = db.data.registeredUsers.find(u => u.username == req.body.username)
 
     if (serverUser) {
-        res.status(202).send(serverUser)
+        res.status(200).send({
+            username: serverUser.username,
+            profilePhoto: serverUser.profilePhoto,
+            description: serverUser.description,
+            tags: serverUser.tags
+        })
     } else {
-        res.status(401).send()
+        res.status(404).send()
     }
 }).post('/validate', async (req, res) => {
     if (db.data.registeredUsers.find(u => u.email == req.body.email && u.username == req.body.username)) {

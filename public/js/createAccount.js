@@ -1,16 +1,25 @@
 import { criarConta } from './login.js'
+import { uploadImg } from './img.js'
+
+let profilePhoto
+const inputImg = document.getElementById('profileImg')
+inputImg.addEventListener("change", () => {
+    const reader = new FileReader()
+    reader.readAsDataURL(inputImg.files[0])
+    reader.addEventListener('load', async () => {
+        profilePhoto = await uploadImg(reader.result)
+    })
+})
 
 document.getElementById('createAccountButton').addEventListener('click', async e => {
-
     e.preventDefault()
 
-    let inputEmail = document.getElementById('email').value
-    let inputSenha = document.getElementById('senha').value
-    let inputUsername = document.getElementById('username').value
-    let inputSenhaConfirmar = document.getElementById('confirmarSenha').value
-    let inputImg = document.getElementById('profileImg')
+    const inputEmail = document.getElementById('email').value
+    const inputSenha = document.getElementById('senha').value
+    const inputUsername = document.getElementById('username').value
+    const inputSenhaConfirmar = document.getElementById('confirmarSenha').value
 
-    if (inputUsername != '' && inputEmail != '' && inputSenha != '' && inputImg.files.length != 0) {
+    if (inputUsername != '' && inputEmail != '' && inputSenha != '' && profilePhoto) {
         let resposta
         await fetch('/api/account/validate', {
             method: 'POST',
@@ -25,15 +34,14 @@ document.getElementById('createAccountButton').addEventListener('click', async e
         })
 
         switch (resposta) {
-
             case false:
-
                 if (inputSenha == inputSenhaConfirmar) {
-                    criarConta(inputEmail, inputSenha, inputUsername).then(res => {
-                        if (res.status == 202) {
+                    criarConta(inputUsername, inputEmail, inputSenha, profilePhoto).then(res => {
+                        if (res.ok) {
                             window.localStorage.setItem('username', inputUsername)
                             window.localStorage.setItem('email', inputEmail)
-                            window.localStorage.setItem('password', inputSenha)
+                            window.localStorage.setItem('pass', inputSenha)
+                            window.localStorage.setItem('profilePhoto', profilePhoto)
                             window.localStorage.setItem('isLogged', true)
 
                             window.location.href = '../pages/account.html'
@@ -43,19 +51,15 @@ document.getElementById('createAccountButton').addEventListener('click', async e
                     window.alert("MUDA")
                 }
                 break
-
             case 'email':
                 window.alert('email usado')
                 break
-
             case 'username':
                 window.alert('username usado')
                 break
-
             case 'email&username':
                 window.alert('email e username usados')
                 break
-
         }
     }
 })
