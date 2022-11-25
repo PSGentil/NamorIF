@@ -1,5 +1,5 @@
 // Index Buttons Functions
-import { enviarLogin } from './login.js'
+import util from './util.js'
 
 let menuActive, logPageOn, loginAccountMethod
 
@@ -85,7 +85,7 @@ document.getElementById('logButton').addEventListener('click', e => {
 
     if (loginAccountMethod == 'login') {
         if (email.includes('@')) {
-            enviarLogin('', email, password).then(async res => {
+            util.enviarLogin('', email, password).then(async res => {
                 if (res.status == 202) {
                     let body = await res.json()
                     for (const key in body) {
@@ -102,7 +102,7 @@ document.getElementById('logButton').addEventListener('click', e => {
                 }
             })
         } else {
-            enviarLogin(email, '', password).then(async res => {
+            util.enviarLogin(email, '', password).then(async res => {
                 if (res.status == 202) {
                     let body = await res.json()
                     for (const key in body) {

@@ -1,5 +1,5 @@
 import { criarConta } from './login.js'
-import { uploadImg } from './img.js'
+import util from './util.js'
 
 let profilePhoto
 const inputImg = document.getElementById('profileImg')
@@ -7,7 +7,7 @@ inputImg.addEventListener("change", () => {
     const reader = new FileReader()
     reader.readAsDataURL(inputImg.files[0])
     reader.addEventListener('load', async () => {
-        profilePhoto = await uploadImg(reader.result)
+        profilePhoto = await util.uploadImg(reader.result)
     })
 })
 
