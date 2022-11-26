@@ -31,6 +31,9 @@ function logPageSwitch(e) {
 
         if (!logPageOn) {
             logPage.style.display = 'block'
+            logPage.style.height = '15em'
+            logPage.style.transition = '.3s'
+            
             logPageOn = true
         } else {
             logPage.style.display = 'none'
@@ -45,6 +48,7 @@ document.getElementById('loginIcon').addEventListener('click', logPageSwitch)
 document.getElementById('closeLogin').addEventListener('click', logPageSwitch)
 
 document.getElementById('loginAccount').addEventListener('click', e => {
+    let logPage = document.getElementById('logPage')
     let title = document.getElementById('titleLogPage')
     let email = document.getElementById('getEmail')
     let senha = document.getElementById('getPass')
@@ -53,6 +57,7 @@ document.getElementById('loginAccount').addEventListener('click', e => {
     let switchLogClick = document.getElementById('loginAccount')
 
     if (loginAccountMethod == 'login') {
+        logPage.style.height = '15em'
         title.innerText = 'Criar Conta'
         switchLog.innerText = 'Já tem uma conta? '
         switchLogClick.innerText = 'Clique aqui para logar.'
@@ -63,6 +68,7 @@ document.getElementById('loginAccount').addEventListener('click', e => {
 
         loginAccountMethod = 'createAccount'
     } else {
+        logPage.style.height = '80%'
         title.innerText = 'Log in NamorIF'
         switchLog.innerText = 'Ainda não tem uma conta? '
         switchLogClick.innerText = 'Clique aqui para criar uma conta.'
