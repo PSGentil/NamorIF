@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <script defer src="js/index.js" type="module"></script>
+        <script defer src="./js/autologin.js" type="module"></script>
         <title>Test</title>
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/login.css">
@@ -27,16 +28,21 @@
     
                 <form>
                     <div>
-                        <input type="email" placeholder="Email" id="getEmail">
+                        <input type="text" placeholder="Nome de Usuário ou Email" id="getEmail">
                         <input type="password" min="8" placeholder="Senha" id="getPass">
-                        <input type="password" min="8" placeholder="Confirmar Senha" id="getPassConfirm">
+
+                        <button id="emailCreate"><a href="pages/createAccount.html" target="blank">Criar conta com email</a></button>
                     </div>
 
-                    <span id="switchLogCreate">Já tem uma conta? </span><span id="loginAccount">Clique aqui para logar.</span>
+                   
 
                     <div>
                         <button id="logButton">Criar Conta</button>
                     </div>
+
+                    <footer>
+                        <span id="switchLogCreate">Já tem uma conta? </span><span id="loginAccount">Clique aqui para logar.</span>
+                    </footer>
                 </form>
             </div>
 
@@ -44,7 +50,9 @@
 
             <section id="nextProfile">
                 <div id="foto">
-                    <img class="profile" src="https://pbs.twimg.com/media/DAM_i7uVYAEiXzE.jpg:large"  alt="">
+                    <h1 id="nome"> Canarinho </h1>
+                    <p id="descricao"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur laudantium in atque consequuntur accusantium dignissimos id excepturi sed iste officiis? Possimus ducimus dicta illum omnis, sapiente saepe eaque ad minima!</p>
+                    <img class="profile" src="https://s2.glbimg.com/pGnWfiUqe7lBm47_H8ayfBndB0U=/0x0:1080x1080/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_b0f0e84207c948ab8b8777be5a6a4395/internal_photos/bs/2022/F/V/BsQEODRBOf5bI2qEXcRA/richarlison-1-.jpg"  alt="">
                 </div>
                 <div id="options">
                     <div id="legenda">
@@ -53,7 +61,9 @@
                     </div>
                 </div>
             </section>
+            
 
         </main>
+        
     </body>
 </html>
