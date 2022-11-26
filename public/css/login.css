@@ -24,18 +24,23 @@ div#logPage input {
     height: 3em;
     border: 1px solid rgb(141, 141, 141);
     margin: 10px auto;
-    display: block;
+    display: none;
 }
 
-div#logPage button{
+div#logPage button#logButton{
     height: 3.5em;
     color: white;
-    background-color: black;
+    background-image: linear-gradient(200deg, rgb(247, 159, 88),rgb(252, 111, 252),  rgb(174, 0, 255));
     border: 0;
     margin-top: 10%;
+    transition: .2s;
+}
+div#logPage button#logButton:hover {
+    box-shadow: 0 1em 1em rgba(0, 0, 0, 0.26);
+    font-size: 90%;
 }
 
-div#logPage input, button{ 
+div#logPage input, button#logButton{ 
     width: 40%;
     padding: 5px;
     border-radius: 10px;
@@ -48,11 +53,46 @@ div#logPage img#closeLogin{
     top: 15px;
 }
 
+footer{
+    position: absolute;
+    color: rgb(163, 163, 163);
+    bottom: 1em;
+    left: 1em;
+}
+
 span#loginAccount{
     cursor: pointer;
+    color: #008fee;
     font-weight: bold;
 }
 
-button {
+span#loginAccount:hover{
+    text-decoration: underline;
+}
+
+button#logButton {
     cursor: pointer;
+    display: none;
+}
+button#emailCreate {
+    background-image: linear-gradient(200deg, rgb(247, 159, 88),rgb(252, 111, 252),  rgb(174, 0, 255));
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.26);
+    padding: 2%;
+    color: white;
+    border: none;
+    border-radius: 1em;
+    transition: .5s;
+}
+button#emailCreate a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+button#emailCreate:hover {
+    box-shadow: 0 1em 1em rgba(0, 0, 0, 0.26);
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 1em;
+    font-size: 90%;
 }
