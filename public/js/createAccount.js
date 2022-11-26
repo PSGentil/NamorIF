@@ -1,4 +1,3 @@
-import { criarConta } from './login.js'
 import util from './util.js'
 
 let profilePhoto
@@ -36,7 +35,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
         switch (resposta) {
             case false:
                 if (inputSenha == inputSenhaConfirmar) {
-                    criarConta(inputUsername, inputEmail, inputSenha, profilePhoto).then(res => {
+                    util.criarConta(inputUsername, inputEmail, inputSenha, profilePhoto).then(res => {
                         if (res.ok) {
                             window.localStorage.setItem('username', inputUsername)
                             window.localStorage.setItem('email', inputEmail)
