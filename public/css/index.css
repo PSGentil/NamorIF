@@ -41,10 +41,11 @@ nav img:hover {
 
 section {
     position: absolute;
-    height: 100%;
+    height: max-content;
     top: 2em;
     left: 38%;
-    border-radius: 0 0 20px 20px;
+    box-shadow: 0 0 1em rgba(255, 255, 255, 0.521);
+    border-radius: 0 0 25px 25px;
     padding: 5px;    
 }
 
@@ -54,7 +55,7 @@ section {
 }
 
 #options {
-    height: 20%;
+    height: 6em;
     width: 20%;
     background-color: rgba(255, 255, 255, 0);
     border-radius: 0 0 20px 20px;
@@ -80,7 +81,7 @@ section {
 #nome {
     color: white;
     position: absolute;
-    bottom: 15em;
+    bottom: 35%;
     left: 5%;
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -89,7 +90,7 @@ section {
 #descricao {
     color: white;
     position: absolute;
-    bottom: 27em;
+    bottom: 23%;
     left: 5%;
     font-size: 70%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
