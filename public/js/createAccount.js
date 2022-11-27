@@ -13,6 +13,7 @@ inputImg.addEventListener("change", () => {
     })
 })
 
+let inputMostrar
 document.getElementById('createAccountButton').addEventListener('click', async e => {
     e.preventDefault()
 
@@ -24,7 +25,6 @@ document.getElementById('createAccountButton').addEventListener('click', async e
     let inputSenhaConfirmar = document.getElementById('confirmarSenha').value
     let inputSexualidade = document.getElementById('opcaoSexual').value
     let inputDataNascimento = document.getElementById('dataNascimento').value
-    let inputMostrar
 
     let camposPrimeiraPagina = {
         nome: inputNome,
