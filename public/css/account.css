@@ -1,0 +1,15 @@
+.circleImg {
+    width: 3em;
+    height: 3em;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+}
+.circleImg img {
+    display: inline-block;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+}

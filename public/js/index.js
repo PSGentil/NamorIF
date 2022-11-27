@@ -3,6 +3,11 @@ import util from './util.js'
 
 let menuActive, logPageOn, loginAccountMethod
 
+if (localStorage.getItem('profilePhoto') != null){
+    const userPhoto = await util.getImg(window.localStorage.getItem('profilePhoto'))
+    document.getElementById('loginIcon').src = userPhoto
+}
+
 document.getElementById('menu').addEventListener('click', e => {
     let navBar = document.getElementsByTagName('nav')
     let icons = document.getElementsByClassName('icons')
@@ -23,17 +28,20 @@ document.getElementById('menu').addEventListener('click', e => {
     }
 })
 
+document.getElementById('emailCreate').addEventListener('click', e => {
+    e.preventDefault()
+    logPageSwitch()
+    window.open('../pages/createAccount.html', '_blank')
+})
+
 function logPageSwitch(e) {
     let isLogged = window.localStorage.getItem('isLogged')
 
-    if (!isLogged) {
+    if (!isLogged || e.target.id == 'closeLogin') {
         let logPage = document.getElementById('logPage')
 
         if (!logPageOn) {
-            logPage.style.display = 'block'
-            logPage.style.height = '15em'
-            logPage.style.transition = '.3s'
-            
+            logPage.style.display = 'block'  
             logPageOn = true
         } else {
             logPage.style.display = 'none'
@@ -48,7 +56,6 @@ document.getElementById('loginIcon').addEventListener('click', logPageSwitch)
 document.getElementById('closeLogin').addEventListener('click', logPageSwitch)
 
 document.getElementById('loginAccount').addEventListener('click', e => {
-    let logPage = document.getElementById('logPage')
     let title = document.getElementById('titleLogPage')
     let email = document.getElementById('getEmail')
     let senha = document.getElementById('getPass')
@@ -57,7 +64,6 @@ document.getElementById('loginAccount').addEventListener('click', e => {
     let switchLogClick = document.getElementById('loginAccount')
 
     if (loginAccountMethod == 'login') {
-        logPage.style.height = '15em'
         title.innerText = 'Criar Conta'
         switchLog.innerText = 'Já tem uma conta? '
         switchLogClick.innerText = 'Clique aqui para logar.'
@@ -68,7 +74,6 @@ document.getElementById('loginAccount').addEventListener('click', e => {
 
         loginAccountMethod = 'createAccount'
     } else {
-        logPage.style.height = '80%'
         title.innerText = 'Log in NamorIF'
         switchLog.innerText = 'Ainda não tem uma conta? '
         switchLogClick.innerText = 'Clique aqui para criar uma conta.'
@@ -101,7 +106,7 @@ document.getElementById('logButton').addEventListener('click', e => {
 
                     document.getElementById('logPage').style.display = 'none'
                     logPageOn = false
-                    window.open('../pages/account.html', '_blank')
+                    window.location.reload()
                 } else {
                     window.alert("senha incorreta")
                     window.localStorage.setItem('isLogged', '')
@@ -118,7 +123,7 @@ document.getElementById('logButton').addEventListener('click', e => {
 
                     document.getElementById('logPage').style.display = 'none'
                     logPageOn = false
-                    window.open('../pages/account.html', '_blank')
+                    window.location.reload()
                 } else {
                     window.alert("senha incorreta")
                     window.localStorage.setItem('isLogged', '')
@@ -126,4 +131,10 @@ document.getElementById('logButton').addEventListener('click', e => {
             })
         }
     }
+})
+
+document.getElementById('logoutIcon').addEventListener('click', e => {
+    e.preventDefault()
+    window.localStorage.clear()
+    window.location.reload()
 })

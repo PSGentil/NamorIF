@@ -1,5 +1,8 @@
 import util from './util.js'
 
+let etapasCriarConta = document.getElementsByTagName('form')
+let etapaAtualCriarConta = 0
+
 let profilePhoto
 const inputImg = document.getElementById('profileImg')
 inputImg.addEventListener("change", () => {
@@ -10,55 +13,91 @@ inputImg.addEventListener("change", () => {
     })
 })
 
+let inputMostrar
 document.getElementById('createAccountButton').addEventListener('click', async e => {
     e.preventDefault()
 
-    const inputEmail = document.getElementById('email').value
-    const inputSenha = document.getElementById('senha').value
-    const inputUsername = document.getElementById('username').value
-    const inputSenhaConfirmar = document.getElementById('confirmarSenha').value
+    let inputNome = document.getElementById('nome').value
+    let inputSobrenome = document.getElementById('sobrenome').value
+    let inputEmail = document.getElementById('email').value
+    let inputSenha = document.getElementById('senha').value
+    let inputUsername = document.getElementById('username').value
+    let inputSenhaConfirmar = document.getElementById('confirmarSenha').value
+    let inputSexualidade = document.getElementById('opcaoSexual').value
+    let inputDataNascimento = document.getElementById('dataNascimento').value
 
-    if (inputUsername != '' && inputEmail != '' && inputSenha != '' && profilePhoto) {
-        let resposta
-        await fetch('/api/account/validate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({
-                email: inputEmail,
-                username: inputUsername
-            })
-        }).then(async res => {
-            if (res.ok) resposta = await res.text()
-            else resposta = false
-        })
-
-        switch (resposta) {
-            case false:
-                if (inputSenha == inputSenhaConfirmar) {
-                    util.criarConta(inputUsername, inputEmail, inputSenha, profilePhoto).then(res => {
-                        if (res.ok) {
-                            window.localStorage.setItem('username', inputUsername)
-                            window.localStorage.setItem('email', inputEmail)
-                            window.localStorage.setItem('pass', inputSenha)
-                            window.localStorage.setItem('profilePhoto', profilePhoto)
-                            window.localStorage.setItem('isLogged', true)
-
-                            window.location.href = '../pages/account.html'
-                        }
-                    })
-                } else {
-                    window.alert("MUDA")
-                }
-                break
-            case 'email':
-                window.alert('email usado')
-                break
-            case 'username':
-                window.alert('username usado')
-                break
-            case 'email&username':
-                window.alert('email e username usados')
-                break
-        }
+    let camposPrimeiraPagina = {
+        nome: inputNome,
+        sobrenome: inputSobrenome,
+        username: inputUsername,
+        email: inputEmail,
+        senha: inputSenha,
+        birthdate: Date.parse(inputDataNascimento)
     }
+
+    let camposSegundaPagina = {
+        sexualidade: inputSexualidade,
+        mostrar: false
+    }
+
+    let verificarPreenchido
+
+    switch (etapaAtualCriarConta){
+        case 0:
+            verificarPreenchido = util.checarCamposVazios(camposPrimeiraPagina)
+            if (inputSenha != inputSenhaConfirmar)
+                verificarPreenchido = 'senhasDiferentes'
+            break
+        case 1:
+            for (const item of document.querySelectorAll('input[name="procurar"]')) {
+                if (item.checked){ 
+                    camposSegundaPagina.mostrar = item.value
+                    inputMostrar = item.value
+                }
+            }
+            verificarPreenchido = util.checarCamposVazios(camposSegundaPagina)
+            break
+        case 2:
+            if (!profilePhoto) verificarPreenchido = 'imagem'
+            else verificarPreenchido = true
+            break
+    }
+
+    if (verificarPreenchido == true) {
+        if (etapaAtualCriarConta == etapasCriarConta.length - 1) {
+            await util.criarConta({
+                name: inputNome,
+                lastname: inputSobrenome,
+                username: inputUsername,
+                email: inputEmail,
+                pass: inputSenha,
+                birthdate: inputDataNascimento,
+                sexuality: inputSexualidade,
+                showme: inputMostrar,
+                profilePhoto: profilePhoto
+            })
+        } else {
+            etapaAtualCriarConta++
+            document.querySelector('header img').style.display = 'block'
+            util.atualizarEtapaCadastro(etapasCriarConta, etapaAtualCriarConta)
+        }
+    } else {
+        window.alert(`ta faltando ${verificarPreenchido}`)
+    }
+})
+
+document.querySelector('header img').addEventListener('click', e => {
+    if (etapaAtualCriarConta == 1) {
+        document.querySelector('header img').style.display = 'none'
+    }
+
+    if (etapaAtualCriarConta > 0) {
+        etapaAtualCriarConta--
+        util.atualizarEtapaCadastro(etapasCriarConta, etapaAtualCriarConta)
+    }
+})
+
+document.querySelector('header p').addEventListener('click', e => {
+    etapaAtualCriarConta++
+    util.atualizarEtapaCadastro(etapasCriarConta, etapaAtualCriarConta)
 })

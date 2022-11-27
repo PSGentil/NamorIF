@@ -1,9 +1,6 @@
-export default class util {
-    /**
-     * @type {Map<string, { id: string, string: string, completed: boolean }>}
-     */
-    static imgs = new Map()
+import imgs from './imgs.js'
 
+export default class util {
     /**
      * @param {string} dataURL
      * @returns {Promise<string>} the image id
@@ -31,7 +28,7 @@ export default class util {
             })
         }
 
-        util.imgs.set(id, { id: id, string: dataURL, completed: true })
+        imgs.set(id, { id: id, string: dataURL, completed: true })
         return id
     }
     /**
@@ -39,7 +36,7 @@ export default class util {
      * @returns {Promise<string> | null} `dataURL` **OR** `null` if not found
      */
     static async getImg(id) {
-        if (util.imgs.has(id)) return util.imgs.get(id).string
+        if (imgs.get(id)) return imgs.get(id).string
 
         const img = { id: id, string: '', completed: false }
 
@@ -57,7 +54,7 @@ export default class util {
         }
 
         if (img.completed) {
-            util.imgs.set(img.id, img)
+            imgs.set(img)
             return img.string
         } else return null
     }
@@ -90,19 +87,72 @@ export default class util {
         })
     }
     /**
-     * @param {string} email 
-     * @param {string} pass 
+     * @param {{nome: string, sobrenome: string, username: string, email: string, pass: string, birthdate: number, sexuality: string, showme: string, profilePhoto: string}} info
      */
-    static criarConta(username, email, pass, profilePhoto) {
-        return fetch('/api/login/create', {
+    static async criarConta(info) {
+        let resposta
+
+        await fetch('/api/account/validate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify({
-                username: username,
-                email: email,
-                pass: pass,
-                profilePhoto: profilePhoto
+                email: info.email,
+                username: info.username,
             })
+        }).then(async res => {
+            if (res.ok) resposta = await res.text()
+            else resposta = false
         })
+
+        switch (resposta) {
+            case false:
+                fetch('/api/login/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                    body: JSON.stringify(info)
+                }).then(async res => {
+                    if (res.ok) {
+                        for (const key in info) {
+                            window.localStorage.setItem(key, info[key])
+                        }
+                        window.localStorage.setItem('isLogged', true)
+
+                        window.location.href = '../pages/account.html'
+                    }
+                })
+                break
+            case 'email':
+                window.alert('email usado')
+                break
+            case 'username':
+                window.alert('username usado')
+                break
+            case 'email&username':
+                window.alert('email e username usados')
+                break
+        }
+    }
+    /**
+     * @param {HTMLFormElement[]} etapas 
+     * @param {number} etapaAtual 
+     */
+    static atualizarEtapaCadastro(etapas, etapaAtual) {
+        for (let i = 0; i < etapas.length; i++) {
+            if (i == etapaAtual) {
+                etapas[i].style.display = 'block'
+            } else {
+                etapas[i].style.display = 'none'
+            }
+        }
+    }
+    /**
+     * @param {Object<string, string>} valores 
+     * @returns {true | string}
+     */
+    static checarCamposVazios(valores) {
+        for (const key in valores) {
+            if (!valores[key] || valores[key] == 'placeholder') return key
+        }
+        return true
     }
 }
