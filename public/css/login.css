@@ -81,6 +81,7 @@ button#emailCreate {
     color: white;
     border: none;
     border-radius: 1em;
+    width: 40%;
     transition: .5s;
 }
 button#emailCreate a {
