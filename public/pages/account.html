@@ -1,15 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <script defer src="../js/account.js" type="module"></script>
-        <link rel="stylesheet" type="text/css" href="../css/account.css">
-        <title>User Account</title>
-    </head>
-    <body>
-        <!--Muda aí-->
-       
-            <img id="profilePhotoImg">
-        
-    </body>
+
+<head>
+    <meta charset="UTF-8" />
+    <script defer src="../js/account.js" type="module"></script>
+    <script defer src="../js/nav.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../css/account.css" />
+    <link rel="stylesheet" type="text/css" href="../css/nav.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <title>User Account</title>
+</head>
+
+<body>
+    <nav>
+        <img id="menu" src="../images/menu.png" title="Menu" class="icons" />
+        <img id="homeIcon" src="../images/homeIcon.png" alt="" class="icons" />
+        <img id="loginIcon" src="../images/login.png" title="Conta" class="icons" />
+
+        <div id="bottonIcons">
+            <img id="logoutIcon" src="../images/logoutIcon.png" title="Deslogar" class="icons" />
+            <img id="settingsIcon" src="../images/settingsIcon.png" class="icons" />
+
+            <div id="settingsPopup" style="display: none">
+                <div id="accountSettings">Configurações de Conta</div>
+                <div id="screenSettings">Tela</div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="logPage">
+        <header id="logHeader">
+            <h1 id="titleLogPage">Criar Conta</h1>
+            <img id="closeLogin" src="images/close.png" />
+        </header>
+
+        <form>
+            <div>
+                <input type="text" placeholder="Nome de Usuário ou Email" id="getEmail" />
+                <input type="password" min="8" placeholder="Senha" id="getPass" />
+
+                <button id="emailCreate">Criar conta com email</button>
+            </div>
+
+            <div>
+                <button id="logButton">Criar Conta</button>
+            </div>
+
+            <footer>
+                <span id="switchLogCreate">Já tem uma conta? </span><span id="loginAccount">Clique aqui para
+                    logar.</span>
+            </footer>
+        </form>
+    </div>
+
+    <main>
+        <div id="header">
+            <figure id="profileImage">
+                <img src="" alt="" id="fotoPerfil" />
+                <figcaption>
+                    <img src="../images/editIcon.png" alt="" class="editIcon" />
+                    <p>Editar Foto</p>
+                </figcaption>
+            </figure>
+
+            <div class="userInfo">
+                <h1 id="nomeUsuario">Nome</h1>
+                <h1 id="sobrenomeUsuario">Sobrenome</h1>
+                <img src="../images/editIcon.png" alt="" class="editIcon" />
+            </div>
+
+            <div class="userInfo">
+                <h1 id="username">Nome de Usuario</h1>
+                <img src="../images/editIcon.png" alt="" class="editIcon" />
+            </div>
+
+            <div class="userInfo">
+                <h1 id="dataNascimento">Data de Nascimento</h1>
+                <img src="../images/editIcon.png" alt="" class="editIcon" />
+            </div>
+            
+            <div class="userInfo">
+                <p id="sobreMim"></p>
+            </div>
+        </div>
+    </main>
+</body>
+
 </html>

@@ -2,11 +2,12 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <script defer src="js/index.js" type="module"></script>
         <script defer src="./js/autologin.js" type="module"></script>
-        <title>Test</title>
+        <script defer src="./js/nav.js" type="module"></script>
+        <title>Home</title>
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/login.css">
+        <link rel="stylesheet" type="text/css" href="css/nav.css">
     </head>
     <body>
         <main>
@@ -15,8 +16,19 @@
 
             <nav>
                 <img id="menu" src="images/menu.png" title="Menu" class="icons">
+                <img id="homeIcon" src="images/homeIcon.png" alt="" class="icons">
                 <img id="loginIcon" src="images/login.png" title="Conta" class="icons">
-                <img id="logoutIcon" src="images/caixaAdicionar.png" title="Deslogar" class="icons" alt="">
+                
+                <div id="bottonIcons">
+                    <img id="logoutIcon" src="images/logoutIcon.png" title="Deslogar" class="icons">
+                    <img id="settingsIcon" src="images/settingsIcon.png" class="icons">
+
+                    <div id="settingsPopup" style="display: none;">
+                        <div id="accountSettings">Configurações de Conta</div>
+                        <div id="screenSettings">Tela</div>
+                    </div>
+
+                </div>
             </nav>
     
             <!-- Log in pop up -->
@@ -31,12 +43,11 @@
                     <div>
                         <input type="text" placeholder="Nome de Usuário ou Email" id="getEmail">
                         <input type="password" min="8" placeholder="Senha" id="getPass">
-
-                        <button id="emailCreate">Criar conta com email</button>
                     </div>
 
                     <div>
                         <button id="logButton">Criar Conta</button>
+                        <button id="emailCreate">Criar conta com email</button>
                     </div>
 
                     <footer>
@@ -47,19 +58,22 @@
 
             <!-- Profile section -->
 
-            <section id="nextProfile">
-                <div id="foto">
-                    <h1 id="nome"> Richarlison </h1>
-                    <p id="descricao"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur ipsum ipsam deleniti sint totam neque illum fugit nihil! Cum, consequuntur corporis. Repellendus voluptas provident ut aliquam aut fugit vitae qui.</p>
-                    <img class="profile" src="https://conteudo.imguol.com.br/c/esporte/6e/2022/11/24/richarlison-acerta-lindo-voleio-e-marca-para-a-selecao-contra-a-servia-pela-copa-do-mundo-do-qatar-1669322787538_v2_450x600.jpg"  alt="">
-                </div>
-                <div id="options">
-                    <div id="legenda">
-                        <img src="images/love_red.png" type="button" id="love" class="botao">
-                        <img src="images/block_red.png" type="button" id="deny" class="botao">
+
+                <section id="nextProfile">
+                    <div id="foto">
+                        <h1 id="nome"> Gigachad </h1>
+                        <p id="descricao"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur ipsum ipsam deleniti sint totam neque illum fugit nihil! Cum, consequuntur corporis. Repellendus voluptas provident ut aliquam aut fugit vitae qui.</p>
+                        <img class="profile" src="https://i.seadn.io/gae/jAXmmkmtadX3_aPgJWPBPxugC4IgfqmauBMJKcxlVVVj7cF6LtqZgo41aPv3UZGUAzoMbvslwPqMs2BcFJYsTsHxpzoclK2zQK9Efw?auto=format&w=1000"  alt="">
                     </div>
-                </div>
-            </section>
+                    <div id="options">
+                        <div id="legenda">
+                            <img src="images/love_red.png" type="button" id="love" class="botao">
+                            <img src="images/block_red.png" type="button" id="deny" class="botao">
+                        </div>
+                    </div>
+                </section>
+
+            
         </main>
     </body>
 </html>

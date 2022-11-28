@@ -155,4 +155,25 @@ export default class util {
         }
         return true
     }
+
+    static accountConfigPopup(){
+        let accountConfigPage
+        let closeImg
+
+        if (!document.getElementsByTagName('main')[0].contains(document.getElementById('accountConfigPopup'))){
+            accountConfigPage = document.createElement('div')
+            closeImg = document.createElement('img')
+
+            document.getElementsByTagName('main')[0].appendChild(accountConfigPage)
+            accountConfigPage.appendChild(closeImg)
+            
+            accountConfigPage.id = 'accountConfigPopup'
+            accountConfigPage.style.display = 'block'
+
+            closeImg.src = 'images/close.png'
+            closeImg.className = 'close'
+        }
+
+        return accountConfigPage
+    }
 }
