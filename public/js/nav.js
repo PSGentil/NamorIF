@@ -14,16 +14,20 @@ document.getElementById('menu').addEventListener('click', e => {
     let icons = document.getElementsByClassName('icons')
 
     if (!menuActive) {
-        navBar[0].style.width = '25%'
+        navBar[0].style.width = '14%'
         for (const icon of icons) {
-            icon.style.margin = '0 0 0 5%'
             //icon.style.transition = '.3s
         }
         menuActive = true
     } else {
         navBar[0].style.width = '5%'
+        navBar[0].style.textAlign = 'center'
         for (const icon of icons) {
-            icon.style.margin = '0 0 0 20%'
+            icon.style.position = 'relative'
+            icon.style.left = '0'
+            icon.style.right = '0'
+            icon.style.margin = 'auto 0'
+
         }
         menuActive = false
     }
