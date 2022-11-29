@@ -3,7 +3,7 @@
     font-family: sans-serif;
 }
 body {
-    background-image: radial-gradient(rgb(252, 220, 161), rgb(255, 88, 191));
+    background-image: radial-gradient(rgb(161, 252, 161), rgb(88, 216, 255));
 }
 img#back {
     position: absolute;
@@ -42,7 +42,7 @@ div.perfil {
     transition: .6s;
 }
 div.perfil:hover {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.815);
     height: 26em;
     margin: 10px;
     display: inline-block;
