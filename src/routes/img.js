@@ -37,8 +37,16 @@ export default Router().post('/', async (req, res) => {
 
 	if (img) {
 		res.status(200).send({
-			string: img.string.slice(req.params.part, req.params.part + 100),
-			completed: !(req.params.part + 100 < img.string.length)
+			string: img.string.slice(req.params.part, req.params.part + 1000),
+			completed: !(req.params.part + 1000 < img.string.length)
 		})
+	} else res.status(404).send()
+}).delete('/:id', async (req, res) => {
+	let img = imgdb.data.findIndex(i => i.id == req.params.id)
+
+	if (img != -1) {
+		imgdb.data.splice(img, 1)
+		await imgdb.write()
+		res.status(200).send()
 	} else res.status(404).send()
 })

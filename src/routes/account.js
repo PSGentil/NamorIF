@@ -31,7 +31,9 @@ export default Router().post('/', async (req, res) => {
 
     if (serverUser) {
         for (const key in req.body) {
-            serverUser[key] = req.body[key]
+            if (key == 'newEmail') {
+                serverUser['email'] = req.body[key]
+            } else serverUser[key] = req.body[key]
         }
 
         await db.write()

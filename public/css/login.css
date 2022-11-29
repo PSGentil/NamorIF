@@ -46,13 +46,6 @@ div#logPage input, button#logButton{
     border-radius: 10px;
 }
 
-div#logPage img#closeLogin{
-    cursor: pointer;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-}
-
 footer{
     position: absolute;
     color: rgb(163, 163, 163);

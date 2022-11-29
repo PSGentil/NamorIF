@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    font-family: sans-serif;
+}
+body {
+    background-image: radial-gradient(rgb(252, 220, 161), rgb(255, 88, 191));
+}
+img#back {
+    position: absolute;
+    filter: invert();
+    top: 2em;
+    left: 2em;
+    transition: .5s;
+}
+img#back:hover {
+    filter: none;
+    cursor: pointer;
+    width: 3.2%;
+}
+div.perfil:hover img.criador {
+    width: 16em;
+}
+img.criador {
+    width: 12em;
+    transition: .5s;
+    border-radius: 100%;
+    margin: 1em;
+    display:block;
+}
+section {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 8em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+div.perfil {
+    height: 18em;
+    margin: 10px;
+    display: inline-block;
+    transition: .6s;
+}
+div.perfil:hover {
+    background-color: white;
+    height: 26em;
+    margin: 10px;
+    display: inline-block;
+    box-shadow: 0 0 1em rgb(255, 255, 255);
+}
+.name {
+    opacity: 0;
+}
+.insta, .github {
+    width: 3.5em;
+    position: relative;
+    top: 5%;
+    margin: 5px;
+    opacity: 0;
+}
+.insta:hover, .github:hover {
+    cursor: pointer;
+}
+.perfil:hover .name, .perfil:hover .github, .perfil:hover .insta {
+    opacity: 1;
+    transition: 1.5s;
+}

@@ -9,7 +9,9 @@ inputImg.addEventListener("change", () => {
     const reader = new FileReader()
     reader.readAsDataURL(inputImg.files[0])
     reader.addEventListener('load', async () => {
-        profilePhoto = await util.uploadImg(reader.result)
+        document.querySelector('#cadastroEtapa3 div').innerText = 'Carregando imagem...'
+        profilePhoto = await util.uploadImg(await util.cropImage(reader.result))
+        document.querySelector('#cadastroEtapa3 div').innerText = 'Imagem Carregada!'
     })
 })
 
@@ -42,15 +44,25 @@ document.getElementById('createAccountButton').addEventListener('click', async e
 
     let verificarPreenchido
 
-    switch (etapaAtualCriarConta){
+    switch (etapaAtualCriarConta) {
         case 0:
             verificarPreenchido = util.checarCamposVazios(camposPrimeiraPagina)
-            if (inputSenha != inputSenhaConfirmar)
-                verificarPreenchido = 'senhasDiferentes'
+
+            if (inputSenha != inputSenhaConfirmar) verificarPreenchido = 'senhasDiferentes'
+
+            if (inputUsername.length < 5) verificarPreenchido = 'usernameCurto'
+            else if (inputUsername.length > 24) verificarPreenchido = 'usernameLongo'
+
+            if (inputSenha.length <= 5) verificarPreenchido = 'senhaCurta'
+
+            if (!inputEmail.includes('@')) verificarPreenchido = 'emailInvalido'
+
+            if (Date.now() - Date.parse(inputDataNascimento) <= 15 * 365 * 24 * 60 * 60 * 1000) verificarPreenchido = 'muitoNovo'
+            if (Date.parse(inputDataNascimento) >= Date.now()) verificarPreenchido = 'dataInvalida'
             break
         case 1:
             for (const item of document.querySelectorAll('input[name="procurar"]')) {
-                if (item.checked){ 
+                if (item.checked) {
                     camposSegundaPagina.mostrar = item.value
                     inputMostrar = item.value
                 }
