@@ -10,7 +10,7 @@ inputImg.addEventListener("change", () => {
     reader.readAsDataURL(inputImg.files[0])
     reader.addEventListener('load', async () => {
         document.querySelector('#cadastroEtapa3 div').innerText = 'Carregando imagem...'
-        profilePhoto = await util.uploadImg(reader.result)
+        profilePhoto = await util.uploadImg(await util.cropImage(reader.result))
         document.querySelector('#cadastroEtapa3 div').innerText = 'Imagem Carregada!'
     })
 })

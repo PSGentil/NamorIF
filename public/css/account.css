@@ -21,33 +21,39 @@
 }
 
 main {
-    padding-left: 6%;
+    padding-left: 5.3%;
     padding-top: 2%;
 }
 
 figure#profileImage {
-    position: relative;
+    position: absolute;
     width: fit-content;
     height: fit-content;
     z-index: 0;
     display: inline-block;
+    width: 20%;
+    left: 4em;
+    top: 5em;
+    border: 5px solid white;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.24);
 }
 
 figure figcaption {
     position: absolute;
     top: 0;
     background-color: rgba(0, 0, 0, 0.322);
-    height: 99%;
+    height: 98.5%;
     width: 100%;
     opacity: 0;
 }
 
 figure figcaption:hover {
     opacity: 1;
+    color: white;
+    font-weight: bold;
 }
 
 img#fotoPerfil {
-    height: 100%;
     width: 100%;
 }
 
@@ -57,18 +63,28 @@ figcaption img.editIcon {
     right: 0;
     border: 1px solid black;
     padding: 5px;
-    border-radius: 100%;
     background-color: white;
 }
 
-img.editIcon:hover {
+img.editIcon:hover, img.saveIcon:hover {
     cursor: pointer;
+}
+
+img.saveIcon {
+    width: 24px;
+    height: 24px;
+    display: none;
 }
 
 div#header {
     width: 100%;
-    height: max-content;
-    border: 2px solid black;
+    height: 18em;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    position: absolute;
+    top: 0;
+    background: linear-gradient(20deg, #00C9FF 0%, #92FE9D 100%);
 }
 
 div.userInfo {
@@ -78,4 +94,10 @@ div.userInfo {
 
 h1 {
     display: inline;
+}
+input {
+    display: none;
+}
+#name {
+    font-size: 3em;
 }

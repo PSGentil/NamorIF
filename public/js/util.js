@@ -12,18 +12,18 @@ export default class util {
             method: 'POST',
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify({
-                string: dataURL.slice(0, 100),
+                string: dataURL.slice(0, 1000),
                 completed: false
             })
         }).then(async res => id = await res.text())
 
-        for (i = 100; i <= dataURL.length; i += 100) {
+        for (i = 1000; i <= dataURL.length; i += 1000) {
             await fetch(`/api/img/${id}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                 body: JSON.stringify({
-                    string: dataURL.slice(i, i + 100),
-                    completed: !(i + 100 < dataURL.length)
+                    string: dataURL.slice(i, i + 1000),
+                    completed: !(i + 1000 < dataURL.length)
                 })
             })
         }
@@ -40,7 +40,7 @@ export default class util {
 
         const img = { id: id, string: '', completed: false }
 
-        for (let i = 0; !img.completed; i += 100) {
+        for (let i = 0; !img.completed; i += 1000) {
             let status = await fetch(`/api/img/${id}/${i}`, { method: 'GET' }).then(async res => {
                 if (res.ok) {
                     let body = await res.json()
@@ -155,25 +155,73 @@ export default class util {
         }
         return true
     }
+    /**
+     * @param {string} src dataURL
+     * @returns {Promise<HTMLImageElement>} loaded image
+     */
+    static async loadImage(src) {
+        return new Promise(resolve => {
+            const img = document.createElement('img')
+            img.src = src
+            img.complete ? resolve(img) : img.addEventListener('load', () => {
+                resolve(img)
+            })
+        })
+    }
+    /**
+     * @param {string} src
+     * @param {number} maxWidth
+     * @returns {Promise<HTMLImageElement>} resized image
+     */
+    static async resizeImage(src, maxWidth) {
+        const image = await util.loadImage(src)
+        let canvas = document.createElement('canvas')
+        let opt = { width: maxWidth }
 
-    static accountConfigPopup(){
-        let accountConfigPage
-        let closeImg
-
-        if (!document.getElementsByTagName('main')[0].contains(document.getElementById('accountConfigPopup'))){
-            accountConfigPage = document.createElement('div')
-            closeImg = document.createElement('img')
-
-            document.getElementsByTagName('main')[0].appendChild(accountConfigPage)
-            accountConfigPage.appendChild(closeImg)
-            
-            accountConfigPage.id = 'accountConfigPopup'
-            accountConfigPage.style.display = 'block'
-
-            closeImg.src = 'images/close.png'
-            closeImg.className = 'close'
+        if (opt.width && !opt.height) {
+            opt.height = image.height * (opt.width / image.width)
+        } else if (!opt.width && opt.height) {
+            opt.width = image.width * (opt.height / image.height)
         }
 
-        return accountConfigPage
+        Object.assign(canvas, opt).getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height)
+        return util.loadImage(canvas.toDataURL())
+    }
+    /**
+     * @param {string} url dataURL
+     * @param {number} maxWidth new img size
+     * @param {number} ratio aspect ratio (1, 16/9)
+     * @returns {Promise<string>} the resulting image as dataURL
+     */
+    static async cropImage(url, maxWidth = 720, ratio = 1) {
+        return new Promise(async resolve => {
+            const inputImage = await util.resizeImage(url, maxWidth)
+            const inputWidth = inputImage.naturalWidth
+            const inputHeight = inputImage.naturalHeight
+            const inputImageAspectRatio = inputWidth / inputHeight
+
+            let outputWidth = inputWidth
+            let outputHeight = inputHeight
+            if (inputImageAspectRatio > ratio) {
+                outputWidth = inputHeight * ratio
+            } else if (inputImageAspectRatio < ratio) {
+                outputHeight = inputWidth / ratio
+            }
+
+            const outputX = (outputWidth - inputWidth) * 0.5
+            const outputY = (outputHeight - inputHeight) * 0.5
+
+            const outputImage = document.createElement('canvas')
+
+            outputImage.width = outputWidth
+            outputImage.height = outputHeight
+
+            outputImage.getContext('2d').drawImage(inputImage, outputX, outputY)
+            resolve(outputImage.toDataURL())
+        })
+    }
+
+    static async updateLocalProfile() {
+        //fazer isso
     }
 }

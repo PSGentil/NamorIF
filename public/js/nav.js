@@ -1,9 +1,10 @@
 // Index Buttons Functions
 import util from './util.js'
+import settings from './settings.js'
 
 let menuActive, logPageOn, loginAccountMethod, accountConfigPopup
 
-if (localStorage.getItem('profilePhoto') != null){
+if (localStorage.getItem('profilePhoto') != null) {
     const userPhoto = await util.getImg(window.localStorage.getItem('profilePhoto'))
     document.getElementById('loginIcon').src = userPhoto
 }
@@ -41,7 +42,7 @@ function logPageSwitch(e) {
         let logPage = document.getElementById('logPage')
 
         if (!logPageOn) {
-            logPage.style.display = 'block'  
+            logPage.style.display = 'block'
             logPageOn = true
         } else {
             logPage.style.display = 'none'
@@ -143,25 +144,20 @@ document.getElementById('logoutIcon').addEventListener('click', e => {
 document.getElementById('settingsIcon').addEventListener('click', e => {
     e.preventDefault()
     let settingsPopup = document.getElementById('settingsPopup')
-    
-    if(settingsPopup.style.display == 'none') settingsPopup.style.display = 'block'
+
+    if (settingsPopup.style.display == 'none') settingsPopup.style.display = 'block'
     else settingsPopup.style.display = 'none'
 })
 
 document.getElementById('accountSettings').addEventListener('click', e => {
-
-    if (!document.getElementsByTagName('main')[0].contains(document.getElementById('accountConfigPopup')))
-        accountConfigPopup = util.accountConfigPopup()
-    else{
-        if (accountConfigPopup.style.display == 'none') accountConfigPopup.style.display = 'block'
-        else accountConfigPopup.style.display = 'none'
-    }
+    let switchPopup = settings.accountConfigPopup
+    switchPopup()
 
     document.getElementById('settingsPopup').style.display = 'none'
-
+    document.getElementById('closeAccountSettings').onclick = switchPopup
 })
 
-document.getElementById('homeIcon').addEventListener('click', e =>{
+document.getElementById('homeIcon').addEventListener('click', e => {
     e.preventDefault()
     window.open('../index.html', '_self')
 })

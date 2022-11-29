@@ -12,7 +12,8 @@ if (email) {
             }
             window.localStorage.setItem('isLogged', true)
         } else {
-            window.localStorage.setItem('isLogged', '')
+            window.localStorage.clear()
+            window.location.reload()
         }
     })
 }

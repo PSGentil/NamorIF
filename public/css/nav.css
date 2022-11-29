@@ -51,8 +51,9 @@ nav div#settingsPopup div{
     width: 100%;
     padding: 1em 0 1em 0;   
 }
-#accountSettings {
+div#credits {
     border-bottom: 1px solid black;
+    border-top: 1px solid black;
 }
 
 nav div#settingsPopup div#accountSettings:hover{
@@ -60,12 +61,19 @@ nav div#settingsPopup div#accountSettings:hover{
     color: black;
     border-radius: .8em .8em 0 0;
 }
+nav div#settingsPopup div#credits:hover{
+    background-color: rgb(228, 228, 228);
+    color: black;
+}
 nav div#settingsPopup div#screenSettings:hover{
     background-color: rgb(228, 228, 228);
     color: black;
     border-radius: 0 0 .8em .8em;
 }
-
+div#settingsPopup a {
+    text-decoration: none;
+    color: black;
+}
 img.close{
     cursor: pointer;
     position: absolute;
@@ -83,10 +91,15 @@ img.close{
 
 body #accountConfigPopup{
     position: relative;
-    margin: 1em auto;
+    margin: 0 auto;
     width: 80%;
     height: 90%;
     border-radius: 2em;
-    background-color: rgb(228, 228, 228);
-    z-index: 9;
+    background-color: rgb(255, 255, 255);
+    z-index: 200;
+    transition: .7s;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.404);
+    top: 2em;
+    left: 5em;
+    text-align: center;
 }
