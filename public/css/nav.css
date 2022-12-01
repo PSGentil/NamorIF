@@ -1,5 +1,5 @@
 * {
-    font-family: sans-serif;
+     font-family: sans-serif;
 }
 nav {
     position: relative;
@@ -12,12 +12,13 @@ nav {
     padding-top: 10px;
     transition: .1s;
     z-index: 10;
-    text-align: center;
 }
 
-nav.icons {
+nav img {
     display: block;
-    width: 100%;
+    margin: 0 0 0 20%;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
 }
 
@@ -26,7 +27,7 @@ nav img:hover {
     cursor: pointer;
 }
 
-nav div#bottonIcons{
+nav div#bottomIcons{
     position: absolute;
     left: 0.3em;
     bottom: 1em;

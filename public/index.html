@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <script defer src="./js/autologin.js" type="module"></script>
         <script defer src="./js/nav.js" type="module"></script>
+        <script defer src="./js/index.js" type="module"></script>
         <title>NamorIF☕🐓</title>
         <link rel="icon" type="image/x-icon" href="https://img.elo7.com.br/product/zoom/34C3AB6/caneca-galo-cafe-caneca-personalizada.jpg">
         <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -16,20 +17,13 @@
             <!-- Nav Bar -->
 
             <nav>
-                <img id="menu" src="images/menu.png" title="Menu" class="icons">
-                <img id="homeIcon" src="images/homeIcon.png" alt="" class="icons">
-                <img id="loginIcon" src="images/login.png" title="Conta" class="icons">
-                
-                <div id="bottonIcons">
-                    <img id="logoutIcon" src="images/logoutIcon.png" title="Deslogar" class="icons">
-                    <img id="settingsIcon" src="images/settingsIcon.png" class="icons">
+                <div id="bottomIcons">
 
                     <div id="settingsPopup" style="display: none;">
                         <div id="accountSettings">Configurações de Conta</div>
                         <a href="pages/credits.html"><div id="credits">Créditos</div></a>
                         <div id="screenSettings">Tela</div>
                     </div>
-
                 </div>
             </nav>
     
@@ -60,21 +54,19 @@
 
             <!-- Profile section -->
 
-
-                <section id="nextProfile">
-                    <div id="foto">
-                        <h1 id="nome"> Heitor Brazil </h1>
-                        <p id="descricao">  Mas se jogar bacteria com pilula ce ganha ta no meta mano eh bacteria e taca pilula gg muito bom melhor estrategia sou verme verminoso </p>
-                        <img class="profile" src="https://media.tenor.com/IjIXFxklw40AAAAd/meme-shitpost.gif"  alt="">
+            <section id="nextProfile">
+                <div id="foto">
+                    <h1 id="nome"> Heitor Brazil </h1>
+                    <p id="descricao">  Mas se jogar bacteria com pilula ce ganha ta no meta mano eh bacteria e taca pilula gg muito bom melhor estrategia sou verme verminoso </p>
+                    <img class="profile" src="https://s2.glbimg.com/mHqvpszfVvD082ts8H1HTZXxEB0=/0x0:700x394/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_7d5b9b5029304d27b7ef8a7f28b4d70f/internal_photos/bs/2022/v/p/J9cV4wQDyj52GU9M9uSw/low-res-humbertium-covidum-italy-by-pierre-gros.png.png"  alt="">
+                </div>
+                <div id="options">
+                    <div id="legenda">
+                        <img src="images/love_red.png" type="button" id="love" class="botao">
+                        <img src="images/block_red.png" type="button" id="deny" class="botao">
                     </div>
-                    <div id="options">
-                        <div id="legenda">
-                            <img src="images/love_red.png" type="button" id="love" class="botao">
-                            <img src="images/block_red.png" type="button" id="deny" class="botao">
-                        </div>
-                    </div>
-                </section>
-
+                </div>
+            </section>
             
         </main>
     </body>

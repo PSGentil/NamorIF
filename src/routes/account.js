@@ -29,6 +29,10 @@ export default Router().post('/', async (req, res) => {
 }).post('/edit', async (req, res) => {
     const serverUser = db.data.registeredUsers.find(u => u.email == req.body.email && u.pass == req.body.pass)
 
+    if (db.data.registeredUsers.find(req.body.username) || db.data.registeredUsers.find(req.body.newEmail)) {
+        return res.status(409).send() //conflict
+    }
+
     if (serverUser) {
         for (const key in req.body) {
             if (key == 'newEmail') {

@@ -72,16 +72,16 @@ export default class util {
         })).json()
     }
     /**
-     * @param {string} email 
+     * @param {string} usernameOrEmail 
      * @param {string} pass 
      */
-    static enviarLogin(username, email, pass) {
+    static enviarLogin(usernameOrEmail, pass) {
         return fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify({
-                username: username,
-                email: email,
+                username: (usernameOrEmail.includes('@') ? '' : usernameOrEmail),
+                email: (usernameOrEmail.includes('@') ? usernameOrEmail : ''),
                 pass: pass
             })
         })
@@ -219,9 +219,5 @@ export default class util {
             outputImage.getContext('2d').drawImage(inputImage, outputX, outputY)
             resolve(outputImage.toDataURL())
         })
-    }
-
-    static async updateLocalProfile() {
-        //fazer isso
     }
 }

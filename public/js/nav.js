@@ -2,36 +2,46 @@
 import util from './util.js'
 import settings from './settings.js'
 
-let menuActive, logPageOn, loginAccountMethod, accountConfigPopup
+let logPageOn, loginAccountMethod
+
+const nav = document.createElement('nav')
+document.querySelector('main').appendChild(nav)
+const bottomIcons = document.createElement('div')
+bottomIcons.id = 'bottomIcons'
+nav.appendChild(bottomIcons)
+
+/**
+ * @type {[string]: HTMLElement}
+ */
+const icons = {
+    loginIcon: document.createElement('img'),
+    homeIcon: document.createElement('img'),
+    bottom: {
+        logoutIcon: document.createElement('img'),
+        settingsIcon: document.createElement('img')
+    }
+}
+
+for (const key in icons) {
+    if (key == 'bottom') {
+        for (const keyb in icons['bottom']) {
+            icons['bottom'][keyb].id = keyb
+            icons['bottom'][keyb].src = `../images/${keyb}.png`
+            icons['bottom'][keyb].title = keyb.replace('Icon', '')
+            bottomIcons.appendChild(icons['bottom'][keyb])
+        }
+    } else {
+        icons[key].id = key
+        icons[key].src = `../images/${key}.png`
+        icons[key].title = key.replace('Icon', '')
+        nav.appendChild(icons[key])
+    }
+}
 
 if (localStorage.getItem('profilePhoto') != null) {
     const userPhoto = await util.getImg(window.localStorage.getItem('profilePhoto'))
     document.getElementById('loginIcon').src = userPhoto
 }
-
-document.getElementById('menu').addEventListener('click', e => {
-    let navBar = document.getElementsByTagName('nav')
-    let icons = document.getElementsByClassName('icons')
-
-    if (!menuActive) {
-        navBar[0].style.width = '14%'
-        for (const icon of icons) {
-            //icon.style.transition = '.3s
-        }
-        menuActive = true
-    } else {
-        navBar[0].style.width = '5%'
-        navBar[0].style.textAlign = 'center'
-        for (const icon of icons) {
-            icon.style.position = 'relative'
-            icon.style.left = '0'
-            icon.style.right = '0'
-            icon.style.margin = 'auto 0'
-
-        }
-        menuActive = false
-    }
-})
 
 document.getElementById('emailCreate').addEventListener('click', e => {
     e.preventDefault()
@@ -57,7 +67,7 @@ function logPageSwitch(e) {
     }
 }
 
-document.getElementById('loginIcon').addEventListener('click', logPageSwitch)
+icons['loginIcon'].addEventListener('click', logPageSwitch)
 document.getElementById('closeLogin').addEventListener('click', logPageSwitch)
 
 document.getElementById('loginAccount').addEventListener('click', e => {
@@ -100,53 +110,32 @@ document.getElementById('logButton').addEventListener('click', e => {
     let password = document.getElementById('getPass').value
 
     if (loginAccountMethod == 'login') {
-        if (email.includes('@')) {
-            util.enviarLogin('', email, password).then(async res => {
-                if (res.status == 202) {
-                    let body = await res.json()
-                    for (const key in body) {
-                        window.localStorage.setItem(key, body[key])
-                    }
-                    window.localStorage.setItem('isLogged', true)
-
-                    document.getElementById('logPage').style.display = 'none'
-                    logPageOn = false
-                    window.location.reload()
-                } else {
-                    window.alert("senha incorreta")
-                    window.localStorage.setItem('isLogged', '')
+        util.enviarLogin(email, password).then(async res => {
+            if (res.status == 202) {
+                let body = await res.json()
+                for (const key in body) {
+                    window.localStorage.setItem(key, body[key])
                 }
-            })
-        } else {
-            util.enviarLogin(email, '', password).then(async res => {
-                if (res.status == 202) {
-                    let body = await res.json()
-                    for (const key in body) {
-                        window.localStorage.setItem(key, body[key])
-                    }
-                    window.localStorage.setItem('isLogged', true)
+                window.localStorage.setItem('isLogged', true)
 
-                    document.getElementById('logPage').style.display = 'none'
-                    logPageOn = false
-                    window.location.reload()
-                } else {
-                    window.alert("senha incorreta")
-                    window.localStorage.setItem('isLogged', '')
-                }
-            })
-        }
+                document.getElementById('logPage').style.display = 'none'
+                logPageOn = false
+                window.location.reload()
+            } else {
+                window.alert("senha incorreta")
+                window.localStorage.setItem('isLogged', '')
+            }
+        })
     }
 })
 
-document.getElementById('logoutIcon').addEventListener('click', e => {
-    e.preventDefault()
+icons.bottom['logoutIcon'].addEventListener('click', e => {
     window.localStorage.clear()
     if (window.location.href != '../index.html') window.open('../index.html', '_self')
     else window.location.reload()
 })
 
-document.getElementById('settingsIcon').addEventListener('click', e => {
-    e.preventDefault()
+icons.bottom['settingsIcon'].addEventListener('click', e => {
     let settingsPopup = document.getElementById('settingsPopup')
 
     if (settingsPopup.style.display == 'none') settingsPopup.style.display = 'block'
@@ -161,7 +150,6 @@ document.getElementById('accountSettings').addEventListener('click', e => {
     document.getElementById('closeAccountSettings').onclick = switchPopup
 })
 
-document.getElementById('homeIcon').addEventListener('click', e => {
-    e.preventDefault()
+icons['homeIcon'].addEventListener('click', e => {
     window.open('../index.html', '_self')
 })

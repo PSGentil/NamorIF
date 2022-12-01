@@ -27,12 +27,17 @@ section {
     margin: auto 0;
     box-shadow: 0 0 1em rgba(255, 255, 255, 0.521);
     border-radius: 0 0 25px 25px;
-    padding: 5px;    
+    padding: 5px; 
+    animation: fadeIn 2s; 
 }
 
 #foto {
-    width: 24em;
+    height: fit-content;
     border-radius: 20px 20px 0 0;
+}
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
 }
 
 #options {
@@ -45,7 +50,7 @@ section {
 #legenda {
     height: 100%;
     max-height: 12em;
-    width: 24em;
+    width: 30em;
     background-color: rgb(255, 255, 255);
     border-radius: 0 0 20px 20px;
     display: flex;
@@ -55,7 +60,7 @@ section {
 #nome {
     color: white;
     position: absolute;
-    bottom: 35%;
+    bottom: 7em;
     left: 5%;
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -64,7 +69,7 @@ section {
 #descricao {
     color: white;
     position: absolute;
-    bottom: 23%;
+    bottom: 12em;
     left: 5%;
     font-size: 70%;
     width: 90%;
@@ -89,6 +94,6 @@ section {
     cursor: pointer;
 }
 .profile {
-    width: 24em;
+    width: 30em;
 
 }
