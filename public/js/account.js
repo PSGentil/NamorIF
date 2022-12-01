@@ -2,7 +2,7 @@ import util from './util.js'
 
 let profilePhoto = await util.getImg(window.localStorage.getItem('profilePhoto'))
 
-document.getElementsByTagName('title')[0].innerText = username
+document.getElementsByTagName('title')[0].innerText = window.localStorage.getItem('username')
 document.getElementById('fotoPerfil').src = profilePhoto
 
 const campos = {

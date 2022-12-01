@@ -1,53 +1,7 @@
-// Index Buttons Functions
 import util from './util.js'
-import settings from './settings.js'
+import './navInit.js'
 
 let logPageOn, loginAccountMethod
-
-const nav = document.createElement('nav')
-document.querySelector('main').appendChild(nav)
-const bottomIcons = document.createElement('div')
-bottomIcons.id = 'bottomIcons'
-nav.appendChild(bottomIcons)
-
-/**
- * @type {[string]: HTMLElement}
- */
-const icons = {
-    loginIcon: document.createElement('img'),
-    homeIcon: document.createElement('img'),
-    bottom: {
-        logoutIcon: document.createElement('img'),
-        settingsIcon: document.createElement('img')
-    }
-}
-
-for (const key in icons) {
-    if (key == 'bottom') {
-        for (const keyb in icons['bottom']) {
-            icons['bottom'][keyb].id = keyb
-            icons['bottom'][keyb].src = `../images/${keyb}.png`
-            icons['bottom'][keyb].title = keyb.replace('Icon', '')
-            bottomIcons.appendChild(icons['bottom'][keyb])
-        }
-    } else {
-        icons[key].id = key
-        icons[key].src = `../images/${key}.png`
-        icons[key].title = key.replace('Icon', '')
-        nav.appendChild(icons[key])
-    }
-}
-
-if (localStorage.getItem('profilePhoto') != null) {
-    const userPhoto = await util.getImg(window.localStorage.getItem('profilePhoto'))
-    document.getElementById('loginIcon').src = userPhoto
-}
-
-document.getElementById('emailCreate').addEventListener('click', e => {
-    e.preventDefault()
-    logPageSwitch()
-    window.open('../pages/createAccount.html', '_blank')
-})
 
 function logPageSwitch(e) {
     let isLogged = window.localStorage.getItem('isLogged')
@@ -67,11 +21,68 @@ function logPageSwitch(e) {
     }
 }
 
-icons['loginIcon'].addEventListener('click', logPageSwitch)
-document.getElementById('closeLogin').addEventListener('click', logPageSwitch)
+if (localStorage.getItem('profilePhoto') != null) {
+    const userPhoto = await util.getImg(window.localStorage.getItem('profilePhoto'))
+    document.getElementById('loginIcon').src = userPhoto
+}
+
+document.querySelector('#loginIcon').addEventListener('click', logPageSwitch)
+
+document.querySelector('#homeIcon').addEventListener('click', e => {
+    window.open('../index.html', '_self')
+})
+
+document.querySelector('#logoutIcon').addEventListener('click', e => {
+    window.localStorage.clear()
+    if (window.location.href != '../index.html') window.open('../index.html', '_self')
+    else window.location.reload()
+})
+
+document.querySelector('#settingsIcon').addEventListener('click', e => {
+    let settingsPopup = document.querySelector('#settingsPopup')
+    if (settingsPopup.style.display == 'none') settingsPopup.style.display = 'block'
+    else settingsPopup.style.display = 'none'
+})
+
+document.querySelector('#closeLogin').addEventListener('click', logPageSwitch)
+
+document.getElementById('accountSettings').addEventListener('click', e => {
+    window.open('../pages/accountSettings.html', '_self')
+})
+
+document.getElementById('emailCreate').addEventListener('click', e => {
+    e.preventDefault()
+    logPageSwitch()
+    window.open('../pages/createAccount.html', '_blank')
+})
+
+document.getElementById('logButton').addEventListener('click', e => {
+    e.preventDefault()
+    let email = document.getElementById('getEmail').value
+    let password = document.getElementById('getPass').value
+
+    if (loginAccountMethod == 'login') {
+        util.enviarLogin(email, password).then(async res => {
+            if (res.status == 202) {
+                let body = await res.json()
+                for (const key in body) {
+                    window.localStorage.setItem(key, body[key])
+                }
+                window.localStorage.setItem('isLogged', true)
+
+                document.getElementById('logPage').style.display = 'none'
+                logPageOn = false
+                window.location.reload()
+            } else {
+                window.alert("senha incorreta")
+                window.localStorage.setItem('isLogged', '')
+            }
+        })
+    }
+})
 
 document.getElementById('loginAccount').addEventListener('click', e => {
-    let title = document.getElementById('titleLogPage')
+    let title = document.querySelector('#logPage header h1')
     let email = document.getElementById('getEmail')
     let senha = document.getElementById('getPass')
     let logButton = document.getElementById('logButton')
@@ -102,54 +113,4 @@ document.getElementById('loginAccount').addEventListener('click', e => {
 
         loginAccountMethod = 'login'
     }
-})
-
-document.getElementById('logButton').addEventListener('click', e => {
-    e.preventDefault()
-    let email = document.getElementById('getEmail').value
-    let password = document.getElementById('getPass').value
-
-    if (loginAccountMethod == 'login') {
-        util.enviarLogin(email, password).then(async res => {
-            if (res.status == 202) {
-                let body = await res.json()
-                for (const key in body) {
-                    window.localStorage.setItem(key, body[key])
-                }
-                window.localStorage.setItem('isLogged', true)
-
-                document.getElementById('logPage').style.display = 'none'
-                logPageOn = false
-                window.location.reload()
-            } else {
-                window.alert("senha incorreta")
-                window.localStorage.setItem('isLogged', '')
-            }
-        })
-    }
-})
-
-icons.bottom['logoutIcon'].addEventListener('click', e => {
-    window.localStorage.clear()
-    if (window.location.href != '../index.html') window.open('../index.html', '_self')
-    else window.location.reload()
-})
-
-icons.bottom['settingsIcon'].addEventListener('click', e => {
-    let settingsPopup = document.getElementById('settingsPopup')
-
-    if (settingsPopup.style.display == 'none') settingsPopup.style.display = 'block'
-    else settingsPopup.style.display = 'none'
-})
-
-document.getElementById('accountSettings').addEventListener('click', e => {
-    let switchPopup = settings.accountConfigPopup
-    switchPopup()
-
-    document.getElementById('settingsPopup').style.display = 'none'
-    document.getElementById('closeAccountSettings').onclick = switchPopup
-})
-
-icons['homeIcon'].addEventListener('click', e => {
-    window.open('../index.html', '_self')
 })

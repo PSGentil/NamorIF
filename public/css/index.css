@@ -17,7 +17,6 @@ main {
     z-index: 0;
     position: fixed;
 }
-
 section {
     position: absolute;
     height: max-content;
@@ -28,7 +27,7 @@ section {
     box-shadow: 0 0 1em rgba(255, 255, 255, 0.521);
     border-radius: 0 0 25px 25px;
     padding: 5px; 
-    animation: fadeIn 2s; 
+    animation: fadeIn 1s; 
 }
 
 #foto {
@@ -36,8 +35,12 @@ section {
     border-radius: 20px 20px 0 0;
 }
 @keyframes fadeIn {
-    0% {opacity: 0}
-    100% {opacity: 1}
+    0% {top: 0;}
+    20% {top: -55%;}
+    40% {left: 100%;}
+    60% {top: 200%;}
+    80% {left: 40%;}
+    100% {top: 0;}
 }
 
 #options {
@@ -86,12 +89,14 @@ section {
 
 #love, #deny {
     filter: grayscale(100%);
-    transition: .1s;
+    transition: 1s;
+
 }
 #love:hover, #deny:hover {
     filter: none;
-    width: 14%;
+    width: 3em;
     cursor: pointer;
+    transition: .3s;
 }
 .profile {
     width: 30em;

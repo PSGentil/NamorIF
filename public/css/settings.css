@@ -1,0 +1,23 @@
+main {
+    padding-left: 4.4   em;
+}
+div.configPage {
+    margin: 0 auto;
+    width: 95%;
+    height: 100%;
+    border: 1px solid black;
+    padding: 2em;
+}
+
+div.configPage label{
+    
+}
+
+div.configPage input{
+    display: none;
+}
+
+div.configPage div{
+    margin: 1em auto;
+    cursor: pointer;
+}

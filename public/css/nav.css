@@ -2,8 +2,7 @@
      font-family: sans-serif;
 }
 nav {
-    position: relative;
-    width: 5%;
+    width: max-content;
     height: 100%;
     min-width: 70px;
     background-color: rgb(255, 255, 255);
@@ -12,11 +11,13 @@ nav {
     padding-top: 10px;
     transition: .1s;
     z-index: 10;
+    top: 0;
+    left: 0;
 }
 
 nav img {
     display: block;
-    margin: 0 0 0 20%;
+    margin: 0 auto;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -29,7 +30,9 @@ nav img:hover {
 
 nav div#bottomIcons{
     position: absolute;
-    left: 0.3em;
+    left: 0;
+    right: 0;
+    margin: auto 0;
     bottom: 1em;
 }
 
@@ -51,6 +54,7 @@ nav div#settingsPopup div{
     width: 100%;
     padding: 1em 0 1em 0;   
 }
+
 div#credits {
     border-bottom: 1px solid black;
     border-top: 1px solid black;
@@ -70,7 +74,7 @@ nav div#settingsPopup div#screenSettings:hover{
     color: black;
     border-radius: 0 0 .8em .8em;
 }
-div#settingsPopup a {
+div#settingsPopup #credits {
     text-decoration: none;
     color: black;
 }
