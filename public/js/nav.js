@@ -1,6 +1,5 @@
 // Index Buttons Functions
 import util from './util.js'
-import settings from './settings.js'
 
 let menuActive, logPageOn, loginAccountMethod, accountConfigPopup
 
@@ -150,11 +149,7 @@ document.getElementById('settingsIcon').addEventListener('click', e => {
 })
 
 document.getElementById('accountSettings').addEventListener('click', e => {
-    let switchPopup = settings.accountConfigPopup
-    switchPopup()
 
-    document.getElementById('settingsPopup').style.display = 'none'
-    document.getElementById('closeAccountSettings').onclick = switchPopup
 })
 
 document.getElementById('homeIcon').addEventListener('click', e => {

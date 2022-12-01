@@ -1,0 +1,19 @@
+div.configPage {
+    margin: 0 auto;
+    width: 95%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+div.configPage label{
+    
+}
+
+div.configPage input{
+    display: block;
+}
+
+div.configPage div{
+    margin: 0 auto;
+    cursor: pointer;
+}
