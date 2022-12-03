@@ -1,21 +1,14 @@
 import util from './util.js'
 import './navInit.js'
 
-let logPageOn, loginAccountMethod
+let loginAccountMethod
 
 function logPageSwitch(e) {
     let isLogged = window.localStorage.getItem('isLogged')
 
     if (!isLogged || e.target.id == 'closeLogin') {
-        let logPage = document.getElementById('logPage')
-
-        if (!logPageOn) {
-            logPage.style.display = 'block'
-            logPageOn = true
-        } else {
-            logPage.style.display = 'none'
-            logPageOn = false
-        }
+        let display = document.getElementById('logPage').style.display
+        document.getElementById('logPage').style.display = (display == '' || display == 'none' ? 'block' : 'none')
     } else if (e.target.id == 'loginIcon') {
         window.open('../pages/account.html', '_self')
     }
@@ -28,14 +21,64 @@ if (localStorage.getItem('profilePhoto') != null) {
 
 document.querySelector('#loginIcon').addEventListener('click', logPageSwitch)
 
+document.body.addEventListener('click', e => {
+
+
+    for (let i = 0; i < document.getElementsByClassName('popup').length; i++) {
+
+        if ((e.target.className != 'popup' && e.target.className != 'openPopup') && !document.querySelector(`.popup ${e.target.tagName}`)) {
+            document.getElementsByClassName('popup')[i].style.display = 'none'
+        }
+    }
+})
+
 document.querySelector('#homeIcon').addEventListener('click', e => {
     window.open('../index.html', '_self')
 })
 
-document.querySelector('#logoutIcon').addEventListener('click', e => {
-    window.localStorage.clear()
-    if (window.location.href != '../index.html') window.open('../index.html', '_self')
-    else window.location.reload()
+document.querySelector('#logout').addEventListener('click', e => {
+
+    document.querySelector('#settingsPopup').style.display = 'none'
+
+    e.preventDefault()
+
+    if (!document.querySelector('body #confirmLogout')) {
+        const confirmLogout = document.createElement('div')
+        confirmLogout.id = 'confirmLogout'
+        confirmLogout.className = 'popup'
+        document.body.appendChild(confirmLogout)
+
+        const confirmLogoutTitle = document.createElement('p')
+        confirmLogoutTitle.innerText = 'Deseja realmente sair?'
+        confirmLogout.appendChild(confirmLogoutTitle)
+
+        const yesButton = document.createElement('button')
+        yesButton.name = 'yes'
+        yesButton.addEventListener('click', logout)
+        yesButton.innerText = 'Sim'
+        confirmLogout.appendChild(yesButton)
+
+        const noButton = document.createElement('button')
+        noButton.name = 'no'
+        noButton.innerText = 'Não'
+        confirmLogout.appendChild(noButton)
+        noButton.addEventListener('click', e =>{
+            const display = document.getElementById('confirmLogout').style.display
+            document.getElementById('confirmLogout').style.display = (display == 'none' ? 'flex' : 'none')
+        })
+    } else {
+        const display = document.getElementById('confirmLogout').style.display
+        document.getElementById('confirmLogout').style.display = (display == 'none' ? 'flex' : 'none')
+    }
+
+    function logout() {
+
+        window.localStorage.clear()
+        if (window.location.href != '../index.html') window.open('../index.html', '_self')
+        else window.location.reload()
+
+    }
+
 })
 
 document.querySelector('#settingsIcon').addEventListener('click', e => {
@@ -47,13 +90,14 @@ document.querySelector('#settingsIcon').addEventListener('click', e => {
 document.querySelector('#closeLogin').addEventListener('click', logPageSwitch)
 
 document.getElementById('accountSettings').addEventListener('click', e => {
-    window.open('../pages/accountSettings.html', '_self')
+    if (window.localStorage.getItem('isLogged')) window.open('../pages/accountSettings.html', '_self')
+    else window.open('#', '_self')
 })
 
 document.getElementById('emailCreate').addEventListener('click', e => {
     e.preventDefault()
     logPageSwitch()
-    window.open('../pages/createAccount.html', '_blank')
+    window.open('../pages/createAccount.html', '_self')
 })
 
 document.getElementById('logButton').addEventListener('click', e => {
@@ -70,9 +114,8 @@ document.getElementById('logButton').addEventListener('click', e => {
                 }
                 window.localStorage.setItem('isLogged', true)
 
-                document.getElementById('logPage').style.display = 'none'
-                logPageOn = false
                 window.location.reload()
+                document.getElementById('logPage').style.display = 'none'
             } else {
                 window.alert("senha incorreta")
                 window.localStorage.setItem('isLogged', '')

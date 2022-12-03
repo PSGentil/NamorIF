@@ -149,10 +149,24 @@ export default class util {
      * @param {Object<string, string>} valores 
      * @returns {true | string}
      */
-    static checarCamposVazios(valores) {
+    static checarCampos(valores) {
+
+        let validate = true
         for (const key in valores) {
             if (!valores[key] || valores[key] == 'placeholder') return key
+
+            if (key == 'email') validate = this.validateEmail(valores[key])
+            else if (key == 'username') validate = this.validateUsername(valores[key])
+            else if (key == 'birthdate') validate = this.validateBirthdate(valores[key])
+            else if (key == 'pass') {
+                if (valores['passConfirm']) validate = this.validatePassword(valores[key], valores['passConfirm'])
+                else validate = this.validatePassword(valores[key], valores['passConfirm'])
+            }
+
+            if (validate != true) return validate
+
         }
+
         return true
     }
     /**
@@ -220,4 +234,92 @@ export default class util {
             resolve(outputImage.toDataURL())
         })
     }
+
+    static validatePassword(pass, passConfirm) {
+
+
+        if (passConfirm != undefined) {
+            if (pass != passConfirm) return 'senhasDiferentes'
+        }
+        if (pass.length <= 5) return 'senhaCurta'
+
+        return true
+
+    }
+
+    static validateUsername(username) {
+
+        if (username.length < 5) return 'usernameCurto'
+        else if (username.length > 20) return 'usernameLongo'
+        else return true
+
+    }
+
+    static validateEmail(email) {
+
+        if (email.indexOf('@') == -1 || email.indexOf('@') == email.length - 1) return 'emailInvalido'
+        else return true
+
+    }
+
+    static validateBirthdate(birthdate) {
+
+        if (Date.now() - Date.parse(birthdate) <= 15 * 365 * 24 * 60 * 60 * 1000) return 'muitoNovo'
+        if (Date.parse(birthdate) >= Date.now()) return 'dataInvalida'
+        if (Date.now() - 100 * 365 * 24 * 60 * 60 * 1000 > Date.parse(birthdate)) return 'dataInvalida'
+
+
+        return true
+
+    }
+
+    static errorMessage(errorType) {
+
+        let message
+
+        switch (errorType) {
+            case 'usernameCurto':
+                message = 'O nome de usuário deve ter pelo menos 5 caracteres.'
+                break
+            case 'usernameLongo':
+                message = 'O nome de usuário deve ter no máximo 20 caracteres.'
+                break
+            case 'email ou username já existem':
+                message = 'Email ou Username já existem.'
+                break
+            case 'emailInvalido':
+                message = 'Digite um email válido.'
+                break
+            case 'senhasDiferentes':
+                message = 'As senhas devem ser iguais.'
+                break
+            case 'senhaCurta':
+                message = 'A senha deve ter pelo menos 5 caracteres.'
+                break
+            case 'muitoNovo':
+                message = 'Você deve ter pelo menos 15 anos para criar uma conta.'
+                break
+            case 'dataInvalida':
+                message = 'Digite uma data válida.'
+                break
+            default:
+                message = 'Você achou um erro no site! Por favor nos informe dele para que possamos corrigi-lo!'
+                break
+        }
+
+        if (!document.querySelector('body div#errorMessage')) {
+            const messageBox = document.createElement('div')
+            messageBox.id = 'errorMessage'
+            messageBox.className = 'popup'
+            document.body.appendChild(messageBox)
+
+            messageBox.innerText = message
+        } else {
+            let display = document.querySelector('div#errorMessage').style.display
+            document.querySelector('div#errorMessage').style.display = (display == 'none' ? 'flex' : 'none')
+            document.querySelector('div#errorMessage').innerText = message
+        }
+
+    }
+
 }

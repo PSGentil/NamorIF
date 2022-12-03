@@ -19,6 +19,7 @@ nav.appendChild(bottomIcons)
 
 const settingsPopup = document.createElement('div')
 settingsPopup.id = 'settingsPopup'
+settingsPopup.className = 'popup'
 settingsPopup.style.display = 'none'
 bottomIcons.appendChild(settingsPopup)
 
@@ -40,6 +41,11 @@ screenSettings.id = 'screenSettings'
 screenSettings.innerText = 'Tela'
 settingsPopup.appendChild(screenSettings)
 
+const logout = document.createElement('div')
+logout.id = 'logout'
+logout.innerText = 'Sair'
+settingsPopup.appendChild(logout)
+
 /**
  * @type {[string]: HTMLElement}
  */
@@ -47,7 +53,6 @@ const icons = {
     loginIcon: document.createElement('img'),
     homeIcon: document.createElement('img'),
     bottom: {
-        logoutIcon: document.createElement('img'),
         settingsIcon: document.createElement('img')
     }
 }
@@ -58,12 +63,14 @@ for (const key in icons) {
             icons['bottom'][keyb].id = keyb
             icons['bottom'][keyb].src = `../images/${keyb}.png`
             icons['bottom'][keyb].title = keyb.replace('Icon', '')
+            if (keyb == 'settingsIcon') icons['bottom'][keyb].className = 'openPopup'
             bottomIcons.appendChild(icons['bottom'][keyb])
         }
     } else {
         icons[key].id = key
         icons[key].src = `../images/${key}.png`
         icons[key].title = key.replace('Icon', '')
+        if (key == 'loginIcon') icons[key].className = 'openPopup'
         nav.appendChild(icons[key])
     }
 }

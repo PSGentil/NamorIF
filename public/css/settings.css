@@ -1,16 +1,21 @@
+*{
+    margin: 0;
+}
+
+body{
+    width: 100%;
+    height: 90vh;
+}
+
 main {
-    padding-left: 4.4   em;
+    padding-left: 4.4em;
+    width: 100%;
+    height: 100%;
 }
 div.configPage {
     margin: 0 auto;
-    width: 95%;
-    height: 100%;
     border: 1px solid black;
     padding: 2em;
-}
-
-div.configPage label{
-    
 }
 
 div.configPage input{

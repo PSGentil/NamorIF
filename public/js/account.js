@@ -63,22 +63,28 @@ for (const key in campos) {
     document.querySelector(`#${key} img.saveIcon`).addEventListener('click', async e => {
         e.preventDefault()
 
-        await fetch('/api/account/edit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({
-                email: window.localStorage.getItem('email'),
-                pass: window.localStorage.getItem('pass'),
-                [key]: document.querySelector(`#${key} input`).value.trim()
-            })
-        }).then(async res => {
-            if (res.status == 202) {
-                let body = await res.json()
-                for (const key in body) {
-                    window.localStorage.setItem(key, body[key])
+        let validate = util.checarCampos()
+
+        if (validate){
+            await fetch('/api/account/edit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                body: JSON.stringify({
+                    email: window.localStorage.getItem('email'),
+                    pass: window.localStorage.getItem('pass'),
+                    [key]: document.querySelector(`#${key} input`).value.trim()
+                })
+            }).then(async res => {
+                if (res.status == 202) {
+                    let body = await res.json()
+                    for (const key in body) {
+                        window.localStorage.setItem(key, body[key])
+                    }
                 }
-            }
-        })
-        window.location.reload()
+            })
+            window.location.reload()
+        }else{
+            util.errorMessage(validate)
+        }
     })
 }

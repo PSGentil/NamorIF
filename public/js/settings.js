@@ -38,7 +38,6 @@ for (const key in userInfos) {
 
 }
 
-
 document.querySelector('section button').addEventListener('click', async e => {
 
     let dadosEnviados = {
@@ -57,7 +56,7 @@ document.querySelector('section button').addEventListener('click', async e => {
         }
     }
 
-    let camposValidados = util.checarCamposVazios(dadosEnviados)
+    let camposValidados = util.checarCampos(dadosEnviados)
 
     if (camposValidados == true) {
         await fetch('/api/account/edit', {
@@ -73,13 +72,13 @@ document.querySelector('section button').addEventListener('click', async e => {
                 window.localStorage.setItem('isLogged', true)
                 window.location.reload()
             } else if (res.status == 409) {
-                window.alert('email ou username já existem')
+                util.errorMessage('email ou username já existem')
             } else {
                 window.localStorage.clear()
                 window.location.reload()
             }
         })
     } else {
-        window.alert(camposValidados)
+        util.errorMessage(camposValidados)
     }
 })
