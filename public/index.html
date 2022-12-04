@@ -4,78 +4,29 @@
         <meta charset="UTF-8">
         <script defer src="./js/autologin.js" type="module"></script>
         <script defer src="./js/nav.js" type="module"></script>
-        <title>NamorIF☕🐓</title>
-        <link rel="icon" type="image/x-icon" href="https://img.elo7.com.br/product/zoom/34C3AB6/caneca-galo-cafe-caneca-personalizada.jpg">
+        <script defer src="./js/index.js" type="module"></script>
+        <title>NamorIF 💕</title>
+        <link rel="icon" type="image/x-icon" href="images/icon.png">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" type="text/css" href="css/login.css">
-        <link rel="stylesheet" type="text/css" href="css/nav.css">
     </head>
     <body>
         <main>
 
-            <!-- Nav Bar -->
-
-            <nav>
-                <img id="menu" src="images/menu.png" title="Menu" class="icons">
-                <img id="homeIcon" src="images/homeIcon.png" alt="" class="icons">
-                <img id="loginIcon" src="images/login.png" title="Conta" class="icons">
-                
-                <div id="bottonIcons">
-                    <img id="logoutIcon" src="images/logoutIcon.png" title="Deslogar" class="icons">
-                    <img id="settingsIcon" src="images/settingsIcon.png" class="icons">
-
-                    <div id="settingsPopup" style="display: none;">
-                        <div id="accountSettings"><a href="pages/accountSettings.html">Configurações de Conta</a></div>
-                        <a href="pages/credits.html"><div id="credits">Créditos</div></a>
-                        <div id="screenSettings">Tela</div>
-                    </div>
-
-                </div>
-            </nav>
-    
-            <!-- Log in pop up -->
-
-            <div id="logPage" class="popup">
-                <header id="logHeader">
-                    <h1 id="titleLogPage">Criar Conta</h1>
-                    <img id="closeLogin"class="close" src="images/close.png">
-                </header>
-    
-                <form>
-                    <div>
-                        <input type="text" placeholder="Nome de Usuário ou Email" id="getEmail">
-                        <input type="password" min="8" placeholder="Senha" id="getPass">
-                    </div>
-
-                    <div>
-                        <button id="logButton">Criar Conta</button>
-                        <button id="emailCreate">Criar conta com email</button>
-                    </div>
-
-                    <footer>
-                        <span id="switchLogCreate">Já tem uma conta? </span><span id="loginAccount">Clique aqui para logar.</span>
-                    </footer>
-                </form>
-            </div>
-
             <!-- Profile section -->
 
-
-                <section id="nextProfile">
-                    <div id="foto">
-                        <h1 id="nome"> Gigachad </h1>
-                        <p id="descricao"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur ipsum ipsam deleniti sint totam neque illum fugit nihil! Cum, consequuntur corporis. Repellendus voluptas provident ut aliquam aut fugit vitae qui.</p>
-                        <img class="profile" src="https://i.seadn.io/gae/jAXmmkmtadX3_aPgJWPBPxugC4IgfqmauBMJKcxlVVVj7cF6LtqZgo41aPv3UZGUAzoMbvslwPqMs2BcFJYsTsHxpzoclK2zQK9Efw?auto=format&w=1000"  alt="">
+            <section id="nextProfile">
+                <div id="foto">
+                    <h1 id="nome"> Heitor Brazil </h1>
+                    <p id="descricao">  Mas se jogar bacteria com pilula ce ganha ta no meta mano eh bacteria e taca pilula gg muito bom melhor estrategia sou verme verminoso </p>
+                    <img class="profile" src="images/wesley.PNG"  alt="">
+                </div>
+                <div id="options">
+                    <div id="legenda">
+                        <img src="images/love_red.png" type="button" id="love" class="botao">
+                        <img src="images/block_red.png" type="button" id="deny" class="botao">
                     </div>
-                    <div id="options">
-                        <div id="legenda">
-                            <img src="images/love_red.png" type="button" id="love" class="botao">
-                            <img src="images/block_red.png" type="button" id="deny" class="botao">
-                        </div>
-                    </div>
-                </section>
-
-            
+                </div>
+            </section>
         </main>
     </body>
 </html>

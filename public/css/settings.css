@@ -1,19 +1,28 @@
-div.configPage {
-    margin: 0 auto;
-    width: 95%;
-    height: 100%;
-    border: 1px solid black;
+*{
+    margin: 0;
 }
 
-div.configPage label{
-    
+body{
+    width: 100%;
+}
+
+main {
+    background-image: linear-gradient(40deg, rgb(0, 255, 221), greenyellow);
+    width: 100%;
+    height: 41em;
+}
+div#accountConfigPage {
+    margin: 0 auto;
+    background-color: white;
+    width: 30em;
+    height: 100%;
 }
 
 div.configPage input{
-    display: block;
+    display: none;
 }
 
 div.configPage div{
-    margin: 0 auto;
+    margin: 1em auto;
     cursor: pointer;
 }

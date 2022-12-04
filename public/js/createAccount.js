@@ -29,12 +29,13 @@ document.getElementById('createAccountButton').addEventListener('click', async e
     let inputDataNascimento = document.getElementById('dataNascimento').value
 
     let camposPrimeiraPagina = {
-        nome: inputNome,
-        sobrenome: inputSobrenome,
+        name: inputNome,
+        lastname: inputSobrenome,
         username: inputUsername,
         email: inputEmail,
-        senha: inputSenha,
-        birthdate: Date.parse(inputDataNascimento)
+        pass: inputSenha,
+        passConfirm: inputSenhaConfirmar,
+        birthdate: inputDataNascimento
     }
 
     let camposSegundaPagina = {
@@ -46,19 +47,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
 
     switch (etapaAtualCriarConta) {
         case 0:
-            verificarPreenchido = util.checarCamposVazios(camposPrimeiraPagina)
-
-            if (inputSenha != inputSenhaConfirmar) verificarPreenchido = 'senhasDiferentes'
-
-            if (inputUsername.length < 5) verificarPreenchido = 'usernameCurto'
-            else if (inputUsername.length > 24) verificarPreenchido = 'usernameLongo'
-
-            if (inputSenha.length <= 5) verificarPreenchido = 'senhaCurta'
-
-            if (!inputEmail.includes('@')) verificarPreenchido = 'emailInvalido'
-
-            if (Date.now() - Date.parse(inputDataNascimento) <= 15 * 365 * 24 * 60 * 60 * 1000) verificarPreenchido = 'muitoNovo'
-            if (Date.parse(inputDataNascimento) >= Date.now()) verificarPreenchido = 'dataInvalida'
+            verificarPreenchido = util.checarCampos(camposPrimeiraPagina)            
             break
         case 1:
             for (const item of document.querySelectorAll('input[name="procurar"]')) {
@@ -67,7 +56,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
                     inputMostrar = item.value
                 }
             }
-            verificarPreenchido = util.checarCamposVazios(camposSegundaPagina)
+            verificarPreenchido = util.checarCampos(camposSegundaPagina)
             break
         case 2:
             if (!profilePhoto) verificarPreenchido = 'imagem'
@@ -94,7 +83,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
             util.atualizarEtapaCadastro(etapasCriarConta, etapaAtualCriarConta)
         }
     } else {
-        window.alert(`ta faltando ${verificarPreenchido}`)
+        util.errorMessage(verificarPreenchido)
     }
 })
 

@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Solway');
 * {
     margin: 0;
+    font-family: 'Solway';
 }
 
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    font-family: 'Solway';
 }
 
 main {
@@ -17,20 +20,27 @@ main {
     z-index: 0;
     position: fixed;
 }
-
 section {
     position: absolute;
     height: max-content;
-    top: 2em;
+    top: 0;
     left: 38%;
+    bottom: 0;
+    margin: auto 0;
     box-shadow: 0 0 1em rgba(255, 255, 255, 0.521);
     border-radius: 0 0 25px 25px;
-    padding: 5px;    
+    padding: 5px; 
+    animation: slide 1.5s; 
+    font-family: 'Solway';
 }
 
 #foto {
-    width: 24em;
+    height: fit-content;
     border-radius: 20px 20px 0 0;
+}
+@keyframes slide {
+    0% {top: 200%;}
+    100% {top: 0;}
 }
 
 #options {
@@ -43,29 +53,30 @@ section {
 #legenda {
     height: 100%;
     max-height: 12em;
-    width: 24em;
+    width: 30em;
     background-color: rgb(255, 255, 255);
     border-radius: 0 0 20px 20px;
     display: flex;
     align-items: center;
+    font-family: 'Solway';
 }
 
 #nome {
     color: white;
     position: absolute;
-    bottom: 35%;
+    bottom: 7em;
     left: 5%;
     font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 0 0 .3em  black;
+    font-family: 'Solway';
 }
 #descricao {
     color: white;
     position: absolute;
-    bottom: 23%;
+    bottom: 12em;
     left: 5%;
     font-size: 70%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 90%;
     text-shadow: 0 0 .3em  black;
 }
 
@@ -78,14 +89,16 @@ section {
 
 #love, #deny {
     filter: grayscale(100%);
-    transition: .1s;
+    transition: 1s;
+
 }
 #love:hover, #deny:hover {
     filter: none;
-    width: 14%;
+    width: 3em;
     cursor: pointer;
+    transition: .3s;
 }
 .profile {
-    width: 24em;
+    width: 30em;
 
 }

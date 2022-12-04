@@ -17,23 +17,24 @@
     display: inline-block;
     margin: 0 auto;
     height: 100%;
-    width: auto;
+    
 }
 
 main {
-    padding-left: 5.3%;
     padding-top: 2%;
+
 }
 
 figure#profileImage {
-    position: relative;
+    position: absolute;
     width: fit-content;
     height: fit-content;
     z-index: 0;
     display: inline-block;
-    width: 20%;
+    width: 20em;
+    left: 6em;
+    top: 5em;
     border: 5px solid white;
-    margin: 1em;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.24);
 }
 
@@ -89,6 +90,16 @@ div#header {
 div.userInfo {
     width: max-content;
     display: inline-block;
+    position: absolute;
+    top: 11em;
+    left: 28em;
+}
+div input {
+    padding: 10px;
+    border: 3px solid rgb(115, 243, 190);
+    outline: none;
+    border-radius: 10px;
+    box-shadow: inset 0 0 .5em rgba(0, 0, 0, 0.295);
 }
 
 h1 {
@@ -99,4 +110,28 @@ input {
 }
 #name {
     font-size: 3em;
+}
+div#tags {
+    width: 20em;
+    height: 20em;
+    border-radius: 10px;
+    position: absolute;
+    top: 27em;
+    left: 6em;
+}
+p.tag {
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid rgb(173, 239, 255);
+    background-image:linear-gradient(rgba(234, 0, 255, 0.171), rgba(26, 25, 27, 0.096) );
+    width: max-content;
+    display: inline-block;
+    margin: 3px;
+    transition: .2s;
+    
+}
+p.tag:hover {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 30px;
 }
