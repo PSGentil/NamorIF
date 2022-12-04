@@ -113,8 +113,6 @@ document.getElementById('logButton').addEventListener('click', e => {
                     window.localStorage.setItem(key, body[key])
                 }
                 window.localStorage.setItem('isLogged', true)
-
-                window.location.reload()
                 document.getElementById('logPage').style.display = 'none'
             } else {
                 window.alert("senha incorreta")

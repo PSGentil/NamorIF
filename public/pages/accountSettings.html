@@ -15,27 +15,46 @@
     <main>
         <div id="accountConfigPage" class="configPage">
             <section id="settingsPageAccountInfo">
+                <img src="../images/setaHorizontal.png" alt="" style="display: none;">
+                <button style="display: none;">Salvar Alterações</button>
 
-                <button>Salvar Alterações</button>
-
-                <div>
+                <div class="userInfoBox">
                     <label for="newusername" style="display: block;">Nome de Usuário: </label>
-                    <input type="text" id="newusername">
+                    <input type="text" class="newusername">
                 </div>
 
-                <div>
+                <div class="userInfoBox">
                     <label for="newemail" style="display: block;">E-mail: </label>
-                    <input type="text" id="newemail">
+                    <input type="text" class="newemail">
                 </div>
 
-                <div>
+                <div class="userInfoBox">
                     <label for="newshowme" style="display: block;">Me Mostre: </label>
-                    <input type="text" id="newshowme">
+                        <label for="procuraHomem" name="procurar">Homem</label>
+                        <input type="radio" value="procuraHomem" name="procurar">
+                            
+                        <label for="procuraMulher" name="procurar">Mulher</label>
+                        <input type="radio" value="procuraMulher" name="procurar">
+
+
+                        <label for="procuraTodos" name="procurar">Todos</label>
+                        <input type="radio" value="procuraTodos" name="procurar">
                 </div>
 
-                <div>
-                    <label for="newsexuality" style="display: block;">Eu Sou: </label>
-                    <input type="text" id="newsexuality">
+                <div class="userInfoBox">
+                    <label for="newsexuality" class="newsexuality">Eu Sou: </label>
+                    <select id="opcaoSexual" style="display: none;" class="newsexuality">
+                        <option value="placeholder">Selecione</option>
+                        <option value="Hetero">Hétero</option>
+                        <option value="Gay">Gay</option>
+                        <option value="Lesbica">Lésbica</option>
+                        <option value="Bissexual">Bissexual</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <div id="deleteAccount" class="userInfoBox">
+                    Deletar Conta
                 </div>
             </section>
         </div>

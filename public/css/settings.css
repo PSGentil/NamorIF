@@ -22,6 +22,10 @@ div.configPage input{
     display: none;
 }
 
+div.configPage label[name="procurar"]{
+    display: none;
+}
+
 div.configPage div{
     margin: 1em auto;
     cursor: pointer;
