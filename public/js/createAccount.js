@@ -72,7 +72,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
                 username: inputUsername,
                 email: inputEmail,
                 pass: inputSenha,
-                birthdate: Date.parse(inputDataNascimento),
+                birthdate: inputDataNascimento,
                 sexuality: inputSexualidade,
                 showme: inputMostrar,
                 profilePhoto: profilePhoto

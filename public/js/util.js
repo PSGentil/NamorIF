@@ -54,7 +54,7 @@ export default class util {
         }
 
         if (img.completed) {
-            imgs.set(img)
+            //imgs.set(img)
             return img.string
         } else return null
     }
@@ -231,7 +231,7 @@ export default class util {
             outputImage.height = outputHeight
 
             outputImage.getContext('2d').drawImage(inputImage, outputX, outputY)
-            resolve(outputImage.toDataURL())
+            resolve(outputImage.toDataURL('image/png', 0.7))
         })
     }
 
