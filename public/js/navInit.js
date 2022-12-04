@@ -79,7 +79,7 @@ for (const key in icons) {
 
 const logPage = document.createElement('div')
 logPage.id = 'logPage'
-logPage.classList.add('popup')
+logPage.className = 'popup'
 document.querySelector('main').appendChild(logPage)
 
 const header = document.createElement('header')
@@ -91,7 +91,7 @@ header.appendChild(h1)
 
 const closeLogin = document.createElement('img')
 closeLogin.id = 'closeLogin'
-closeLogin.classList.add('close')
+closeLogin.className = 'close'
 closeLogin.src = '../images/close.png'
 header.appendChild(closeLogin)
 

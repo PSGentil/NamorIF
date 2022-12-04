@@ -38,6 +38,13 @@ export default Router().post('/', async (req, res) => {
         for (const key in req.body) {
             if (key == 'newEmail') {
                 serverUser['email'] = req.body[key]
+            } else if (key == 'profilePhoto') {
+                let oldImg = imgdb.data.findIndex(i => i.id == serverUser.profilePhoto)
+                if (oldImg != -1) {
+                    imgdb.data.splice(oldImg, 1)
+                    await imgdb.write()
+                }
+                serverUser[key] = req.body[key]
             } else serverUser[key] = req.body[key]
         }
 
@@ -53,7 +60,10 @@ export default Router().post('/', async (req, res) => {
         db.data.registeredUsers.splice(serverUser, 1)
 
         const img = imgdb.data.findIndex(i => i.id == serverUser.profilePhoto)
-        if (img != -1) imgdb.data.splice(img, 1)
+        if (img != -1) {
+            imgdb.data.splice(img, 1)
+            await imgdb.write()
+        }
 
         await db.write()
         res.status(202).send()

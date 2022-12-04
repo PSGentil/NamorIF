@@ -35,7 +35,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
         email: inputEmail,
         pass: inputSenha,
         passConfirm: inputSenhaConfirmar,
-        birthdate: Date.parse(inputDataNascimento)
+        birthdate: inputDataNascimento
     }
 
     let camposSegundaPagina = {
@@ -72,7 +72,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
                 username: inputUsername,
                 email: inputEmail,
                 pass: inputSenha,
-                birthdate: inputDataNascimento,
+                birthdate: Date.parse(inputDataNascimento),
                 sexuality: inputSexualidade,
                 showme: inputMostrar,
                 profilePhoto: profilePhoto

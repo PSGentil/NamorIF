@@ -12,18 +12,18 @@ export default class util {
             method: 'POST',
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
             body: JSON.stringify({
-                string: dataURL.slice(0, 1000),
+                string: dataURL.slice(0, 3000),
                 completed: false
             })
         }).then(async res => id = await res.text())
 
-        for (i = 1000; i <= dataURL.length; i += 1000) {
+        for (i = 3000; i <= dataURL.length; i += 3000) {
             await fetch(`/api/img/${id}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                 body: JSON.stringify({
-                    string: dataURL.slice(i, i + 1000),
-                    completed: !(i + 1000 < dataURL.length)
+                    string: dataURL.slice(i, i + 3000),
+                    completed: !(i + 3000 < dataURL.length)
                 })
             })
         }
@@ -40,7 +40,7 @@ export default class util {
 
         const img = { id: id, string: '', completed: false }
 
-        for (let i = 0; !img.completed; i += 1000) {
+        for (let i = 0; !img.completed; i += 3000) {
             let status = await fetch(`/api/img/${id}/${i}`, { method: 'GET' }).then(async res => {
                 if (res.ok) {
                     let body = await res.json()
@@ -150,7 +150,6 @@ export default class util {
      * @returns {true | string}
      */
     static checarCampos(valores) {
-
         let validate = true
         for (const key in valores) {
             if (!valores[key] || valores[key] == 'placeholder') return key
@@ -164,7 +163,6 @@ export default class util {
             }
 
             if (validate != true) return validate
-
         }
 
         return true
@@ -189,17 +187,19 @@ export default class util {
      */
     static async resizeImage(src, maxWidth) {
         const image = await util.loadImage(src)
-        let canvas = document.createElement('canvas')
-        let opt = { width: maxWidth }
+        if (image.width > maxWidth) {
+            let canvas = document.createElement('canvas')
+            let opt = { width: maxWidth }
 
-        if (opt.width && !opt.height) {
-            opt.height = image.height * (opt.width / image.width)
-        } else if (!opt.width && opt.height) {
-            opt.width = image.width * (opt.height / image.height)
-        }
+            if (opt.width && !opt.height) {
+                opt.height = image.height * (opt.width / image.width)
+            } else if (!opt.width && opt.height) {
+                opt.width = image.width * (opt.height / image.height)
+            }
 
-        Object.assign(canvas, opt).getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height)
-        return util.loadImage(canvas.toDataURL())
+            Object.assign(canvas, opt).getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height)
+            return util.loadImage(canvas.toDataURL())
+        } else return image
     }
     /**
      * @param {string} url dataURL
@@ -236,45 +236,34 @@ export default class util {
     }
 
     static validatePassword(pass, passConfirm) {
-
-
         if (passConfirm != undefined) {
             if (pass != passConfirm) return 'senhasDiferentes'
         }
         if (pass.length <= 5) return 'senhaCurta'
 
         return true
-
     }
 
     static validateUsername(username) {
-
         if (username.length < 5) return 'usernameCurto'
         else if (username.length > 20) return 'usernameLongo'
         else return true
-
     }
 
     static validateEmail(email) {
-
         if (email.indexOf('@') == -1 || email.indexOf('@') == email.length - 1) return 'emailInvalido'
         else return true
-
     }
 
     static validateBirthdate(birthdate) {
-
         if (Date.now() - Date.parse(birthdate) <= 15 * 365 * 24 * 60 * 60 * 1000) return 'muitoNovo'
         if (Date.parse(birthdate) >= Date.now()) return 'dataInvalida'
-        if (Date.now() - 100 * 365 * 24 * 60 * 60 * 1000 > Date.parse(birthdate)) return 'dataInvalida'
-
+        if (Date.now() - Date.parse(birthdate) > 100 * 365 * 24 * 60 * 60 * 1000) return 'dataInvalida'
 
         return true
-
     }
 
     static errorMessage(errorType) {
-
         let message
 
         switch (errorType) {
@@ -311,7 +300,9 @@ export default class util {
             const messageBox = document.createElement('div')
             messageBox.id = 'errorMessage'
             messageBox.className = 'popup'
-            document.body.appendChild(messageBox)
+            messageBox.style.display = 'flex'
+            messageBox.addEventListener('click', e => e.target.style.display = (e.target.style.display == 'flex' ? 'none' : 'flex'))
+            document.querySelector('main').appendChild(messageBox)
 
             messageBox.innerText = message
         } else {
@@ -319,7 +310,5 @@ export default class util {
             document.querySelector('div#errorMessage').style.display = (display == 'none' ? 'flex' : 'none')
             document.querySelector('div#errorMessage').innerText = message
         }
-
     }
-
 }

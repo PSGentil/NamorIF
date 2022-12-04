@@ -61,33 +61,36 @@ nav div#settingsPopup{
 nav div#settingsPopup div{
     cursor: pointer;
     width: 100%;
-    padding: 1em 0 1em 0;   
+    padding: 1em 0 1em 0;
+    margin: -1px 0 -1px 0 
 }
-
-div#credits {
-    border-bottom: 1px solid black;
+div#logout {
     border-top: 1px solid black;
 }
+div#credits, div#screenSettings {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    text-decoration: none;
+    color: black;
+}
 
-nav div#settingsPopup div#accountSettings:hover{
+div#accountSettings:hover {
     background-color: rgb(228, 228, 228);
     color: black;
     border-radius: .8em .8em 0 0;
 }
-nav div#settingsPopup div#credits:hover{
-    background-color: rgb(228, 228, 228);
-    color: black;
-}
-nav div#settingsPopup div#screenSettings:hover{
+div#logout:hover {
     background-color: rgb(228, 228, 228);
     color: black;
     border-radius: 0 0 .8em .8em;
 }
-div#settingsPopup #credits {
-    text-decoration: none;
+
+div#credits:hover, div#screenSettings:hover {
+    background-color: rgb(228, 228, 228);
     color: black;
 }
-img.close{
+
+img.close {
     cursor: pointer;
     position: absolute;
     right: 15px;
@@ -102,7 +105,7 @@ img.close{
     z-index: 0;
 }
 
-body #accountConfigPopup{
+body #accountConfigPopup {
     position: relative;
     margin: 0 auto;
     width: 80%;
@@ -118,7 +121,7 @@ body #accountConfigPopup{
 }
 
 /* Error message */
-div#errorMessage{
+div#errorMessage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,7 +134,7 @@ div#errorMessage{
     margin-left: -25em;
 }
 
-div#confirmLogout{
+div#confirmLogout {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -146,7 +149,7 @@ div#confirmLogout{
     margin: -10em 0 0 -10em;
 }
 
-div#confirmLogout button{
+div#confirmLogout button {
     width: 10em;
     height: 3em;
     margin: 1em;

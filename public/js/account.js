@@ -63,9 +63,9 @@ for (const key in campos) {
     document.querySelector(`#${key} img.saveIcon`).addEventListener('click', async e => {
         e.preventDefault()
 
-        let validate = util.checarCampos()
+        let validate = util.checarCampos({[key]: document.querySelector(`#${key} input`).value.trim()})
 
-        if (validate){
+        if (validate == true) {
             await fetch('/api/account/edit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json; charset=UTF-8' },
@@ -83,7 +83,7 @@ for (const key in campos) {
                 }
             })
             window.location.reload()
-        }else{
+        } else {
             util.errorMessage(validate)
         }
     })
