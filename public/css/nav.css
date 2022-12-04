@@ -1,5 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css?family=Solway');
 * {
-     font-family: sans-serif;
+     font-family: 'Solway';
 }
 
 body{
@@ -77,12 +79,12 @@ div#credits, div#screenSettings {
 div#accountSettings:hover {
     background-color: rgb(228, 228, 228);
     color: black;
-    border-radius: .8em .8em 0 0;
+    border-radius: 1em 1em 0 0;
 }
 div#logout:hover {
     background-color: rgb(228, 228, 228);
     color: black;
-    border-radius: 0 0 .8em .8em;
+    border-radius: 0 0 1em 1em;
 }
 
 div#credits:hover, div#screenSettings:hover {
@@ -125,28 +127,48 @@ div#errorMessage {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+
+    background-color: rgb(255, 0, 0);
+    border-radius: 20px;
     position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
     width: 50em;
     height: 10em;
-    top: 0;
+    top: -50%;
     left: 50%;
     margin-left: -25em;
+    animation: drop 3s;
+}
+
+@keyframes drop {
+    0% {
+        top: -50%;
+    }
+    10% {
+        top: .5em;
+    }
+    90% {
+        top: .5em;
+    }
+    100%{
+        top: -50%;
+    }
 }
 
 div#confirmLogout {
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    align-content: center;
-    background-color: green;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.267);
     width: 20em;
     height: 20em;
-    left: 50%;
-    top: 50%;
-    margin: -10em 0 0 -10em;
+    border-radius: 20px;
 }
 
 div#confirmLogout button {
@@ -154,4 +176,13 @@ div#confirmLogout button {
     height: 3em;
     margin: 1em;
     cursor: pointer;
+    border: .5px solid black;
+    background-color: white;
+    border-radius: 5px;
+    transition: .2s;
+}
+div#confirmLogout button:hover {
+    background-color: rgb(214, 214, 214);
+    font-weight: bold;
+
 }

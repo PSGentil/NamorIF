@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Solway');
 * {
     margin: 0;
+    font-family: 'Solway';
 }
 
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    font-family: 'Solway';
 }
 
 main {
@@ -27,19 +30,17 @@ section {
     box-shadow: 0 0 1em rgba(255, 255, 255, 0.521);
     border-radius: 0 0 25px 25px;
     padding: 5px; 
-    animation: fadeIn 1s; 
+    animation: slide 1.5s; 
+    font-family: 'Solway';
 }
 
 #foto {
     height: fit-content;
     border-radius: 20px 20px 0 0;
 }
-@keyframes fadeIn {
-    0% {top: 0;}
-    20% {top: -55%;}
-    40% {left: 100%;}
-    60% {top: 200%;}
-    80% {left: 40%;}
+
+@keyframes slide {
+    0% {top: 200%;}
     100% {top: 0;}
 }
 
@@ -58,6 +59,7 @@ section {
     border-radius: 0 0 20px 20px;
     display: flex;
     align-items: center;
+    font-family: 'Solway';
 }
 
 #nome {
@@ -66,8 +68,8 @@ section {
     bottom: 7em;
     left: 5%;
     font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 0 0 .3em  black;
+    font-family: 'Solway';
 }
 #descricao {
     color: white;
@@ -76,7 +78,6 @@ section {
     left: 5%;
     font-size: 70%;
     width: 90%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 0 0 .3em  black;
 }
 

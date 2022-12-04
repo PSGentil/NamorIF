@@ -38,6 +38,7 @@ export default Router().post('/', async (req, res) => {
         for (const key in req.body) {
             if (key == 'newEmail') {
                 serverUser['email'] = req.body[key]
+
             } else if (key == 'profilePhoto') {
                 let oldImg = imgdb.data.findIndex(i => i.id == serverUser.profilePhoto)
                 if (oldImg != -1) {
@@ -45,6 +46,7 @@ export default Router().post('/', async (req, res) => {
                     await imgdb.write()
                 }
                 serverUser[key] = req.body[key]
+
             } else serverUser[key] = req.body[key]
         }
 

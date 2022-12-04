@@ -39,6 +39,7 @@ export default Router().post('/', async (req, res) => {
 		res.status(200).send({
 			string: img.string.slice(req.params.part, req.params.part + 3000),
 			completed: !(req.params.part + 3000 < img.string.length)
+
 		})
 	} else res.status(404).send()
 }).delete('/:id', async (req, res) => {

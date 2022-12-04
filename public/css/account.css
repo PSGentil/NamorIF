@@ -17,6 +17,7 @@
     display: inline-block;
     margin: 0 auto;
     height: 100%;
+
     width: auto;
 }
 
@@ -32,7 +33,7 @@ figure#profileImage {
     z-index: 0;
     display: inline-block;
     width: 20em;
-    left: 4em;
+    left: 6em;
     top: 5em;
     border: 5px solid white;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.24);
@@ -92,7 +93,7 @@ div.userInfo {
     display: inline-block;
     position: absolute;
     top: 11em;
-    left: 25em;
+    left: 28em;
 }
 div input {
     padding: 10px;
@@ -110,4 +111,28 @@ input {
 }
 #name {
     font-size: 3em;
+}
+div#tags {
+    width: 20em;
+    height: 20em;
+    border-radius: 10px;
+    position: absolute;
+    top: 27em;
+    left: 6em;
+}
+p.tag {
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid rgb(173, 239, 255);
+    background-image:linear-gradient(rgba(234, 0, 255, 0.171), rgba(26, 25, 27, 0.096) );
+    width: max-content;
+    display: inline-block;
+    margin: 3px;
+    transition: .2s;
+    
+}
+p.tag:hover {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 30px;
 }
