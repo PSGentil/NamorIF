@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { db } from '../index.js'
+import { v4 } from 'uuid'
 
 export default Router().post('/', async (req, res) => {
     let serverUser
@@ -15,7 +16,7 @@ export default Router().post('/', async (req, res) => {
     } else res.status(404).send() // not found
 
 }).post('/create', async (req, res) => {
-    db.data.registeredUsers.push(req.body)
+    db.data.registeredUsers.push(Object.assign({ id: v4() }, req.body))
     await db.write()
     res.status(202).send()
 })

@@ -1,6 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css?family=Solway');
 * {
-
      font-family: 'Solway';
 }
 
@@ -127,6 +127,7 @@ div#errorMessage {
     display: flex;
     justify-content: center;
     align-items: center;
+
     background-color: rgb(255, 0, 0);
     border-radius: 20px;
     position: absolute;
@@ -163,11 +164,6 @@ div#confirmLogout {
     right: 0;
     left: 0;
     margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    align-content: center;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.267);
     width: 20em;
@@ -188,4 +184,5 @@ div#confirmLogout button {
 div#confirmLogout button:hover {
     background-color: rgb(214, 214, 214);
     font-weight: bold;
+
 }

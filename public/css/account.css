@@ -17,12 +17,13 @@
     display: inline-block;
     margin: 0 auto;
     height: 100%;
-    
+
+    width: auto;
 }
 
 main {
+    padding-left: 4.4em;
     padding-top: 2%;
-
 }
 
 figure#profileImage {

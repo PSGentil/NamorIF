@@ -38,6 +38,7 @@ section {
     height: fit-content;
     border-radius: 20px 20px 0 0;
 }
+
 @keyframes slide {
     0% {top: 200%;}
     100% {top: 0;}
