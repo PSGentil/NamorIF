@@ -88,3 +88,44 @@ for (const key in campos) {
         }
     })
 }
+
+//bio
+document.querySelector(`#bio p`).innerText = window.localStorage.getItem('bio') ?? 'Biografia (edite este valor padrão)'
+
+document.querySelector(`#bio img.editIcon`).addEventListener('click', e => {
+    let display = document.querySelector(`#bio textarea`).style.display
+    const bio = window.localStorage.getItem('bio')
+
+    document.querySelector('#bio textarea').innerText = bio
+    document.querySelector(`#bio p`).innerText = bio
+
+    document.querySelector(`#bio textarea`).style.display = (display == 'inline' ? 'none': 'inline')
+    document.querySelector('#bio p').style.display = (display != 'inline'? 'none' : 'inline')
+    document.querySelector(`#bio img.saveIcon`).style.display = (display == 'inline'? 'none' : 'inline')
+})
+
+document.querySelector(`#bio img.saveIcon`).addEventListener('click', async e => {
+    let validate = util.checarCampos({bio: document.querySelector(`#bio textarea`).value.trim()})
+
+    if (validate == true) {
+        await fetch('/api/account/edit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({
+                email: window.localStorage.getItem('email'),
+                pass: window.localStorage.getItem('pass'),
+                bio: document.querySelector(`#bio textarea`).value.trim()
+            })
+        }).then(async res => {
+            if (res.status == 202) {
+                let body = await res.json()
+                for (const key in body) {
+                    window.localStorage.setItem(key, body[key])
+                }
+            }
+        })
+        window.location.reload()
+    } else {
+        util.errorMessage(validate)
+    }
+})

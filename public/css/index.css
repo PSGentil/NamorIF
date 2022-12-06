@@ -30,7 +30,6 @@ section {
     box-shadow: 0 0 1em rgba(255, 255, 255, 0.521);
     border-radius: 0 0 25px 25px;
     padding: 5px; 
-    animation: slide 1.5s; 
     font-family: 'Solway';
 }
 
@@ -39,9 +38,18 @@ section {
     border-radius: 20px 20px 0 0;
 }
 
-@keyframes slide {
-    0% {top: 200%;}
-    100% {top: 0;}
+.next {
+    animation: next 2s;
+}
+@keyframes next {
+    0% {top: 0;}
+    10% {opacity: 0;}
+    20% {top: -200%;}
+    21% {top: 200%;}
+    100% {
+        top: 0;
+        opacity: 1;
+    }
 }
 
 #options {
@@ -65,7 +73,7 @@ section {
 #nome {
     color: white;
     position: absolute;
-    bottom: 7em;
+    bottom: 8em;
     left: 5%;
     font-weight: bold;
     text-shadow: 0 0 .3em  black;

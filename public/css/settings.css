@@ -5,29 +5,79 @@
 body{
     width: 100%;
 }
-
 main {
-    background-image: linear-gradient(40deg, rgb(0, 255, 221), greenyellow);
+    position: fixed;
+    background-image: linear-gradient(20deg, #92FE9D, #00C9FF);
     width: 100%;
-    height: 41em;
+    height: 100%;
 }
 div#accountConfigPage {
+    position: fixed;
     margin: 0 auto;
     background-color: white;
     width: 30em;
     height: 100%;
-
+    box-shadow: 0 0 2em rgba(0, 0, 0, 0.349);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    vertical-align: center;
 }
-
 div.configPage input{
     display: none;
 }
 
-div.configPage label[name="procurar"]{
+div.configPage label[name="procurar"], label[name="gender"]{
     display: none;
 }
 
 div.configPage div{
-    margin: 1em auto;
     cursor: pointer;
+}
+.userInfoBox{
+    border-bottom: 2px solid gray;
+    width: 100%;
+    text-align: center;  
+    vertical-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2em 0 2em 0;
+}
+.userInfoBox:hover {
+    background-color: rgb(218, 218, 218);
+}
+.bottonSave{
+    position: fixed;
+    left: 20em;
+}
+input.newusername, input.newemail{
+    clip: auto;
+    position: relative;
+    left: 0%;
+}
+input.newsexuality{
+    clip: auto;
+    position: relative;
+    left: 0%;
+}
+#opcaoSexual{
+    clip: auto;
+    position: relative;
+}
+#confirmDeleteAccount{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#confirmDeleteAccount button{
+    background-color: white;
+    width: 10%;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+#confirmDeleteAccount button:hover {
+    cursor: pointer;
+    background-color: rgb(226, 226, 226);
 }

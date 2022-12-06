@@ -4,26 +4,29 @@ let userInfos = {
     username: window.localStorage.getItem('username'),
     email: window.localStorage.getItem('email'),
     showme: window.localStorage.getItem('showme'),
-    sexuality: window.localStorage.getItem('sexuality')
+    sexuality: window.localStorage.getItem('sexuality'),
+    gender: window.localStorage.getItem('gender')
 }
 
 for (const key in userInfos) {
 
+   
     const label = document.querySelector(`label[for=new${key}]`)
 
     if (key == 'showme') {
         switch (userInfos[key]) {
-            case 'procuraHomem':
+            case 'homem':
                 label.innerText += 'Homem'
                 break;
-            case 'procuraMulher':
+            case 'mulher':
                 label.innerText += 'Mulher'
                 break;
-            case 'procuraTodos':
+            case 'todos':
                 label.innerText += 'Todos'
                 break;
         }
-    } else label.innerText += userInfos[key]
+    }else if(key == 'gender'){ if (userInfos[key] == 'nonbinarie') label.innerText += 'Não Binário'; else label.innerText += userInfos[key].cap()} 
+    else label.innerText += userInfos[key]
 }
 
 for (let i = 0; i < document.querySelectorAll('div.userInfoBox').length - 1; i++) {
@@ -52,8 +55,8 @@ document.querySelector('img').addEventListener('click', e => {
         input[i].value = ''
         input[i].style.display = 'none'
     }
-    for (let i = 0; i < document.querySelectorAll('label[name=procurar]').length; i++) {
-        document.querySelectorAll('label[name=procurar]')[i].style.display = 'none'
+    for (let i = 0; i < document.querySelectorAll('label[name=procurar], label[name=gender]').length; i++) {
+        document.querySelectorAll('label[name=procurar], label[name=gender]')[i].style.display = 'none'
     }
     for (let i = 0; i < userInfo.length; i++) {
         userInfo[i].style.display = 'block'
@@ -74,6 +77,11 @@ document.querySelector('button').addEventListener('click', async e => {
     for (const item of document.querySelectorAll('input[name="procurar"]')) {
         if (item.checked) {
             dadosEnviados['showme'] = item.value
+        }
+    }
+    for (const item of document.querySelectorAll('input[name="gender"]')) {
+        if (item.checked) {
+            dadosEnviados['gender'] = item.value
         }
     }
 
@@ -110,10 +118,11 @@ document.querySelector('#deleteAccount').addEventListener('click', e =>{
     e.preventDefault()
 
     if (!document.querySelector('body #confirmDeleteAccount')) {
+        const settings = document.getElementById('settingsPageAccountInfo')
         const confirmDeleteAccount = document.createElement('div')
         confirmDeleteAccount.id = 'confirmDeleteAccount'
         confirmDeleteAccount.className = 'popup'
-        document.body.appendChild(confirmDeleteAccount)
+        settings.appendChild(confirmDeleteAccount)
 
         const confirmDeleteAccountTitle = document.createElement('p')
         confirmDeleteAccountTitle.innerText = 'Deseja realmente excluir sua conta?'

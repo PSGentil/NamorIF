@@ -18,7 +18,7 @@
         <div id="accountConfigPage" class="configPage">
             <section id="settingsPageAccountInfo">
                 <img src="../images/setaHorizontal.png" alt="" style="display: none;">
-                <button style="display: none;">Salvar Alterações</button>
+                <button id="bottonSave" style="display: none;">Salvar Alterações</button>
 
                 <div class="userInfoBox">
                     <label for="newusername" style="display: block;">Nome de Usuário: </label>
@@ -31,22 +31,33 @@
                 </div>
 
                 <div class="userInfoBox">
-                    <label for="newshowme" style="display: block;">Me Mostre: </label>
-                        <label for="procuraHomem" name="procurar">Homem</label>
-                        <input type="radio" value="procuraHomem" name="procurar">
+                    <label for="newshowme" style="display: block;">Mostre minha conta para: </label>
+                        <label for="homem" name="procurar">Homem</label>
+                        <input type="radio" value="homem" name="procurar">
                             
-                        <label for="procuraMulher" name="procurar">Mulher</label>
-                        <input type="radio" value="procuraMulher" name="procurar">
+                        <label for="mulher" name="procurar">Mulher</label>
+                        <input type="radio" value="mulher" name="procurar">
 
-
-                        <label for="procuraTodos" name="procurar">Todos</label>
-                        <input type="radio" value="procuraTodos" name="procurar">
+                        <label for="todos" name="procurar">Todos</label>
+                        <input type="radio" value="todos" name="procurar">
                 </div>
 
                 <div class="userInfoBox">
-                    <label for="newsexuality" class="newsexuality">Eu Sou: </label>
+                    <label for="newgender" style="display: block;">Me identifico como: </label>
+                        <label for="homem" name="gender">Homem</label>
+                        <input type="radio" value="homem" name="gender">
+                            
+                        <label for="mulher" name="gender">Mulher</label>
+                        <input type="radio" value="mulher" name="gender">
+
+                        <label for="todos" name="gender">Não binário</label>
+                        <input type="radio" value="nonbinarie" name="gender">
+                </div>
+
+                <div class="userInfoBox">
+                    <label for="newsexuality" class="newsexuality">Sexualidade: </label>
                     <select id="opcaoSexual" style="display: none;" class="newsexuality">
-                        <option value="placeholder">Selecione</option>
+                        <option value="">Selecione</option>
                         <option value="Hetero">Hétero</option>
                         <option value="Gay">Gay</option>
                         <option value="Lesbica">Lésbica</option>
