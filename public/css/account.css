@@ -33,7 +33,7 @@ figure#profileImage {
     z-index: 0;
     display: inline-block;
     width: 20em;
-    left: 6em;
+    left: 5em;
     top: 5em;
     border: 5px solid white;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.24);
@@ -95,12 +95,15 @@ div.userInfo {
     top: 11em;
     left: 28em;
 }
-div input {
+div input, div textarea {
     padding: 10px;
     border: 3px solid rgb(115, 243, 190);
     outline: none;
     border-radius: 10px;
     box-shadow: inset 0 0 .5em rgba(0, 0, 0, 0.295);
+}
+div input[type = image] {
+    border: none;
 }
 
 h1 {
@@ -108,6 +111,10 @@ h1 {
 }
 input {
     display: none;
+}
+textarea{
+    display: none;
+    resize: none;
 }
 #name {
     font-size: 3em;
@@ -118,7 +125,7 @@ div#tags {
     border-radius: 10px;
     position: absolute;
     top: 27em;
-    left: 6em;
+    left: 9em;
 }
 p.tag {
     padding: 5px;
@@ -135,4 +142,8 @@ p.tag:hover {
     cursor: pointer;
     padding: 10px;
     border-radius: 30px;
+}
+#bio p {
+    width: 25em;
+    display: inline;
 }

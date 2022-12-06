@@ -61,19 +61,11 @@ export default class util {
         } else return null;
     }
     /**
-     * @param {string} username
-     * @returns {Object} server data of user
+     * @param {string} token
+     * @returns {Promise<Object>} server data of user
      */
-    static async getAccount(username) {
-        return await (
-            await fetch("/api/account", {
-                method: "POST",
-                headers: { "Content-Type": "application/json; charset=UTF-8" },
-                body: JSON.stringify({
-                    username: username,
-                }),
-            })
-        ).json();
+    static async getUser(token) {
+        return await (await fetch(`/api/social/profile/${token}`, { method: "GET" })).json();
     }
     /**
      * @param {string} usernameOrEmail
@@ -342,3 +334,13 @@ export default class util {
         }
     }
 }
+
+Object.assign(String.prototype, {
+    cap() {
+        return this.charAt(0).toUpperCase() + this.slice(1)
+    },
+
+    uncap() {
+        return this.charAt(0).toLowerCase() + this.slice(1)
+    }
+})

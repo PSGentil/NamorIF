@@ -1,86 +1,104 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../css/createAccount.css">
-        <link rel="stylesheet" type="text/css" href="../css/nav.css">
-        <link rel="icon" type="image/x-icon" href="../images/icon.png">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script defer src="../js/createAccount.js" type="module"></script>
-        <title>Criar Conta</title>
-    </head>
-    <body>
-        <main>
-            <div id="painelCadastro">
-                <header id="headerCadastro">
-                    <h1>Cadastro</h1><br>
-                    <img src="../images/setaHorizontal.png" alt="">
-                    <p>SKIP</p>
-                </header>
 
-                <form id="cadastroEtapa1" style="display: block;">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/createAccount.css">
+    <link rel="stylesheet" type="text/css" href="../css/nav.css">
+    <link rel="icon" type="image/x-icon" href="../images/icon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="../js/createAccount.js" type="module"></script>
+    <title>Criar Conta</title>
+</head>
 
-                    <input type="text" placeholder="Nome" id="nome" required> <br>
-                    <input type="text" placeholder="Sobrenome" id="sobrenome" required> <br>
+<body>
+    <main>
+        <div id="painelCadastro">
+            <header id="headerCadastro">
+                <h1>Cadastro</h1><br>
+                <img src="../images/setaHorizontal.png" alt="">
+                <p>SKIP</p>
+            </header>
 
-                    <input type="text" placeholder="Nome de Usuário" id="username" name="username" required> <br>
-                    <input type="email" placeholder="Email" id="email" name="email" required> <br>
-                    <input type="password" placeholder="Senha" id="senha" name="password" required>
-                    <input type="password" placeholder="Confirmar senha" id="confirmarSenha" name="password" required>
+            <form id="cadastroEtapa1" style="display: block;">
 
-                    <br><br><label for="dataNascimento">Data de Nascimento:</label>
-                    <input id="dataNascimento" type="date">
+                <input type="text" placeholder="Nome" id="nome" required> <br>
+                <input type="text" placeholder="Sobrenome" id="sobrenome" required> <br>
 
-                </form>
+                <input type="text" placeholder="Nome de Usuário" id="username" name="username" required> <br>
+                <input type="email" placeholder="Email" id="email" name="email" required> <br>
+                <input type="password" placeholder="Senha" id="senha" name="password" required>
+                <input type="password" placeholder="Confirmar senha" id="confirmarSenha" name="password" required>
 
-                <form id="cadastroEtapa2">
+                <br><br><label for="dataNascimento">Data de Nascimento:</label>
+                <input id="dataNascimento" type="date">
 
-                    <fieldset>
+            </form>
 
-                        <legend>Eu Sou:</legend>
+            <form id="cadastroEtapa2">
 
-                        <select id="opcaoSexual">
-                            <option value="placeholder">Selecione</option>
-                            <option value="Hetero">Hétero</option>
-                            <option value="Gay">Gay</option>
-                            <option value="Lesbica">Lésbica</option>
-                            <option value="Bissexual">Bissexual</option>
-                            <option value="Outro">Outro</option>
-                        </select>
+                <fieldset>
 
-                    </fieldset>
+                    <legend>Eu Sou:</legend>
 
-                    <fieldset>
+                    <select id="opcaoSexual">
+                        <option value="placeholder">Selecione</option>
+                        <option value="Hetero">Hétero</option>
+                        <option value="Gay">Gay</option>
+                        <option value="Lesbica">Lésbica</option>
+                        <option value="Bissexual">Bissexual</option>
+                        <option value="Outro">Outro</option>
+                    </select>
 
-                        <legend>Me mostre:</legend>
+                </fieldset>
 
-                        <label for="procuraHomem">
-                        <input type="radio" name="procurar" class="procura" value="procuraHomem"> Homem
-                        </label><br>
+                <fieldset>
 
-                        <label for="procuraMulher">
-                        <input type="radio" name="procurar" class="procura" value="procuraMulher"> Mulher
-                        </label><br>
+                    <legend>Mostre meu perfil para: </legend>
 
-                        <label for="procuraTodos">
-                        <input type="radio" name="procurar" class="procura" value="procuraTodos"> Todos!
-                        </label><br>
+                    <label for="homem">
+                        <input type="radio" name="procurar" class="procura" value="homem"> Homem
+                    </label><br>
 
-                    </fieldset>
+                    <label for="mulher">
+                        <input type="radio" name="procurar" class="procura" value="mulher"> Mulher
+                    </label><br>
 
-                </form>
+                    <label for="todos">
+                        <input type="radio" name="procurar" class="procura" value="todos"> Todos!
+                    </label><br>
 
-                <form id="cadastroEtapa3">
-                    <label for="imagem">
-                        <input type="file" name="imagem" id="profileImg" accept="image/jpeg, image/png, image/jpg">
-                    </label>
-                    <div></div>
-                </form>
+                </fieldset>
 
-                <input type="submit" id="createAccountButton" value="Continuar"></input>
+                <fieldset>
 
-            </div>
-        </main>
-    </body>
+                    <legend>Me indentifico como: </legend>
+
+                    <label for="homem" name="eusou">Homem</label>
+                    <input type="radio" value="homem" class="gender" name="eusou">
+
+                    <label for="mulher" name="procurar">Mulher</label>
+                    <input type="radio" value="mulher" class="gender" name="eusou">
+
+                    <label for="todos" name="procurar">Não Binário</label>
+                    <input type="radio" value="nonbinarie" class="gender" name="eusou">
+
+                </fieldset>
+
+            </form>
+
+            <form id="cadastroEtapa3">
+                <label for="imagem">
+                    <input type="file" name="imagem" id="profileImg" accept="image/jpeg, image/png, image/jpg">
+                </label>
+                <div></div>
+            </form>
+
+            <input type="submit" id="createAccountButton" value="Continuar"></input>
+
+        </div>
+    </main>
+</body>
+
 </html>

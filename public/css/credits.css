@@ -15,10 +15,10 @@ img#back {
 img#back:hover {
     filter: none;
     cursor: pointer;
-    width: 3.2%;
 }
 div.perfil:hover img.criador {
     width: 16em;
+    border-radius: 0;
 }
 img.criador {
     width: 12em;

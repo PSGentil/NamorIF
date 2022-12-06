@@ -16,6 +16,7 @@ inputImg.addEventListener("change", () => {
 })
 
 let inputMostrar
+let inputEuSou
 document.getElementById('createAccountButton').addEventListener('click', async e => {
     e.preventDefault()
 
@@ -50,10 +51,21 @@ document.getElementById('createAccountButton').addEventListener('click', async e
             verificarPreenchido = util.checarCampos(camposPrimeiraPagina)            
             break
         case 1:
-            for (const item of document.querySelectorAll('input[name="procurar"]')) {
+            for (const item of document.querySelectorAll('input[name="procurar"], input[name="eusou"]')) {
                 if (item.checked) {
-                    camposSegundaPagina.mostrar = item.value
-                    inputMostrar = item.value
+                    switch(item.className){
+                        case 'procura':
+                            camposSegundaPagina.mostrar = item.value
+                            inputMostrar = item.value
+                            break
+                        case 'gender':
+                            camposSegundaPagina.eusou = item.value
+                            inputEuSou = item.value
+                            break
+                        default:
+                            window.alert(item.className)
+                            break
+                    }
                 }
             }
             verificarPreenchido = util.checarCampos(camposSegundaPagina)
@@ -75,7 +87,10 @@ document.getElementById('createAccountButton').addEventListener('click', async e
                 birthdate: inputDataNascimento,
                 sexuality: inputSexualidade,
                 showme: inputMostrar,
-                profilePhoto: profilePhoto
+                gender: inputEuSou,
+                profilePhoto: profilePhoto,
+                love: [],
+                deny: []
             })
         } else {
             etapaAtualCriarConta++
