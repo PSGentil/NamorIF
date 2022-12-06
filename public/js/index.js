@@ -5,7 +5,7 @@ let nome = document.getElementById('nome')
 let desc = document.getElementById('descricao')
 let profile = document.getElementById('nextProfile')
 
-if (!window.localStorage.getItem('isLogged')){
+if (!localStorage.getItem('isLogged')){
     displayProfile(null)
 } 
 else await findProfile() 
@@ -24,10 +24,10 @@ document.querySelector('img#love').addEventListener('click', e => {
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
         body: JSON.stringify({
             // User
-            email: window.localStorage.getItem('email'),
-            pass: window.localStorage.getItem('pass'),
+            email: localStorage.getItem('email'),
+            pass: localStorage.getItem('pass'),
             // Loved person
-            id: window.localStorage.getItem('atualProfile')
+            id: localStorage.getItem('atualProfile')
         })
     })
     findProfile()
@@ -39,20 +39,20 @@ document.querySelector('img#deny').addEventListener('click', e => {
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
         body: JSON.stringify({
             // User
-            email: window.localStorage.getItem('email'),
-            pass: window.localStorage.getItem('pass'),
+            email: localStorage.getItem('email'),
+            pass: localStorage.getItem('pass'),
             // Denied person
-            id: window.localStorage.getItem('atualProfile')
+            id: localStorage.getItem('atualProfile')
         })
     })
     findProfile()
 })
 
 async function findProfile() {
-    fetch(`/api/social/profile/${window.localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
+    fetch(`/api/social/profile/${localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
         if (res.ok) {
             let atualProfile = await res.json()
-            window.localStorage.setItem('atualProfile', atualProfile.id)
+            localStorage.setItem('atualProfile', atualProfile.id)
             displayProfile(atualProfile)
         } else {
             displayProfile(null)

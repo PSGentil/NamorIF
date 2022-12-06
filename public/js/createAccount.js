@@ -41,7 +41,8 @@ document.getElementById('createAccountButton').addEventListener('click', async e
 
     let camposSegundaPagina = {
         sexualidade: inputSexualidade,
-        mostrar: false
+        mostrar: false,
+        eusou: false
     }
 
     let verificarPreenchido

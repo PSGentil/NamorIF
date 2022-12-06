@@ -1,5 +1,3 @@
-import imgs from "./imgs.js";
-
 export default class util {
     /**
      * @param {string} dataURL
@@ -28,7 +26,6 @@ export default class util {
             });
         }
 
-        imgs.set(id, { id: id, string: dataURL, completed: true });
         return id;
     }
     /**
@@ -36,8 +33,6 @@ export default class util {
      * @returns {Promise<string> | null} `dataURL` **OR** `null` if not found
      */
     static async getImg(id) {
-        if (imgs.get(id)) return imgs.get(id).string;
-
         const img = { id: id, string: "", completed: false };
 
         for (let i = 0; !img.completed; i += 3000) {
@@ -56,7 +51,6 @@ export default class util {
         }
 
         if (img.completed) {
-            //imgs.set(img)
             return img.string;
         } else return null;
     }
@@ -83,7 +77,7 @@ export default class util {
         });
     }
     /**
-     * @param {{nome: string, sobrenome: string, username: string, email: string, pass: string, birthdate: number, sexuality: string, showme: string, profilePhoto: string}} info
+     * @param {Object} info
      */
     static async criarConta(info) {
         let resposta;
@@ -109,9 +103,9 @@ export default class util {
                 }).then(async (res) => {
                     if (res.ok) {
                         for (const key in info) {
-                            window.localStorage.setItem(key, info[key]);
+                            localStorage.setItem(key, info[key]);
                         }
-                        window.localStorage.setItem("isLogged", true);
+                        localStorage.setItem("isLogged", true);
 
                         window.location.href = "../pages/account.html";
                     }
@@ -158,16 +152,11 @@ export default class util {
             else if (key == "birthdate")
                 validate = this.validateBirthdate(valores[key]);
             else if (key == "pass") {
-                if (valores["passConfirm"])
-                    validate = this.validatePassword(
-                        valores[key],
-                        valores["passConfirm"]
-                    );
-                else
-                    validate = this.validatePassword(
-                        valores[key],
-                        valores["passConfirm"]
-                    );
+                if (valores["passConfirm"]) {
+                    validate = this.validatePassword(valores[key], valores["passConfirm"])
+                } else {
+                    validate = this.validatePassword(valores[key])
+                }
             }
 
             if (validate != true) return validate;
@@ -248,7 +237,7 @@ export default class util {
     }
 
     static validatePassword(pass, passConfirm) {
-        if (passConfirm != undefined) {
+        if (passConfirm) {
             if (pass != passConfirm) return "senhasDiferentes";
         }
         if (pass.length <= 5) return "senhaCurta";

@@ -1,16 +1,14 @@
 import util from './util.js'
 
 let userInfos = {
-    username: window.localStorage.getItem('username'),
-    email: window.localStorage.getItem('email'),
-    showme: window.localStorage.getItem('showme'),
-    sexuality: window.localStorage.getItem('sexuality'),
-    gender: window.localStorage.getItem('gender')
+    username: localStorage.getItem('username'),
+    email: localStorage.getItem('email'),
+    showme: localStorage.getItem('showme'),
+    sexuality: localStorage.getItem('sexuality'),
+    gender: localStorage.getItem('gender')
 }
 
 for (const key in userInfos) {
-
-   
     const label = document.querySelector(`label[for=new${key}]`)
 
     if (key == 'showme') {
@@ -25,7 +23,7 @@ for (const key in userInfos) {
                 label.innerText += 'Todos'
                 break;
         }
-    }else if(key == 'gender'){ if (userInfos[key] == 'nonbinarie') label.innerText += 'Não Binário'; else label.innerText += userInfos[key].cap()} 
+    } else if (key == 'gender') { if (userInfos[key] == 'nonbinarie') label.innerText += 'Não Binário'; else label.innerText += userInfos[key].cap() }
     else label.innerText += userInfos[key]
 }
 
@@ -87,7 +85,7 @@ document.querySelector('button').addEventListener('click', async e => {
 
     console.log(dadosEnviados)
     let camposValidados = util.checarCampos(dadosEnviados)
-    
+
     if (camposValidados == true) {
         await fetch('/api/account/edit', {
             method: 'POST',
@@ -97,15 +95,15 @@ document.querySelector('button').addEventListener('click', async e => {
             if (res.status == 202) {
                 let body = await res.json()
                 for (const key in body) {
-                    window.localStorage.setItem(key, body[key])
+                    localStorage.setItem(key, body[key])
                 }
-                window.localStorage.setItem('isLogged', true)
-
+                localStorage.setItem('isLogged', true)
+                window.location.reload()
             } else if (res.status == 409) {
                 util.errorMessage('email ou username já existem')
             } else {
                 window.location.reload()
-                window.localStorage.clear()
+                localStorage.clear()
             }
         })
     } else {
@@ -113,7 +111,7 @@ document.querySelector('button').addEventListener('click', async e => {
     }
 })
 
-document.querySelector('#deleteAccount').addEventListener('click', e =>{
+document.querySelector('#deleteAccount').addEventListener('click', e => {
 
     e.preventDefault()
 
@@ -138,7 +136,7 @@ document.querySelector('#deleteAccount').addEventListener('click', e =>{
         noButton.name = 'no'
         noButton.innerText = 'Não'
         confirmDeleteAccount.appendChild(noButton)
-        noButton.addEventListener('click', e =>{
+        noButton.addEventListener('click', e => {
             const display = document.getElementById('confirmDeleteAccount').style.display
             document.getElementById('confirmDeleteAccount').style.display = (display == 'none' ? 'flex' : 'none')
         })
@@ -148,7 +146,16 @@ document.querySelector('#deleteAccount').addEventListener('click', e =>{
     }
 
     function deleteAccount() {
-
+        fetch('/api/account', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({
+                email: userInfos.email,
+                pass: localStorage.getItem('pass')
+            })
+        }).then(() => {
+            localStorage.clear()
+            window.open('../', '_self')
+        })
     }
-
 })

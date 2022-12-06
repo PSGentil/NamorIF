@@ -4,7 +4,7 @@ import './navInit.js'
 let loginAccountMethod
 
 function logPageSwitch(e) {
-    let isLogged = window.localStorage.getItem('isLogged')
+    let isLogged = localStorage.getItem('isLogged')
 
     if (!isLogged || e.target.id == 'closeLogin') {
         let display = document.getElementById('logPage').style.display
@@ -15,7 +15,7 @@ function logPageSwitch(e) {
 }
 
 if (localStorage.getItem('profilePhoto') != null) {
-    const userPhoto = await util.getImg(window.localStorage.getItem('profilePhoto'))
+    const userPhoto = await util.getImg(localStorage.getItem('profilePhoto'))
     document.getElementById('loginIcon').src = userPhoto
 }
 
@@ -73,7 +73,7 @@ document.querySelector('#logout').addEventListener('click', e => {
 
     function logout() {
 
-        window.localStorage.clear()
+        localStorage.clear()
         if (window.location.href != '../index.html') window.open('../index.html', '_self')
         else window.location.reload()
 
@@ -90,7 +90,7 @@ document.querySelector('#settingsIcon').addEventListener('click', e => {
 document.querySelector('#closeLogin').addEventListener('click', logPageSwitch)
 
 document.getElementById('accountSettings').addEventListener('click', e => {
-    if (window.localStorage.getItem('isLogged')) window.open('../pages/accountSettings.html', '_self')
+    if (localStorage.getItem('isLogged')) window.open('../pages/accountSettings.html', '_self')
     else window.open('#', '_self')
 })
 
@@ -110,13 +110,13 @@ document.getElementById('logButton').addEventListener('click', e => {
             if (res.status == 202) {
                 let body = await res.json()
                 for (const key in body) {
-                    window.localStorage.setItem(key, body[key])
+                    localStorage.setItem(key, body[key])
                 }
-                window.localStorage.setItem('isLogged', true)
-                document.getElementById('logPage').style.display = 'none'
+                localStorage.setItem('isLogged', true)
+                window.location.reload()
             } else {
                 window.alert("senha incorreta")
-                window.localStorage.setItem('isLogged', '')
+                localStorage.setItem('isLogged', '')
             }
         })
     }
