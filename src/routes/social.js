@@ -8,9 +8,13 @@ export default Router().post('/love', async (req, res) => {
     if (!lovedUser) {
         res.status(404).send()
     } else if (serverUser != -1) {
-        if (!serverUser.love.find(u => u == lovedUser.id)) serverUser.love.push(lovedUser.id)
-        await db.write()
-        res.status(202).send()
+        if (!serverUser.love.find(u => u == lovedUser.id)) {
+            serverUser.love.push(lovedUser.id)
+            await db.write()
+            res.status(200).send()
+        } else {
+            res.status(202).send(lovedUser.id)
+        }
     } else res.status(401).send()
 }).post('/deny', async (req, res) => {
     const serverUser = db.data.registeredUsers.find(u => u.email == req.body.email && u.pass == req.body.pass)
