@@ -7,8 +7,7 @@ let profile = document.getElementById('nextProfile')
 
 if (!localStorage.getItem('isLogged')){
     displayProfile(null)
-} 
-else await findProfile() 
+} else await findProfile() 
 
 for (const botao of document.querySelectorAll('img.botao')) {
     botao.addEventListener('click', e => {
@@ -61,7 +60,6 @@ async function findProfile() {
 }
 
 async function displayProfile(atual) {
-
     if (atual) {
         img.src = await util.getImg(atual.profilePhoto)
         nome.innerText = `${atual.name} ${atual.lastname}`
@@ -73,5 +71,4 @@ async function displayProfile(atual) {
         desc.innerText = 'Não foi possível encontrar alguém que seja compatível com você no momento.'
         document.querySelector('#legenda').style.display = 'none'
     }
-
 }
