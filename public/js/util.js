@@ -8,7 +8,7 @@ export default class util {
 
         await fetch("/api/img", {
             method: "POST",
-            headers: { "Content-Type": "application/json charset=UTF-8" },
+            headers: { "Content-Type": "application/json; charset=UTF-8" },
             body: JSON.stringify({
                 string: dataURL.slice(0, 3000),
                 completed: false,
@@ -18,7 +18,7 @@ export default class util {
         for (i = 3000; i <= dataURL.length; i += 3000) {
             await fetch(`/api/img/${id}`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json charset=UTF-8" },
+                headers: { "Content-Type": "application/json; charset=UTF-8" },
                 body: JSON.stringify({
                     string: dataURL.slice(i, i + 3000),
                     completed: !(i + 3000 < dataURL.length),
@@ -67,7 +67,7 @@ export default class util {
     static enviarLogin(usernameOrEmail, pass) {
         return fetch("/api/login", {
             method: "POST",
-            headers: { "Content-Type": "application/json charset=UTF-8" },
+            headers: { "Content-Type": "application/json; charset=UTF-8" },
             body: JSON.stringify({
                 username: usernameOrEmail.includes("@") ? "" : usernameOrEmail,
                 email: usernameOrEmail.includes("@") ? usernameOrEmail : "",
@@ -83,7 +83,7 @@ export default class util {
 
         await fetch("/api/account/validate", {
             method: "POST",
-            headers: { "Content-Type": "application/json charset=UTF-8" },
+            headers: { "Content-Type": "application/json; charset=UTF-8" },
             body: JSON.stringify({
                 email: info.email,
                 username: info.username,
@@ -97,7 +97,7 @@ export default class util {
             case false:
                 fetch("/api/login/create", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json charset=UTF-8" },
+                    headers: { "Content-Type": "application/json; charset=UTF-8" },
                     body: JSON.stringify(info),
                 }).then(async (res) => {
                     if (res.ok) {

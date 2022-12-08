@@ -7,13 +7,18 @@ export default Router().post('/love', async (req, res) => {
 
     if (!lovedUser) {
         res.status(404).send()
-    } else if (serverUser != -1) {
+    } else if (serverUser) {
         if (!serverUser.love.find(u => u == lovedUser.id)) {
             serverUser.love.push(lovedUser.id)
+
+            if (!lovedUser.love.find(u => u == serverUser.id)) {
+                res.status(200).send()
+            } else {
+                serverUser.friends.push(lovedUser.id)
+                lovedUser.friends.push(serverUser.id)
+                res.status(202).send('match')
+            }
             await db.write()
-            res.status(200).send()
-        } else {
-            res.status(202).send(lovedUser.id)
         }
     } else res.status(401).send()
 }).post('/deny', async (req, res) => {
@@ -32,9 +37,8 @@ export default Router().post('/love', async (req, res) => {
     if (user) {
         const nextUser = db.data.registeredUsers.find(u => checkCompatibility(user, u) && u.id != req.params.id)
 
-        if (nextUser) return res.status(200).send({ ...nextUser, email: null, pass: null })
-    }
-    res.status(404).send(null)
+        if (nextUser) res.status(200).send({ ...nextUser, email: null, pass: null })
+    } else res.status(404).send(null)
 })
 
 function checkCompatibility(source, target) {

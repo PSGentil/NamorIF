@@ -89,9 +89,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
                 sexuality: inputSexualidade,
                 showme: inputMostrar,
                 gender: inputEuSou,
-                profilePhoto: profilePhoto,
-                love: [],
-                deny: []
+                profilePhoto: profilePhoto
             })
         } else {
             etapaAtualCriarConta++
