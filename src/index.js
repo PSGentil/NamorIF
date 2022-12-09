@@ -6,9 +6,10 @@ import login from './routes/login.js'
 import account from './routes/account.js'
 import img from './routes/img.js'
 import social from './routes/social.js'
+import chat from './routes/chat.js'
 
-export const db = new Low(new JSONFile('./db.json'))
-await db.read(); db.data ||= { registeredUsers: [] }; await db.write()
+export const userdb = new Low(new JSONFile('./src/database/userdb.json'))
+await userdb.read(); userdb.data ||= []; await userdb.write()
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use('/api/login', login)
 app.use('/api/account', account)
 app.use('/api/img', img)
 app.use('/api/social', social)
+app.use('/api/chat', chat)
 
 app.listen(3000, () => {
     console.log('ligado')

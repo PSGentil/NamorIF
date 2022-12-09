@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    font-family: 'Solway';
+}
+
+body {
+    height: 100vh;
+    position: relative;
+}
+
+main {
+    margin-left: 4.45em;
+    border: 1px blue solid;
+    height: 100%;
+}
+
+section{
+    display: inline-block;
+}
+
+section#matchs {
+    border: 1px red solid;
+    position: absolute;
+    left: 0;
+    width: 40%;
+    height: 100%;
+}
+
+section#matchs div {
+    border: 1px black solid;
+    margin-left: 4.45em;
+    width: 100%;
+    height: 5em;
+}
+
+section#matchs div:hover {
+    cursor: pointer;
+}
+
+section#matchs img {
+    height: 100%;
+}
+
+section#conversa {
+    border: 1px solid black;
+    position: absolute;
+    right: 0;
+    width: 60%;
+    height: 100%;
+}
+
+div#sendMessage{
+    display: none;
+}
+
+p{
+    display: inline;
+}

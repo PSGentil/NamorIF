@@ -1,13 +1,13 @@
 import { Router } from 'express'
-import { db } from '../index.js'
+import { userdb } from '../index.js'
 import { v4 } from 'uuid'
 
 export default Router().post('/', async (req, res) => {
     let serverUser
     if (req.body.email) {
-        serverUser = db.data.registeredUsers.find(u => u.email == req.body.email)
+        serverUser = userdb.data.find(u => u.email == req.body.email)
     } else {
-        serverUser = db.data.registeredUsers.find(u => u.username == req.body.username)
+        serverUser = userdb.data.find(u => u.username == req.body.username)
     }
 
     if (serverUser) {
@@ -16,7 +16,7 @@ export default Router().post('/', async (req, res) => {
     } else res.status(404).send() // not found
 
 }).post('/create', async (req, res) => {
-    db.data.registeredUsers.push({ id: v4(), ...req.body, love: [], deny: [], friends: [] })
-    await db.write()
+    userdb.data.push({ id: v4(), ...req.body, love: [], deny: [], friends: [] })
+    await userdb.write()
     res.status(202).send()
 })

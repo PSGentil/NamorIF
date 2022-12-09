@@ -52,6 +52,7 @@ settingsPopup.appendChild(logout)
 const icons = {
     loginIcon: document.createElement('img'),
     homeIcon: document.createElement('img'),
+    chatIcon: document.createElement('img'),
     bottom: {
         settingsIcon: document.createElement('img')
     }
@@ -76,7 +77,6 @@ for (const key in icons) {
 }
 
 //popuplogin
-
 const logPage = document.createElement('div')
 logPage.id = 'logPage'
 logPage.className = 'popup'

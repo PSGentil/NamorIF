@@ -1,4 +1,6 @@
 package-lock.json
 node_modules
-db.json
+userdb.json
 imgdb.json
+chatdb.json
+src/database/images/*.png

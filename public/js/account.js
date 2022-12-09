@@ -37,10 +37,7 @@ document.querySelector(`#profileImage img.editIcon`).addEventListener('click', e
                 })
             }).then(async res => {
                 if (res.status == 202) {
-                    let body = await res.json()
-                    for (const key in body) {
-                        localStorage.setItem(key, body[key])
-                    }
+                    util.save(await res.json())
                 }
             })
             window.location.reload()
@@ -76,10 +73,7 @@ for (const key in campos) {
                 })
             }).then(async res => {
                 if (res.status == 202) {
-                    let body = await res.json()
-                    for (const key in body) {
-                        localStorage.setItem(key, body[key])
-                    }
+                    util.save(await res.json())
                 }
             })
             window.location.reload()
@@ -118,10 +112,7 @@ document.querySelector(`#bio img.saveIcon`).addEventListener('click', async e =>
             })
         }).then(async res => {
             if (res.status == 202) {
-                let body = await res.json()
-                for (const key in body) {
-                    localStorage.setItem(key, body[key])
-                }
+                util.save(await res.json())
             }
         })
         window.location.reload()

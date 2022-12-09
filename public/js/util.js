@@ -58,7 +58,7 @@ export default class util {
      * @returns {Promise<Object>} server data of user
      */
     static async getUser(token) {
-        return await (await fetch(`/api/social/profile/${token}`, { method: "GET" })).json()
+        return await (await fetch(`/api/account/${token}`, { method: "GET" })).json()
     }
     /**
      * @param {string} usernameOrEmail
@@ -141,7 +141,7 @@ export default class util {
     static checarCampos(valores) {
         let validate = true
         for (const key in valores) {
-            if (!valores[key] || valores[key] == "placeholder") return key
+            if (!valores[key] || valores[key] == "placeholder") return "camposVazios"
 
             if (valores["newEmail"]) {
                 if (key == "newEmail") validate = this.validateEmail(valores[key])
@@ -287,6 +287,9 @@ export default class util {
             case "dataInvalida":
                 message = "Digite uma data válida."
                 break
+            case "camposVazios":
+                message = "Preencha todos os campos corretamente"
+                break;
             default:
                 message = "Você achou um erro no site! Por favor nos informe dele para que possamos corrigi-lo!"
                 break
@@ -307,6 +310,12 @@ export default class util {
             let display = document.querySelector("div#errorMessage").style.display
             document.querySelector("div#errorMessage").style.display = display == "none" ? "flex" : "none"
             document.querySelector("div#errorMessage").innerText = message
+        }
+    }
+
+    static save(body) {
+        for (const key in body) {
+            localStorage.setItem(key, body[key])
         }
     }
 }

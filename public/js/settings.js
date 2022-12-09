@@ -40,7 +40,6 @@ for (let i = 0; i < document.querySelectorAll('div.userInfoBox').length - 1; i++
             userInfo[i].children[index].style.display = 'block'
         }
     })
-
 }
 
 document.querySelector('img').addEventListener('click', e => {
@@ -93,10 +92,7 @@ document.querySelector('button').addEventListener('click', async e => {
             body: JSON.stringify(dadosEnviados)
         }).then(async res => {
             if (res.status == 202) {
-                let body = await res.json()
-                for (const key in body) {
-                    localStorage.setItem(key, body[key])
-                }
+                util.save(await res.json())
                 localStorage.setItem('isLogged', true)
                 window.location.reload()
             } else if (res.status == 409) {

@@ -107,7 +107,6 @@ section {
     cursor: pointer;
     transition: .3s;
 }
-.profile {
+#profile {
     width: 30em;
-
 }
