@@ -1,5 +1,5 @@
 import util from "./util.js"
-let userFriends, atualChat, interval, sendDelay = Date.now(), users = { [localStorage.getItem('id')]: { name: localStorage.getItem('name') } }
+let userFriends, atualChat, interval, pause = true, sendDelay = Date.now(), users = { [localStorage.getItem('id')]: { name: localStorage.getItem('name') } }
 
 await fetch(`/api/social/friends/${localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
     if (res.ok) {
@@ -33,8 +33,9 @@ await fetch(`/api/social/friends/${localStorage.getItem('id')}`, { method: 'GET'
 })
 
 document.querySelector('button').addEventListener('click', async () => {
-    if (Date.now() - sendDelay > 600) {
+    if (Date.now() - sendDelay > 600 && pause) {
         sendDelay = Date.now()
+        pause = false
         if (document.querySelector('input').value) {
             await fetch(`/api/chat/message/${atualChat}`, {
                 method: 'POST',
@@ -47,7 +48,6 @@ document.querySelector('button').addEventListener('click', async () => {
             }).then(async res => {
                 if (res.ok) {
                     document.querySelector('input').value = ''
-                    displayChannel(await res.json())
                 }
             })
         }
@@ -64,9 +64,9 @@ document.addEventListener('keydown', e => {
 async function openChat(e) {
     atualChat = e.target.className
     clearInterval(interval)
-    document.querySelector('div#sendMessage').style.display = 'block'
 
     await initialMessages()
+    document.querySelector('div#sendMessage').style.display = 'block'
 
     interval = setInterval(updateMessages, 500)
 
@@ -83,6 +83,7 @@ async function openChat(e) {
             if (res.status == 202) {
                 displayChannel(await res.json())
             }
+            pause = true
         })
     }
 }
@@ -99,9 +100,11 @@ function displayChannel(channel) {
             messagesDiv.appendChild(msgDiv)
         }
     } else {
-        const msgDiv = document.createElement('div')
-        msgDiv.innerText = `${users[channel.owner].name}: ${channel.content}`
-        messagesDiv.appendChild(msgDiv)
+        for (const msg of channel) {
+            const msgDiv = document.createElement('div')
+            msgDiv.innerText = `${users[msg.owner].name}: ${msg.content}`
+            messagesDiv.appendChild(msgDiv)
+        }
     }
 }
 

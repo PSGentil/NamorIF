@@ -22,8 +22,9 @@ export default Router().post('/channel/initial/:id/:index', async (req, res) => 
     if (serverUser) {
         const channel = chatdb.data.find(ch => ch.users.includes(serverUser.id) && ch.users.includes(req.params.id))
         if (channel) {
-            if (Object.keys(channel.messages).length == req.body.length) res.status(200).send()
-            else res.status(202).send(Object.values(channel.messages).at(-1))
+            const length = Object.keys(channel.messages).length
+            if (length == req.body.length) res.status(200).send()
+            else res.status(202).send(Object.values(channel.messages).slice(req.body.length, length))
         } else res.status(404).send()
     } else res.status(401).send()
 }).post('/message/:id', async (req, res) => {
@@ -31,7 +32,7 @@ export default Router().post('/channel/initial/:id/:index', async (req, res) => 
     if (serverUser) {
         const channel = chatdb.data.find(ch => ch.users.includes(serverUser.id) && ch.users.includes(req.params.id))
         if (channel) {
-            const id = v4()
+            const id = Object.keys(channel.messages).length
             channel.messages[id] = {
                 id: id,
                 content: req.body.content,

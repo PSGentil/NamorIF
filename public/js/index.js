@@ -17,6 +17,18 @@ if (!localStorage.getItem('isLogged')) {
     await findProfile()
 }
 
+document.querySelector('button#criar').addEventListener('click', () => {
+    document.querySelector('button#emailCreate').click()
+    document.querySelector("div#logPage").style.display = 'none'
+    
+})
+document.querySelector('button#logar').addEventListener('click', () => {
+    document.querySelector('img#loginIcon').click()
+    if (['none', ''].includes(document.querySelector('#getEmail').style.display)) {
+        document.querySelector('span#loginAccount').click()
+    }
+})
+
 for (const botao of document.querySelectorAll('img.botao')) {
     botao.addEventListener('click', e => {
         profile.className = 'next'
@@ -74,6 +86,8 @@ async function displayProfile(atual) {
         desc.innerText = atual.bio ?? ''
         sexualidade.innerText = atual.sexuality
     } else {
+        let caixa = document.getElementById('nextProfile')
+        caixa.style.borderRadius = '0'
         img.src = '../images/notfound.png'
         nome.innerText = 'Não foi possível encontrar outro perfil'
         desc.innerText = 'Não foi possível encontrar alguém que seja compatível com você no momento.'

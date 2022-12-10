@@ -20,7 +20,7 @@ main {
     z-index: 0;
     position: fixed;
 }
-section {
+section#nextProfile {
     position: absolute;
     height: max-content;
     top: 0;
@@ -73,20 +73,30 @@ section {
 #nome {
     color: white;
     position: absolute;
-    bottom: 8em;
+    top: 1em;
     left: 5%;
     font-weight: bold;
-    text-shadow: 0 0 .3em  black;
+    text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+             1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
     font-family: 'Solway';
 }
 #descricao {
     color: white;
     position: absolute;
-    bottom: 12em;
+    top: 4em;
     left: 5%;
-    font-size: 70%;
+    font-size: 90%;
     width: 90%;
-    text-shadow: 0 0 .3em  black;
+    text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+             1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+}
+p#sexualidade {
+    color: white;
+    position: absolute;
+    right: 2em;
+    top: 2em;
+    text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+             1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
 }
 
 .botao {
@@ -109,4 +119,68 @@ section {
 }
 #profile {
     width: 30em;
+    box-shadow: 0 0 5em black inset ;
 }
+#noAccountSection {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+#introduction{
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%;
+    height: 70%;
+    text-align: center;
+    bottom: 0;
+    margin: auto;
+}
+img#namorif {
+    height: 25%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+#introduction #aboutNamorif {
+    width: 50%;
+    display: inline-block;
+
+
+}
+#introduction #buttons {
+    width: 40%;
+    right: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding-top: 9%;
+    display: inline-block;
+
+}
+#buttons button {
+    background-image: linear-gradient(30deg, rgb(127, 224, 195), rgb(5, 112, 161));
+    width: 50%;
+    height: 20%;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin: 10px;
+    transition: .3s;
+    font-size: medium;
+}
+#buttons button:hover {
+    cursor: pointer;
+    box-shadow: .5em .5em 1em 0 rgba(0, 0, 0, 0.226);
+    vertical-align: baseline;
+}
+#introduction #aboutNamorif {
+    display: inline-block;
+    width: 40%;
+    padding-left:2em ;
+    top: 27%;
+    left: 20%;
+    font-size: 150%;
+    text-align: justify;
+}
+
