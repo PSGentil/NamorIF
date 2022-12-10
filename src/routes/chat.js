@@ -7,13 +7,23 @@ import { userdb } from '../index.js'
 export const chatdb = new Low(new JSONFile("./src/database/chatdb.json"))
 await chatdb.read(); chatdb.data ||= {}; await chatdb.write()
 
-export default Router().post('/channel/:id', async (req, res) => {
+export default Router().post('/channel/initial/:id/:index', async (req, res) => {
     const serverUser = userdb.data.find(u => u.email == req.body.email && u.pass == req.body.pass)
     if (serverUser) {
         const channel = chatdb.data.find(ch => ch.users.includes(serverUser.id) && ch.users.includes(req.params.id))
         if (channel) {
-            if (channel.messages.length == req.body.length) res.status(200).send()
-            else res.status(202).send(channel)
+            const msg = Object.values(channel.messages)[req.params.index]
+            if (msg) return res.status(200).send(msg)
+        }
+        res.status(404).send()
+    } else res.status(401).send()
+}).post('/channel/:id', async (req, res) => {
+    const serverUser = userdb.data.find(u => u.email == req.body.email && u.pass == req.body.pass)
+    if (serverUser) {
+        const channel = chatdb.data.find(ch => ch.users.includes(serverUser.id) && ch.users.includes(req.params.id))
+        if (channel) {
+            if (Object.keys(channel.messages).length == req.body.length) res.status(200).send()
+            else res.status(202).send(Object.values(channel.messages).at(-1))
         } else res.status(404).send()
     } else res.status(401).send()
 }).post('/message/:id', async (req, res) => {
@@ -21,13 +31,14 @@ export default Router().post('/channel/:id', async (req, res) => {
     if (serverUser) {
         const channel = chatdb.data.find(ch => ch.users.includes(serverUser.id) && ch.users.includes(req.params.id))
         if (channel) {
-            channel.messages.push({
-                id: v4(),
+            const id = v4()
+            channel.messages[id] = {
+                id: id,
                 content: req.body.content,
                 owner: serverUser.id,
                 date: Date.now()
-            })
-            res.status(200).send(channel)
+            }
+            res.status(200).send(channel.messages[id])
             await chatdb.write()
         } else res.status(404).send()
     } else res.status(401).send()
@@ -36,7 +47,7 @@ export default Router().post('/channel/:id', async (req, res) => {
 export async function createChannel(...ids) {
     chatdb.data.push({
         users: ids,
-        messages: []
+        messages: {}
     })
     await chatdb.write()
 }

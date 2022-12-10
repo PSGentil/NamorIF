@@ -1,5 +1,5 @@
 import util from "./util.js"
-let userFriends, atualChat, interval, users = { [localStorage.getItem('id')]: { name: localStorage.getItem('name') } }
+let userFriends, atualChat, interval, sendDelay = Date.now(), users = { [localStorage.getItem('id')]: { name: localStorage.getItem('name') } }
 
 await fetch(`/api/social/friends/${localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
     if (res.ok) {
@@ -32,27 +32,30 @@ await fetch(`/api/social/friends/${localStorage.getItem('id')}`, { method: 'GET'
     }
 })
 
-document.querySelector('button').addEventListener('click', async e => {
-    if (document.querySelector('input').value) {
-        await fetch(`/api/chat/message/${atualChat}`, {
-            method: 'POST',
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify({
-                email: localStorage.getItem('email'),
-                pass: localStorage.getItem('pass'),
-                content: document.querySelector('input').value
+document.querySelector('button').addEventListener('click', async () => {
+    if (Date.now() - sendDelay > 600) {
+        sendDelay = Date.now()
+        if (document.querySelector('input').value) {
+            await fetch(`/api/chat/message/${atualChat}`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json; charset=UTF-8" },
+                body: JSON.stringify({
+                    email: localStorage.getItem('email'),
+                    pass: localStorage.getItem('pass'),
+                    content: document.querySelector('input').value
+                })
+            }).then(async res => {
+                if (res.ok) {
+                    document.querySelector('input').value = ''
+                    displayChannel(await res.json())
+                }
             })
-        }).then(async res => {
-            if (res.ok) {
-                document.querySelector('input').value = ''
-                displayChannel(await res.json())
-            }
-        })
+        }
     }
 })
 
 document.addEventListener('keydown', e => {
-    if (e.key == 'Enter') document.querySelector('button').click()
+    if (e.key == 'Enter' && Date.now() - sendDelay > 600) document.querySelector('button').click()
 })
 
 /**
@@ -61,8 +64,10 @@ document.addEventListener('keydown', e => {
 async function openChat(e) {
     atualChat = e.target.className
     clearInterval(interval)
+    document.querySelector('div#sendMessage').style.display = 'block'
 
-    updateMessages()
+    await initialMessages()
+
     interval = setInterval(updateMessages, 500)
 
     async function updateMessages() {
@@ -76,7 +81,6 @@ async function openChat(e) {
             })
         }).then(async res => {
             if (res.status == 202) {
-                document.querySelector('div#sendMessage').style.display = 'block'
                 displayChannel(await res.json())
             }
         })
@@ -85,12 +89,39 @@ async function openChat(e) {
 
 function displayChannel(channel) {
     const messagesDiv = document.querySelector('#mensagens')
-    while (messagesDiv.firstChild) {
-        messagesDiv.removeChild(messagesDiv.lastChild)
-    }
-    for (const msg of channel.messages) {
+    if (channel.messages) {
+        while (messagesDiv.firstChild) {
+            messagesDiv.removeChild(messagesDiv.lastChild)
+        }
+        for (const msg in channel.messages) {
+            const msgDiv = document.createElement('div')
+            msgDiv.innerText = `${users[channel.messages[msg].owner].name}: ${channel.messages[msg].content}`
+            messagesDiv.appendChild(msgDiv)
+        }
+    } else {
         const msgDiv = document.createElement('div')
-        msgDiv.innerText = `${users[msg.owner].name}: ${msg.content}`
+        msgDiv.innerText = `${users[channel.owner].name}: ${channel.content}`
         messagesDiv.appendChild(msgDiv)
     }
+}
+
+async function initialMessages() {
+    let messages = {}, status = true
+
+    for (let i = 0; status; i++) {
+        await fetch(`/api/chat/channel/initial/${atualChat}/${i}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json; charset=UTF-8" },
+            body: JSON.stringify({
+                email: localStorage.getItem('email'),
+                pass: localStorage.getItem('pass')
+            })
+        }).then(async res => {
+            if (res.ok) {
+                const msg = await res.json()
+                messages[msg.id] = msg
+            } else status = false
+        })
+    }
+    displayChannel({ messages })
 }
