@@ -4,7 +4,7 @@
 }
 
 main {
-    padding-left: 4.4em;
+    padding-left: 5%;
     padding-top: 2%;
 }
 
@@ -107,9 +107,9 @@ div#tags {
     width: 20em;
     height: 20em;
     border-radius: 10px;
-    position: absolute;
+    position: relative;
     top: 27em;
-    left: 9em;
+    left: 7em;
 }
 p.tag {
     padding: 5px;

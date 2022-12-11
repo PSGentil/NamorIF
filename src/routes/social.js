@@ -39,21 +39,30 @@ export default Router().post('/love', async (req, res) => {
     if (user) {
         const nextUser = userdb.data.find(u => checkCompatibility(user, u) && u.id != req.params.id)
 
-        if (nextUser) return res.status(200).send({ ...nextUser, love: null, deny: null, email: null, pass: null })
+        if (nextUser) return res.status(200).send({
+            id: nextUser.id,
+            name: nextUser.name,
+            lastname: nextUser.lastname,
+            bio: nextUser.bio,
+            sexuality: nextUser.sexuality,
+            profilePhoto: nextUser.profilePhoto
+        })
     }
     res.status(404).send(null)
-}).get('/friends/:id', (req, res) => {
-    const user = userdb.data.find(u => u.id == req.params.id)
+}).post('/friends', (req, res) => {
+    const user = userdb.data.find(u => u.email == req.body.email && u.pass == req.body.pass)
     if (user) {
         const friends = []
         for (const id of user.friends) {
             const friend = userdb.data.find(u => u.id == id)
-            if (friend) friends.push({ id: friend.id, name: friend.name, lastname: friend.lastname, bio: friend.bio, profilePhoto: friend.profilePhoto })
+            if (friend) friends.push({
+                id: friend.id, name: friend.name, lastname: friend.lastname, bio: friend.bio, profilePhoto: friend.profilePhoto
+            })
         }
 
         if (friends.length) return res.status(200).send({ friends })
     }
-    res.status(404).send(null)
+    res.status(404).send()
 })
 
 function checkCompatibility(source, target) {

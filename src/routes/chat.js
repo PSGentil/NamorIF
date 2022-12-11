@@ -12,8 +12,8 @@ export default Router().post('/channel/initial/:id/:index', async (req, res) => 
     if (serverUser) {
         const channel = chatdb.data.find(ch => ch.users.includes(serverUser.id) && ch.users.includes(req.params.id))
         if (channel) {
-            const msg = Object.values(channel.messages)[req.params.index]
-            if (msg) return res.status(200).send(msg)
+            const msg = Object.values(channel.messages).slice(Number(req.params.index), Number(req.params.index) + 5)
+            if (msg.length > 0) return res.status(200).send(msg)
         }
         res.status(404).send()
     } else res.status(401).send()

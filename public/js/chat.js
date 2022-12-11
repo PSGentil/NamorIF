@@ -1,30 +1,39 @@
 import util from "./util.js"
-let userFriends, atualChat, interval, pause = true, sendDelay = Date.now(), users = { [localStorage.getItem('id')]: { name: localStorage.getItem('name') } }
 
-await fetch(`/api/social/friends/${localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
+let friends, atualChat, pause = true, sendDelay = Date.now()
+const users = { [localStorage.getItem('id')]: { name: localStorage.getItem('name') } }
+
+await fetch(`/api/social/friends`, {
+    method: 'POST',
+    headers: { "Content-Type": "application/json; charset=UTF-8" },
+    body: JSON.stringify({
+        email: localStorage.getItem('email'),
+        pass: localStorage.getItem('pass')
+    })
+}).then(async res => {
     if (res.ok) {
-        userFriends = (await res.json()).friends
+        ({ friends } = await res.json())
 
-        for (let i = 0; i < userFriends.length; i++) {
-            users[userFriends[i].id] = userFriends[i]
+        for (let i = 0; i < friends.length; i++) {
+            users[friends[i].id] = friends[i]
 
             const friendBox = document.createElement('div')
             friendBox.id = `friend-${i + 1}`
-            friendBox.className = userFriends[i].id
+            friendBox.className = friends[i].id
             document.querySelector('#matchs').appendChild(friendBox)
             friendBox.addEventListener('click', openChat)
 
             const friendPhoto = document.createElement('img')
-            friendPhoto.src = await util.getImg(userFriends[i].profilePhoto)
+            friendPhoto.src = await util.getImg(friends[i].profilePhoto)
             friendBox.appendChild(friendPhoto)
 
             const friendName = document.createElement('p')
-            friendName.innerText = `${userFriends[i].name} ${userFriends[i].lastname}`
+            friendName.innerText = `${friends[i].name} ${friends[i].lastname}`
             friendBox.appendChild(friendName)
 
             for (let index = 0; index < friendBox.children.length; index++) {
                 friendBox.children[index].addEventListener('click', openChat)
-                friendBox.children[index].className = userFriends[i].id
+                friendBox.children[index].className = friends[i].id
             }
         }
     } else {
@@ -33,7 +42,7 @@ await fetch(`/api/social/friends/${localStorage.getItem('id')}`, { method: 'GET'
 })
 
 document.querySelector('button').addEventListener('click', async () => {
-    if (Date.now() - sendDelay > 600 && pause) {
+    if (Date.now() - sendDelay > 800 && pause) {
         sendDelay = Date.now()
         pause = false
         if (document.querySelector('input').value) {
@@ -55,22 +64,29 @@ document.querySelector('button').addEventListener('click', async () => {
 })
 
 document.addEventListener('keydown', e => {
-    if (e.key == 'Enter' && Date.now() - sendDelay > 600) document.querySelector('button').click()
+    if (e.key == 'Enter' && Date.now() - sendDelay > 800) document.querySelector('button').click()
 })
 
+let sleep
 /**
  * @param {MouseEvent} e 
  */
 async function openChat(e) {
     atualChat = e.target.className
-    clearInterval(interval)
+    sleep = false
 
     await initialMessages()
-    document.querySelector('div#sendMessage').style.display = 'block'
 
-    interval = setInterval(updateMessages, 500)
+    document.querySelector('#profile img').src = await util.getImg(users[atualChat].profilePhoto)
+    document.querySelector('#profile p').innerText = `${users[atualChat].name} ${users[atualChat].lastname}`
+    document.querySelector('div#sendMessage').style.display = 'block'
+    document.querySelector('#profile').style.display = 'flex'
+
+    sleep = true
+    updateMessages()
 
     async function updateMessages() {
+        const date = Date.now()
         await fetch(`/api/chat/channel/${atualChat}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -84,6 +100,9 @@ async function openChat(e) {
                 displayChannel(await res.json())
             }
             pause = true
+            if (Date.now() - date < 50) {
+                setTimeout(() => { if (sleep) updateMessages() }, 100)
+            } else if (sleep) updateMessages()
         })
     }
 }
@@ -96,22 +115,29 @@ function displayChannel(channel) {
         }
         for (const msg in channel.messages) {
             const msgDiv = document.createElement('div')
-            msgDiv.innerText = `${users[channel.messages[msg].owner].name}: ${channel.messages[msg].content}`
+            msgDiv.innerText = `${channel.messages[msg].content}`
+            if (channel.messages[msg].owner == localStorage.getItem('id')) msgDiv.classList.add('owner')
+            else msgDiv.classList.add('other')
+            msgDiv.classList.add('msg')
             messagesDiv.appendChild(msgDiv)
         }
     } else {
         for (const msg of channel) {
             const msgDiv = document.createElement('div')
-            msgDiv.innerText = `${users[msg.owner].name}: ${msg.content}`
+            msgDiv.innerText = `${msg.content}`
+            if (msg.owner == localStorage.getItem('id')) msgDiv.classList.add('owner')
+            else msgDiv.classList.add('other')
+            msgDiv.classList.add('msg')
             messagesDiv.appendChild(msgDiv)
         }
     }
+    updateScrollBar()
 }
 
 async function initialMessages() {
     let messages = {}, status = true
 
-    for (let i = 0; status; i++) {
+    for (let i = 0; status; i += 5) {
         await fetch(`/api/chat/channel/initial/${atualChat}/${i}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -121,10 +147,17 @@ async function initialMessages() {
             })
         }).then(async res => {
             if (res.ok) {
-                const msg = await res.json()
-                messages[msg.id] = msg
+                const msgs = await res.json()
+                for (const msg of msgs) {
+                    messages[msg.id] = msg
+                }
             } else status = false
         })
     }
     displayChannel({ messages })
+}
+
+function updateScrollBar() {
+    const scroll = document.querySelector('#conversa')
+    scroll.scrollTo({ top: scroll.scrollHeight })
 }

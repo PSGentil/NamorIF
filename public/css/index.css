@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Solway');
+
 * {
     margin: 0;
     font-family: 'Solway';
@@ -20,6 +21,7 @@ main {
     z-index: 0;
     position: fixed;
 }
+
 section#nextProfile {
     position: absolute;
     height: max-content;
@@ -29,8 +31,9 @@ section#nextProfile {
     margin: auto 0;
     box-shadow: 0 0 1em rgba(255, 255, 255, 0.521);
     border-radius: 0 0 25px 25px;
-    padding: 5px; 
+    padding: 5px;
     font-family: 'Solway';
+    display: none;
 }
 
 #foto {
@@ -39,13 +42,26 @@ section#nextProfile {
 }
 
 .next {
-    animation: next 2s;
+    animation: next 1s;
 }
+
 @keyframes next {
-    0% {top: 0;}
-    10% {opacity: 0;}
-    20% {top: -200%;}
-    21% {top: 200%;}
+    0% {
+        top: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    20% {
+        top: -200%;
+    }
+
+    21% {
+        top: 200%;
+    }
+
     100% {
         top: 0;
         opacity: 1;
@@ -59,6 +75,7 @@ section#nextProfile {
     border-radius: 0 0 20px 20px;
     display: block;
 }
+
 #legenda {
     height: 100%;
     max-height: 12em;
@@ -77,9 +94,10 @@ section#nextProfile {
     left: 5%;
     font-weight: bold;
     text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
-             1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+        1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
     font-family: 'Solway';
 }
+
 #descricao {
     color: white;
     position: absolute;
@@ -88,15 +106,16 @@ section#nextProfile {
     font-size: 90%;
     width: 90%;
     text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
-             1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+        1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
 }
+
 p#sexualidade {
     color: white;
     position: absolute;
     right: 2em;
     top: 2em;
     text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
-             1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+        1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
 }
 
 .botao {
@@ -111,22 +130,27 @@ p#sexualidade {
     transition: 1s;
 
 }
+
 #love:hover, #deny:hover {
     filter: none;
     width: 3em;
     cursor: pointer;
     transition: .3s;
 }
+
 #profile {
     width: 30em;
-    box-shadow: 0 0 5em black inset ;
+    box-shadow: 0 0 5em black inset;
 }
+
 #noAccountSection {
     width: 100%;
     height: 100%;
     text-align: center;
+    display: none;
 }
-#introduction{
+
+#introduction {
     background-color: #ffffff;
     position: fixed;
     width: 100%;
@@ -135,17 +159,13 @@ p#sexualidade {
     bottom: 0;
     margin: auto;
 }
+
 img#namorif {
     height: 25%;
     margin: 0 auto;
     margin-top: 20px;
 }
-#introduction #aboutNamorif {
-    width: 50%;
-    display: inline-block;
 
-
-}
 #introduction #buttons {
     width: 40%;
     right: 10%;
@@ -157,6 +177,7 @@ img#namorif {
     display: inline-block;
 
 }
+
 #buttons button {
     background-image: linear-gradient(30deg, rgb(127, 224, 195), rgb(5, 112, 161));
     width: 50%;
@@ -169,18 +190,19 @@ img#namorif {
     transition: .3s;
     font-size: medium;
 }
+
 #buttons button:hover {
     cursor: pointer;
     box-shadow: .5em .5em 1em 0 rgba(0, 0, 0, 0.226);
     vertical-align: baseline;
 }
+
 #introduction #aboutNamorif {
     display: inline-block;
     width: 40%;
-    padding-left:2em ;
+    padding-left: 2em;
     top: 27%;
     left: 20%;
     font-size: 150%;
     text-align: justify;
 }
-

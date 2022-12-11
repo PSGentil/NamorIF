@@ -235,7 +235,7 @@ export default class util {
         if (passConfirm) {
             if (pass != passConfirm) return "senhasDiferentes"
         }
-        if (pass.length <= 5) return "senhaCurta"
+        if (pass.length < 5) return "senhaCurta"
 
         return true
     }
@@ -317,6 +317,10 @@ export default class util {
         for (const key in body) {
             localStorage.setItem(key, body[key])
         }
+    }
+
+    static async sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
     }
 }
 
