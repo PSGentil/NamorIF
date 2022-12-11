@@ -18,44 +18,44 @@
         <div id="accountConfigPage" class="configPage">
             <section id="settingsPageAccountInfo">
                 <img src="../images/setaHorizontal.png" alt="" style="display: none;">
-                <button id="bottonSave" style="display: none;">Salvar Alterações</button>
 
                 <div class="userInfoBox">
-                    <label for="newusername" style="display: block;">Nome de Usuário: </label>
+                    <label for="newusername" style="display: block;">Nome de Usuário: <br> </label><br>
                     <input type="text" class="newusername">
                 </div>
 
                 <div class="userInfoBox">
-                    <label for="newemail" style="display: block;">E-mail: </label>
-                    <input type="text" class="newemail">
+                    <label for="newemail" style="display: block;">E-mail: <br> </label><br>
+                    <input type="text" placeholder="Novo E-mail" class="newemail">
                 </div>
 
                 <div class="userInfoBox">
-                    <label for="newshowme" style="display: block;">Mostre minha conta para: </label>
-                        <label for="homem" name="procurar">Homem</label>
-                        <input type="radio" value="homem" name="procurar">
+                    <label for="newshowme" style="display: block;">Mostre minha conta para: <br></label><br>
+                        <label class="radial" for="homem" name="procurar">Homem</label>
+                        <input class="radial" type="radio" value="homem" name="procurar">
                             
-                        <label for="mulher" name="procurar">Mulher</label>
-                        <input type="radio" value="mulher" name="procurar">
+                        <label class="radial" for="mulher" name="procurar">Mulher</label>
+                        <input class="radial" type="radio" value="mulher" name="procurar">
 
-                        <label for="todos" name="procurar">Todos</label>
-                        <input type="radio" value="todos" name="procurar">
+                        <label class="radial" for="todos" name="procurar">Todos</label>
+                        <input class="radial" type="radio" value="todos" name="procurar">
                 </div>
 
                 <div class="userInfoBox">
-                    <label for="newgender" style="display: block;">Me identifico como: </label>
-                        <label for="homem" name="gender">Homem</label>
-                        <input type="radio" value="homem" name="gender">
+                    <label for="newgender" style="display: block;">Me identifico como: <br></label><br>
+                        <label class="radial" for="homem" name="gender">Homem</label>
+                        <input class="radial" type="radio" value="homem" name="gender">
                             
-                        <label for="mulher" name="gender">Mulher</label>
-                        <input type="radio" value="mulher" name="gender">
+                        <label class="radial" for="mulher" name="gender">Mulher</label>
+                        <input class="radial" type="radio" value="mulher" name="gender">
 
-                        <label for="todos" name="gender">Não binário</label>
-                        <input type="radio" value="nonbinarie" name="gender">
+                        <label class="radial" for="todos" name="gender">Não binário</label>
+                        <input class="radial" type="radio" value="nonbinarie" name="gender">
                 </div>
 
                 <div class="userInfoBox">
-                    <label for="newsexuality" class="newsexuality">Sexualidade: </label>
+                    <label for="newsexuality" class="newsexuality">Sexualidade: <br></label>
+                    <br>
                     <select id="opcaoSexual" style="display: none;" class="newsexuality">
                         <option value="">Selecione</option>
                         <option value="Hetero">Hétero</option>
@@ -65,6 +65,8 @@
                         <option value="Outro">Outro</option>
                     </select>
                 </div>
+
+                <button id="bottonSave" style="display: none;">Salvar Alterações</button>
 
                 <div id="deleteAccount" class="userInfoBox">
                     Deletar Conta

@@ -3,9 +3,8 @@
     font-family: sans-serif;
 }
 
-main {
-    padding-left: 5%;
-    padding-top: 2%;
+body {
+    height: 100vh;
 }
 
 figure#profileImage {
@@ -15,7 +14,7 @@ figure#profileImage {
     z-index: 0;
     display: inline-block;
     width: 20em;
-    left: 5em;
+    left: 8%;
     top: 5em;
     border: 5px solid white;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.24);
@@ -35,8 +34,26 @@ figure figcaption:hover {
     color: white;
     font-weight: bold;
 }
+div#painelGenero {
+    background-color: white;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.200);
+    position: absolute;
+    right: 0;
+    width: 25%;
+    height: 60%;
+    top: 10em;
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+div#painelGenero p {
+    margin: 1.7em;
+    font-size: larger;
+    font-weight: bold;
+}
 
-img#fotoPerfil {
+img#profilePhoto {
     width: 100%;
 }
 
@@ -47,8 +64,6 @@ figcaption img.editIcon {
     border: 1px solid black;
     padding: 5px;
     background-color: white;
-}
-img.editIcon {
 }
 
 img.editIcon:hover, img.saveIcon:hover {
@@ -76,8 +91,8 @@ div.userInfo {
     width: max-content;
     display: inline-block;
     position: absolute;
-    top: 11em;
-    left: 28em;
+    top: 10.8em;
+    left: 35%;
 }
 div input, div textarea {
     padding: 10px;
@@ -102,30 +117,6 @@ textarea{
 }
 #name {
     font-size: 3em;
-}
-div#tags {
-    width: 20em;
-    height: 20em;
-    border-radius: 10px;
-    position: relative;
-    top: 27em;
-    left: 7em;
-}
-p.tag {
-    padding: 5px;
-    border-radius: 20px;
-    border: 1px solid rgb(173, 239, 255);
-    background-image:linear-gradient(rgba(234, 0, 255, 0.171), rgba(26, 25, 27, 0.096) );
-    width: max-content;
-    display: inline-block;
-    margin: 3px;
-    transition: .2s;
-    
-}
-p.tag:hover {
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 30px;
 }
 #bio p {
     width: 25em;

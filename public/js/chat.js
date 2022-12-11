@@ -41,6 +41,17 @@ await fetch(`/api/social/friends`, {
     }
 })
 
+document.querySelector('#profile img').addEventListener('click', () => {
+    if (atualChat) {
+        localStorage.setItem('visitAccount', JSON.stringify(users[atualChat]))
+        window.open('../pages/visitAccount.html', '_blank')
+    }
+})
+
+//loading principal
+document.querySelector('main').style.display = 'block'
+document.querySelector('#principal.lds-heart').style.display = 'none'
+
 document.querySelector('button').addEventListener('click', async () => {
     if (Date.now() - sendDelay > 800 && pause) {
         sendDelay = Date.now()
@@ -67,7 +78,7 @@ document.addEventListener('keydown', e => {
     if (e.key == 'Enter' && Date.now() - sendDelay > 800) document.querySelector('button').click()
 })
 
-let sleep
+let sleep, count
 /**
  * @param {MouseEvent} e 
  */
@@ -75,14 +86,24 @@ async function openChat(e) {
     atualChat = e.target.className
     sleep = false
 
+    document.querySelector('#mensagens').style.display = 'none'
+    document.querySelector('#sendMessage').style.display = 'none'
+    document.querySelector('#profile').style.display = 'none'
+    //loading chat
+    document.querySelector('#chat.lds-heart').style.display = 'block'
     await initialMessages()
+    document.querySelector('#chat.lds-heart').style.display = 'none'
 
     document.querySelector('#profile img').src = await util.getImg(users[atualChat].profilePhoto)
     document.querySelector('#profile p').innerText = `${users[atualChat].name} ${users[atualChat].lastname}`
-    document.querySelector('div#sendMessage').style.display = 'block'
+    document.querySelector('#sendMessage').style.display = 'block'
     document.querySelector('#profile').style.display = 'flex'
 
+    document.querySelector('#mensagens').style.display = 'flex'
+    updateScrollBar()
+
     sleep = true
+    count = 0
     updateMessages()
 
     async function updateMessages() {
@@ -98,11 +119,15 @@ async function openChat(e) {
         }).then(async res => {
             if (res.status == 202) {
                 displayChannel(await res.json())
+                updateScrollBar()
+                count++
+                if (count > 10) document.querySelector(`div.${atualChat}`).click()
             }
             pause = true
             if (Date.now() - date < 50) {
                 setTimeout(() => { if (sleep) updateMessages() }, 100)
             } else if (sleep) updateMessages()
+            count = 0
         })
     }
 }
@@ -131,7 +156,6 @@ function displayChannel(channel) {
             messagesDiv.appendChild(msgDiv)
         }
     }
-    updateScrollBar()
 }
 
 async function initialMessages() {

@@ -3,7 +3,12 @@ import util from './util.js'
 let profilePhoto = await util.getImg(localStorage.getItem('profilePhoto'))
 
 document.getElementsByTagName('title')[0].innerText = localStorage.getItem('username')
-document.getElementById('fotoPerfil').src = profilePhoto
+document.getElementById('profilePhoto').src = profilePhoto
+
+//painel genero
+for (const p of document.querySelectorAll('#painelGenero p')) {
+    p.innerText += (localStorage.getItem(p.id) == 'nonbinarie' ? 'Não binário' : localStorage.getItem(p.id).cap())
+}
 
 const campos = {
     name: localStorage.getItem('name'),
@@ -60,7 +65,7 @@ for (const key in campos) {
     document.querySelector(`#${key} img.saveIcon`).addEventListener('click', async e => {
         e.preventDefault()
 
-        let validate = util.checarCampos({[key]: document.querySelector(`#${key} input`).value.trim()})
+        let validate = util.checarCampos({ [key]: document.querySelector(`#${key} input`).value.trim() })
 
         if (validate == true) {
             await fetch('/api/account/edit', {
@@ -93,13 +98,13 @@ document.querySelector(`#bio img.editIcon`).addEventListener('click', e => {
     document.querySelector('#bio textarea').innerText = bio
     document.querySelector(`#bio p`).innerText = bio
 
-    document.querySelector(`#bio textarea`).style.display = (display == 'inline' ? 'none': 'inline')
-    document.querySelector('#bio p').style.display = (display != 'inline'? 'none' : 'inline')
-    document.querySelector(`#bio img.saveIcon`).style.display = (display == 'inline'? 'none' : 'inline')
+    document.querySelector(`#bio textarea`).style.display = (display == 'inline' ? 'none' : 'inline')
+    document.querySelector('#bio p').style.display = (display != 'inline' ? 'none' : 'inline')
+    document.querySelector(`#bio img.saveIcon`).style.display = (display == 'inline' ? 'none' : 'inline')
 })
 
 document.querySelector(`#bio img.saveIcon`).addEventListener('click', async e => {
-    let validate = util.checarCampos({bio: document.querySelector(`#bio textarea`).value.trim()})
+    let validate = util.checarCampos({ bio: document.querySelector(`#bio textarea`).value.trim() })
 
     if (validate == true) {
         await fetch('/api/account/edit', {

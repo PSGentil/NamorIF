@@ -20,7 +20,7 @@ if (!localStorage.getItem('isLogged')) {
 document.querySelector('button#criar').addEventListener('click', () => {
     document.querySelector('button#emailCreate').click()
     document.querySelector("div#logPage").style.display = 'none'
-    
+
 })
 document.querySelector('button#logar').addEventListener('click', () => {
     document.querySelector('img#loginIcon').click()
@@ -28,13 +28,6 @@ document.querySelector('button#logar').addEventListener('click', () => {
         document.querySelector('span#loginAccount').click()
     }
 })
-
-for (const botao of document.querySelectorAll('img.botao')) {
-    botao.addEventListener('click', e => {
-        profile.className = 'next'
-        setTimeout(() => { profile.className = '' }, 500)
-    })
-}
 
 document.querySelector('img#love').addEventListener('click', async e => {
     await fetch(`/api/social/love`, {
@@ -48,7 +41,16 @@ document.querySelector('img#love').addEventListener('click', async e => {
             id: atualProfile
         })
     })
-    await findProfile()
+    profile.className = 'next'
+    let next = true
+    profile.addEventListener('animationend', () => {
+        if (next) {
+            profile.className = 'appear'
+            next = false
+        }
+        else profile.className = ''
+    })
+    findProfile()
 })
 
 document.querySelector('img#deny').addEventListener('click', async e => {
