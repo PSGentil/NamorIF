@@ -4,6 +4,7 @@
 
 body{
     width: 100%;
+    height: 100vh;
 }
 main {
     position: fixed;
@@ -20,9 +21,11 @@ div#accountConfigPage {
     box-shadow: 0 0 2em rgba(0, 0, 0, 0.349);
     left: 0;
     right: 0;
-    display: flex;
-    flex-direction: column;
-    vertical-align: center;
+    display: block;
+    overflow-y: auto;
+}
+div#accountConfigPage::-webkit-scrollbar {
+    display: none;
 }
 div.configPage input{
     display: none;
@@ -35,6 +38,11 @@ div.configPage label[name="procurar"], label[name="gender"]{
 div.configPage div{
     cursor: pointer;
 }
+select {
+    margin: 0 auto;
+    padding: 1em;
+    border-radius: 10px;
+}
 .userInfoBox{
     border-bottom: 2px solid gray;
     width: 100%;
@@ -45,12 +53,30 @@ div.configPage div{
     flex-direction: column;
     padding: 2em 0 2em 0;
 }
-.userInfoBox:hover {
-    background-color: rgb(218, 218, 218);
+.userInfoBox label:hover {
+    cursor: pointer;
 }
-.bottonSave{
-    position: fixed;
-    left: 20em;
+#bottonSave {
+    width: 90%;
+    background-image: linear-gradient(30deg,greenyellow, cyan);
+    color: rgb(0, 0, 0);
+    padding: 1em;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.281);
+    align-self: center;
+    margin: 25px;
+}
+#bottonSave:hover {
+    background-image:linear-gradient(30deg,greenyellow, rgba(0, 255, 255, 0.432)) ;
+    cursor: pointer;
+}
+.userInfoBox input {
+    border: gray solid 2px;
+    padding: .5em;
+    border-radius: 10px;
+    margin: 0 auto;
 }
 input.newusername, input.newemail{
     clip: auto;
@@ -76,6 +102,7 @@ input.newsexuality{
     width: 10%;
     border-radius: 10px;
     border: 1px solid black;
+    margin: 10px;
 }
 #confirmDeleteAccount button:hover {
     cursor: pointer;

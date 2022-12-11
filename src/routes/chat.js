@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import { Low } from "lowdb"
 import { JSONFile } from "lowdb/node"
-import { v4 } from 'uuid'
 import { userdb } from '../index.js'
 
 export const chatdb = new Low(new JSONFile("./src/database/chatdb.json"))
@@ -46,9 +45,13 @@ export default Router().post('/channel/initial/:id/:index', async (req, res) => 
 })
 
 export async function createChannel(...ids) {
-    chatdb.data.push({
-        users: ids,
-        messages: {}
-    })
-    await chatdb.write()
+    const channel = chatdb.data.find(ch => ch.users.includes(ids[0]) && ch.users.includes(ids[1]))
+
+    if (!channel) {
+        chatdb.data.push({
+            users: ids,
+            messages: {}
+        })
+        await chatdb.write()
+    }
 }

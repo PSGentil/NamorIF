@@ -1,0 +1,41 @@
+#block {
+    position: absolute;
+    top: 120%;
+    right: 5%;
+    text-align: center;
+    width: max-content;
+}
+#block button#block {
+    background-color: white;
+    border: red 1px solid;
+    color: red;
+    border-radius: 20em;
+    padding: 10px;
+    transition: .5s;
+    margin: 5px;
+}
+#block button.confirm {
+    display: none;
+    background-color: white;
+    border: rgb(0, 0, 0) 1px solid;
+    color: rgb(0, 0, 0);
+    border-radius: 20em;
+    padding: 5px 10px;
+    transition: .5s;
+}
+#block button.confirm:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: .1s;
+}
+#block button#yes:hover {
+    border: 2px solid red;
+    background-color: red;
+    transition: .1s;
+}
+#block button#block:hover {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    cursor: pointer;
+}

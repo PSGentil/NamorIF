@@ -22,14 +22,14 @@ let inputEuSou
 document.getElementById('createAccountButton').addEventListener('click', async e => {
     e.preventDefault()
 
-    let inputNome = document.getElementById('nome').value
-    let inputSobrenome = document.getElementById('sobrenome').value
-    let inputEmail = document.getElementById('email').value
-    let inputSenha = document.getElementById('senha').value
-    let inputUsername = document.getElementById('username').value
-    let inputSenhaConfirmar = document.getElementById('confirmarSenha').value
-    let inputSexualidade = document.getElementById('opcaoSexual').value
-    let inputDataNascimento = document.getElementById('dataNascimento').value
+    let inputNome = document.getElementById('nome').value.trim()
+    let inputSobrenome = document.getElementById('sobrenome').value.trim()
+    let inputEmail = document.getElementById('email').value.trim()
+    let inputSenha = document.getElementById('senha').value.trim()
+    let inputUsername = document.getElementById('username').value.trim()
+    let inputSenhaConfirmar = document.getElementById('confirmarSenha').value.trim()
+    let inputSexualidade = document.getElementById('opcaoSexual').value.trim()
+    let inputDataNascimento = document.getElementById('dataNascimento').value.trim()
 
     let camposPrimeiraPagina = {
         name: inputNome,

@@ -42,23 +42,32 @@ section#nextProfile {
 }
 
 .next {
-    animation: next 1s;
+    animation: slideUp 1s;
+}
+.appear {
+    animation: appear 1s;
 }
 
-@keyframes next {
+@keyframes slideUp {
     0% {
         top: 0;
     }
 
-    10% {
+    20% {
         opacity: 0;
     }
 
-    20% {
+    100% {
+        opacity: 0;
         top: -200%;
     }
-
-    21% {
+}
+@keyframes appear {
+    0% {
+        top:-200%;
+    }
+    1% {
+        opacity: 1;
         top: 200%;
     }
 

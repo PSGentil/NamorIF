@@ -36,11 +36,6 @@ credits.addEventListener('click', e => {
 })
 settingsPopup.appendChild(credits)
 
-const screenSettings = document.createElement('div')
-screenSettings.id = 'screenSettings'
-screenSettings.innerText = 'Tela'
-settingsPopup.appendChild(screenSettings)
-
 const logout = document.createElement('div')
 logout.id = 'logout'
 logout.innerText = 'Sair'
