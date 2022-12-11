@@ -36,11 +36,14 @@ document.querySelector('#homeIcon').addEventListener('click', e => {
     window.open('../index.html', '_self')
 })
 
+document.querySelector('#chatIcon').addEventListener('click', e => {
+    window.open('../pages/chat.html', '_self')
+})
+
 document.querySelector('#logout').addEventListener('click', e => {
+    e.preventDefault()
 
     document.querySelector('#settingsPopup').style.display = 'none'
-
-    e.preventDefault()
 
     if (!document.querySelector('body #confirmLogout')) {
         const confirmLogout = document.createElement('div')
@@ -72,13 +75,10 @@ document.querySelector('#logout').addEventListener('click', e => {
     }
 
     function logout() {
-
         localStorage.clear()
         if (window.location.href != '../index.html') window.open('../index.html', '_self')
         else window.location.reload()
-
     }
-
 })
 
 document.querySelector('#settingsIcon').addEventListener('click', e => {
@@ -108,10 +108,7 @@ document.getElementById('logButton').addEventListener('click', e => {
     if (loginAccountMethod == 'login') {
         util.enviarLogin(email, password).then(async res => {
             if (res.status == 202) {
-                let body = await res.json()
-                for (const key in body) {
-                    localStorage.setItem(key, body[key])
-                }
+                util.save(await res.json())
                 localStorage.setItem('isLogged', true)
                 window.location.reload()
             } else {

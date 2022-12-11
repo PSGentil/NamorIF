@@ -3,26 +3,8 @@
     font-family: sans-serif;
 }
 
-.circleImg {
-    width: 3em;
-    height: 3em;
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    display: inline-block;
-    margin-left: 5px;
-}
-
-.circleImg img {
-    display: inline-block;
-    margin: 0 auto;
-    height: 100%;
-
-    width: auto;
-}
-
 main {
-    padding-left: 4.4em;
+    padding-left: 5%;
     padding-top: 2%;
 }
 
@@ -65,6 +47,8 @@ figcaption img.editIcon {
     border: 1px solid black;
     padding: 5px;
     background-color: white;
+}
+img.editIcon {
 }
 
 img.editIcon:hover, img.saveIcon:hover {
@@ -123,9 +107,9 @@ div#tags {
     width: 20em;
     height: 20em;
     border-radius: 10px;
-    position: absolute;
+    position: relative;
     top: 27em;
-    left: 9em;
+    left: 7em;
 }
 p.tag {
     padding: 5px;

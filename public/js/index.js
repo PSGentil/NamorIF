@@ -1,25 +1,43 @@
 import util from './util.js'
 
-let img = document.querySelector('#foto img')
-let nome = document.getElementById('nome')
-let desc = document.getElementById('descricao')
+let img = document.querySelector('img#profile')
+let nome = document.querySelector('h1#nome')
+let desc = document.querySelector('p#descricao')
+let sexualidade = document.querySelector('p#sexualidade')
 let profile = document.getElementById('nextProfile')
+let atualProfile
 
-if (!localStorage.getItem('isLogged')){
+if (!localStorage.getItem('isLogged')) {
+    document.getElementById('noAccountSection').style.display = 'block'
+    document.getElementById('nextProfile').style.display = 'none'
     displayProfile(null)
-} 
-else await findProfile() 
+} else {
+    document.getElementById('noAccountSection').style.display = 'none'
+    document.getElementById('nextProfile').style.display = 'block'
+    await findProfile()
+}
+
+document.querySelector('button#criar').addEventListener('click', () => {
+    document.querySelector('button#emailCreate').click()
+    document.querySelector("div#logPage").style.display = 'none'
+    
+})
+document.querySelector('button#logar').addEventListener('click', () => {
+    document.querySelector('img#loginIcon').click()
+    if (['none', ''].includes(document.querySelector('#getEmail').style.display)) {
+        document.querySelector('span#loginAccount').click()
+    }
+})
 
 for (const botao of document.querySelectorAll('img.botao')) {
     botao.addEventListener('click', e => {
         profile.className = 'next'
-        setTimeout(() => { profile.className = '' }, 2000)
+        setTimeout(() => { profile.className = '' }, 500)
     })
-    botao.addEventListener('click', findProfile)
 }
 
-document.querySelector('img#love').addEventListener('click', e => {
-    fetch(`/api/social/love`, {
+document.querySelector('img#love').addEventListener('click', async e => {
+    await fetch(`/api/social/love`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
         body: JSON.stringify({
@@ -27,14 +45,14 @@ document.querySelector('img#love').addEventListener('click', e => {
             email: localStorage.getItem('email'),
             pass: localStorage.getItem('pass'),
             // Loved person
-            id: localStorage.getItem('atualProfile')
+            id: atualProfile
         })
     })
-    findProfile()
+    await findProfile()
 })
 
-document.querySelector('img#deny').addEventListener('click', e => {
-    fetch(`/api/social/deny`, {
+document.querySelector('img#deny').addEventListener('click', async e => {
+    await fetch(`/api/social/deny`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
         body: JSON.stringify({
@@ -42,18 +60,18 @@ document.querySelector('img#deny').addEventListener('click', e => {
             email: localStorage.getItem('email'),
             pass: localStorage.getItem('pass'),
             // Denied person
-            id: localStorage.getItem('atualProfile')
+            id: atualProfile
         })
     })
-    findProfile()
+    await findProfile()
 })
 
 async function findProfile() {
-    fetch(`/api/social/profile/${localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
+    await fetch(`/api/social/profile/${localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
         if (res.ok) {
-            let atualProfile = await res.json()
-            localStorage.setItem('atualProfile', atualProfile.id)
-            displayProfile(atualProfile)
+            let body = await res.json()
+            atualProfile = body.id
+            displayProfile(body)
         } else {
             displayProfile(null)
         }
@@ -61,17 +79,17 @@ async function findProfile() {
 }
 
 async function displayProfile(atual) {
-
-    if (atual) {
+    if (atual != null) {
         img.src = await util.getImg(atual.profilePhoto)
         nome.innerText = `${atual.name} ${atual.lastname}`
-        if (atual.bio) desc.innerText = atual.bio
-        else desc.innerText = ''
+        desc.innerText = atual.bio ?? ''
+        sexualidade.innerText = atual.sexuality
     } else {
         img.src = '../images/notfound.png'
         nome.innerText = 'Não foi possível encontrar outro perfil'
         desc.innerText = 'Não foi possível encontrar alguém que seja compatível com você no momento.'
-        document.querySelector('#legenda').style.display = 'none'
+        sexualidade.innerText = ''
+        document.querySelector('#options').style.display = 'none'
+        profile.style.borderRadius = '0'
     }
-
 }

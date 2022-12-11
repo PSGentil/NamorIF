@@ -68,7 +68,7 @@ button#logButton {
     display: none;
 }
 button#emailCreate {
-    background-image: linear-gradient(900deg, #00C9FF 0%, #92FE9D 100%);
+    background-image: linear-gradient(20deg, #00C9FF 0%, #92FE9D 100%);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.26);
     padding: 2%;
     color: white;

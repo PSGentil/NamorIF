@@ -9,9 +9,11 @@ inputImg.addEventListener("change", () => {
     const reader = new FileReader()
     reader.readAsDataURL(inputImg.files[0])
     reader.addEventListener('load', async () => {
+        inputImg.style.display = 'none'
         document.querySelector('#cadastroEtapa3 div').innerText = 'Carregando imagem...'
         profilePhoto = await util.uploadImg(await util.cropImage(reader.result))
         document.querySelector('#cadastroEtapa3 div').innerText = 'Imagem Carregada!'
+        inputImg.style.display = 'block'
     })
 })
 
@@ -89,9 +91,7 @@ document.getElementById('createAccountButton').addEventListener('click', async e
                 sexuality: inputSexualidade,
                 showme: inputMostrar,
                 gender: inputEuSou,
-                profilePhoto: profilePhoto,
-                love: [],
-                deny: []
+                profilePhoto: profilePhoto
             })
         } else {
             etapaAtualCriarConta++

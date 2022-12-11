@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    font-family: 'Solway';
+}
+
+main {
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+
+section {
+    display: inline-block;
+}
+
+section#matchs {
+    left: 5%;
+    width: 40%;
+    height: 100%;
+    background-image: linear-gradient(rgb(200, 247, 250), rgb(228, 248, 199));
+    position: fixed;
+    text-align: center;
+    overflow: auto;
+}
+
+section#matchs div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    height: 5em;
+    padding: 10px;
+    border-radius: 1em;
+    transition: .1s;
+    margin: 0 auto;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    border: 2px solid rgba(255, 255, 255, 0.575);
+    background-color: rgba(255, 255, 255, 0.555);
+}
+
+section#matchs div:hover {
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+}
+
+section#matchs img {
+    height: 100%;
+    border-radius: 100%;
+    margin-right: 1em;
+    font-weight: bold;
+    border: 5px solid white;
+}
+
+section#conversa::-webkit-scrollbar {
+    display: none;
+}
+
+section#conversa {
+    position: fixed;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    top: 0;
+    left: 45%;
+    background-color: rgb(255, 255, 255);
+    overflow-y: auto;
+}
+
+div#mensagens {
+    margin-top: 6em;
+    margin-bottom: 5em;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    z-index: 1;
+}
+
+div#sendMessage {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    padding: 1em;
+    box-shadow: 0px -14px 15px -15px rgba(0, 0, 0, 0.438);
+}
+
+div#sendMessage input {
+    width: 40%;
+    padding: 1em;
+    margin: 0 1em 0 1em;
+    border-radius: 20em;
+    outline: none;
+    border: none;
+    background-color: rgb(233, 233, 233);
+    z-index: 2;
+}
+
+div#sendMessage button {
+    border-radius: 20em;
+    border: none;
+    background-color: rgb(233, 233, 233);
+    padding: 1em;
+    width: 7%;
+    box-shadow: inset 0 0 .5em rgba(0, 0, 0, 0.048);
+    color: rgb(148, 148, 148);
+}
+
+div#sendMessage button:hover {
+    cursor: pointer;
+}
+
+.owner {
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(92, 156, 156);
+    background-color: rgba(92, 156, 156, 0.678);
+    position: relative;
+    margin: .5em .5em .5em 0;
+    align-self: flex-end;
+}
+
+.other {
+    border: 2px solid rgb(146, 190, 146);
+    background-color: rgba(146, 190, 146, 0.603);
+    margin: .5em 0 .5em .5em;
+    align-self: flex-start;
+}
+
+.msg {
+    padding: 1em;
+    border-radius: 10px;
+    width: max-content;
+    max-width: 60%;
+    overflow-wrap: break-word;
+}
+
+div#profile {
+    width: 100%;
+    padding: .5em;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    box-shadow: 7px 17px 24px -10px rgba(0, 0, 0, 0.11);
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    display: none;
+}
+
+div#profile img {
+    border-radius: 100%;
+    height: 5em;
+}
+
+div#profile p {
+    margin-left: 1em;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+p {
+    display: inline;
+}
