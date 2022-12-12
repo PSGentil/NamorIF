@@ -88,12 +88,19 @@
 
             </form>
 
+
             <form id="cadastroEtapa3">
-                <label for="imagem">
-                    <input type="file" name="imagem" id="profileImg" accept="image/jpeg, image/png, image/jpg">
-                </label>
+
+                <p>Foto de Perfil: </p>
+                <img src="../images/notfound.png" alt="" id="profilePreview">
                 <div></div>
+                <label for="imagem" id="profileImg">
+                    Escolher Arquivo
+                    <input id="imagem" type="file" name="imagem" accept="image/jpeg, image/png, image/jpg">
+                </label>
+
             </form>
+
 
             <input type="submit" id="createAccountButton" value="Continuar"></input>
 

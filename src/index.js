@@ -7,6 +7,7 @@ import account from './routes/account.js'
 import img from './routes/img.js'
 import social from './routes/social.js'
 import chat from './routes/chat.js'
+import notify from './routes/notify.js'
 
 export const userdb = new Low(new JSONFile('./src/database/userdb.json'))
 await userdb.read(); userdb.data ||= []; await userdb.write()
@@ -22,7 +23,19 @@ app.use('/api/account', account)
 app.use('/api/img', img)
 app.use('/api/social', social)
 app.use('/api/chat', chat)
+app.use('/api/notify', notify)
 
 app.listen(3000, () => {
     console.log('ligado')
+})
+
+Object.assign(Array.prototype, {
+    shuffle() {
+        let newArr = [...this]
+        for (let i = newArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArr[i], newArr[j]] = [newArr[j], newArr[i]]
+        }
+        return newArr
+    }
 })

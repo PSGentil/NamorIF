@@ -37,7 +37,7 @@ export default Router().post('/love', async (req, res) => {
 }).get('/profile/:id', (req, res) => {
     const user = userdb.data.find(u => u.id == req.params.id)
     if (user) {
-        const nextUser = userdb.data.find(u => checkCompatibility(user, u) && u.id != req.params.id)
+        const nextUser = userdb.data.shuffle().find(u => checkCompatibility(user, u) && u.id != req.params.id)
 
         if (nextUser) return res.status(200).send({
             id: nextUser.id,

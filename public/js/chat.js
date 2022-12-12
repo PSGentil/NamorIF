@@ -31,13 +31,21 @@ await fetch(`/api/social/friends`, {
             friendName.innerText = `${friends[i].name} ${friends[i].lastname}`
             friendBox.appendChild(friendName)
 
+            const notify = document.createElement('img')
+            notify.classList.add('notify')
+            notify.src = '../images/notify.png'
+            friendBox.appendChild(notify)
+
             for (let index = 0; index < friendBox.children.length; index++) {
                 friendBox.children[index].addEventListener('click', openChat)
-                friendBox.children[index].className = friends[i].id
+                friendBox.children[index].classList.add(friends[i].id)
             }
         }
     } else {
-        window.location.href = "../index.html"
+        const noFriends = document.querySelectorAll('.noFriends')
+        for (const nf of noFriends) {
+            nf.style.display = 'block'
+        }
     }
 })
 
@@ -84,6 +92,19 @@ let sleep, count
  */
 async function openChat(e) {
     atualChat = e.target.className
+    for (const icon of document.querySelectorAll(`.notify`)) {
+        if (icon.classList.contains(atualChat)) {
+            icon.style.display = 'none'
+            fetch(`/api/notify/${atualChat}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                body: JSON.stringify({
+                    email: localStorage.getItem('email'),
+                    pass: localStorage.getItem('pass')
+                })
+            })
+        }
+    }
     sleep = false
 
     document.querySelector('#mensagens').style.display = 'none'
@@ -121,16 +142,16 @@ async function openChat(e) {
                 displayChannel(await res.json())
                 updateScrollBar()
                 count++
-                if (count > 10) document.querySelector(`div.${atualChat}`).click()
-            }
+                if (count > 7) document.querySelector(`div.${atualChat}`).click()
+            } else count = 0
             pause = true
             if (Date.now() - date < 50) {
                 setTimeout(() => { if (sleep) updateMessages() }, 100)
             } else if (sleep) updateMessages()
-            count = 0
         })
     }
 }
+document.querySelector('#matchs div').click()
 
 function displayChannel(channel) {
     const messagesDiv = document.querySelector('#mensagens')
@@ -185,3 +206,26 @@ function updateScrollBar() {
     const scroll = document.querySelector('#conversa')
     scroll.scrollTo({ top: scroll.scrollHeight })
 }
+
+//check notifications
+async function checkNotifications() {
+    for (const fr in users) {
+        if (fr == localStorage.getItem('id')) continue
+        await fetch(`/api/notify/${fr}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({
+                email: localStorage.getItem('email'),
+                pass: localStorage.getItem('pass')
+            })
+        }).then(res => {
+            if (res.status == 202 && atualChat != fr) {
+                for (const icon of document.querySelectorAll(`.notify`)) {
+                    if (icon.classList.contains(fr)) icon.style.display = 'inline'
+                }
+            }
+        })
+    }
+    setTimeout(checkNotifications, 900)
+}
+checkNotifications()

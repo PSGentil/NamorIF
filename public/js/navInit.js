@@ -32,7 +32,7 @@ const credits = document.createElement('div')
 credits.id = 'credits'
 credits.innerText = 'Créditos'
 credits.addEventListener('click', e => {
-    window.open('../pages/credits.html', '_blank')
+    window.open('../pages/credits.html', '_self')
 })
 settingsPopup.appendChild(credits)
 

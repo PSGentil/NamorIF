@@ -82,7 +82,6 @@ document.querySelector('button').addEventListener('click', async e => {
         }
     }
 
-    console.log(dadosEnviados)
     let camposValidados = util.checarCampos(dadosEnviados)
 
     if (camposValidados == true) {

@@ -7,7 +7,7 @@ document.getElementById('profilePhoto').src = profilePhoto
 
 //painel genero
 for (const p of document.querySelectorAll('#painelGenero p')) {
-    p.innerText += (localStorage.getItem(p.id) == 'nonbinarie' ? 'Não binário' : localStorage.getItem(p.id).cap())
+    p.innerText = (localStorage.getItem(p.id) == 'nonbinarie' ? 'Não binário' : localStorage.getItem(p.id).cap())
 }
 
 const campos = {

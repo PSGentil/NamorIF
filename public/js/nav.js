@@ -37,6 +37,14 @@ document.querySelector('#homeIcon').addEventListener('click', e => {
 })
 
 document.querySelector('#chatIcon').addEventListener('click', e => {
+    fetch(`/api/notify/match`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({
+            email: localStorage.getItem('email'),
+            pass: localStorage.getItem('pass')
+        })
+    })
     window.open('../pages/chat.html', '_self')
 })
 

@@ -47,9 +47,31 @@ header p{
     right: 1em;
     top: 1em;
 }
+
 #profileImg {
-    margin: 0 auto;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20em;
+    height: 4em;
+    background-color: black;
+    margin: 3em auto;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.322);
+    border-radius: 1em;
 }
+
+img#profilePreview {
+    width: 15em;
+    height: 15em;
+    border-radius: 50%;
+}
+
+input[type=file]{
+    display: none;
+}
+
 #username, #email, #nome, #sobrenome {
     padding: 20px;
     border-radius: 10px;

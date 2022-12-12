@@ -14,6 +14,7 @@ body{
 
 nav {
     width: 5%;
+    min-width: fit-content;
     height: 100%;
     background-color: rgb(255, 255, 255);
     position: fixed;
@@ -201,4 +202,8 @@ div#confirmLogout button:hover {
     background-color: rgb(214, 214, 214);
     font-weight: bold;
 
+}
+
+#chatIcon {
+    border-radius: 0;
 }

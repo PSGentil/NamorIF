@@ -4,16 +4,16 @@ let etapasCriarConta = document.getElementsByTagName('form')
 let etapaAtualCriarConta = 0
 
 let profilePhoto
-const inputImg = document.getElementById('profileImg')
+const inputImg = document.querySelector('#cadastroEtapa3 input[type=file]')
 inputImg.addEventListener("change", () => {
     const reader = new FileReader()
     reader.readAsDataURL(inputImg.files[0])
     reader.addEventListener('load', async () => {
-        inputImg.style.display = 'none'
-        document.querySelector('#cadastroEtapa3 div').innerText = 'Carregando imagem...'
-        profilePhoto = await util.uploadImg(await util.cropImage(reader.result))
-        document.querySelector('#cadastroEtapa3 div').innerText = 'Imagem Carregada!'
-        inputImg.style.display = 'block'
+        document.querySelector('#profileImg').style.display = 'none'
+        profilePhoto = await util.uploadImg(await util.cropImage(reader.result), document.querySelector('#cadastroEtapa3 div'))
+        document.querySelector('#cadastroEtapa3 img').src = await util.getImg(profilePhoto)
+        document.querySelector('#cadastroEtapa3 div').innerText = '100%'
+        document.querySelector('#profileImg').style.display = 'flex'
     })
 })
 

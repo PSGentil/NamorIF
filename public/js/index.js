@@ -95,3 +95,39 @@ async function displayProfile(atual) {
         profile.style.borderRadius = '0'
     }
 }
+
+//check notifications
+async function checkNotifications() {
+    let changed
+    //matchs
+    await fetch('/api/notify/match', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({
+            email: localStorage.getItem('email'),
+            pass: localStorage.getItem('pass')
+        })
+    }).then(res => {
+        if (res.status == 202) {
+            document.querySelector('img#chatIcon').src = '../images/chatUnreadIcon.png'
+            changed = true
+        }
+    })
+    //messages notification
+    await fetch(`/api/notify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({
+            email: localStorage.getItem('email'),
+            pass: localStorage.getItem('pass')
+        })
+    }).then(res => {
+        if (res.status == 202) {
+            document.querySelector('img#chatIcon').src = '../images/chatUnreadIcon.png'
+            changed = true
+        }
+    })
+
+    if (!changed)setTimeout(checkNotifications, 900)
+}
+checkNotifications()
