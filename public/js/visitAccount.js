@@ -37,10 +37,10 @@ for (const key in visitInfos) {
     switch (key) {
         case 'id': break
         case 'gender':
-            document.querySelector(`p#${key}`).innerText += (visitInfos[key] == 'nonbinarie' ? 'Não binário' : visitInfos[key].cap())
+            document.querySelector(`p#${key}`).innerText = (visitInfos[key] == 'nonbinarie' ? 'Não binário' : visitInfos[key].cap())
             break
         case 'sexuality':
-            document.querySelector(`p#${key}`).innerText += visitInfos[key]
+            document.querySelector(`p#${key}`).innerText = visitInfos[key]
             break
         case 'bio':
             document.querySelector(`#bio p`).innerText = visitInfos[key]
@@ -53,3 +53,7 @@ for (const key in visitInfos) {
             break
     }
 }
+
+document.querySelector('img#goBack').addEventListener('click', () => {
+    window.close()
+})

@@ -116,9 +116,10 @@ textarea{
     resize: none;
 }
 #name {
-    font-size: 3em;
+    font-size: 2em;
 }
 #bio p {
     width: 25em;
     display: inline;
+    overflow-wrap: break-word;
 }

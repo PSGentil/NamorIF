@@ -1,3 +1,14 @@
+img#goBack {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    filter: invert();
+    top: 2em;
+    left: 2em;
+    transition: .5s;
+    z-index: 10;
+}
+
 #block {
     position: absolute;
     top: 120%;

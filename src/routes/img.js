@@ -15,6 +15,26 @@ export default Router().post('/', async (req, res) => {
 		string: req.body.string,
 		completed: false
 	})
+	setTimeout(async () => {
+
+		const imgIndex = imgdb.data.findIndex(i => i.id == id && !i.completed)
+		if (imgIndex != -1) imgdb.data.splice(imgIndex, 1)
+		await imgdb.write()
+
+	}, 5 * 60 * 1000)
+	res.status(200).send(id)
+}).post('/single', async (req, res) => {
+	//single upload
+	let id = v4()
+
+	fs.writeFileSync(`./src/database/images/${id}.png`, Buffer.from(req.body.string.replace('data:image/png;base64,', ''), 'base64'))
+
+	imgdb.data.push({
+		id: id,
+		path: `./src/database/images/${id}.png`,
+		completed: true
+	})
+	await imgdb.write()
 	res.status(200).send(id)
 }).post('/:id', async (req, res) => {
 	if (!req.body.completed) {
@@ -65,3 +85,10 @@ export default Router().post('/', async (req, res) => {
 		res.status(200).send()
 	} else res.status(404).send()
 })
+
+const imgs = imgdb.data.filter(i => !i.completed)
+for (const img of imgs) {
+	const imgIndex = imgdb.data.findIndex(i => i.id == img.id)
+	if (imgIndex != -1) imgdb.data.splice(imgIndex, 1)
+}
+await imgdb.write()

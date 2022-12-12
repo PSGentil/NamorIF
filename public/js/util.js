@@ -3,30 +3,59 @@ export default class util {
      * @param {string} dataURL
      * @returns {Promise<string>} the image id
      */
-    static async uploadImg(dataURL) {
-        let i, id
+    static async uploadImg(dataURL, barElement) {
+        let i = 0, id
 
-        await fetch("/api/img", {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify({
-                string: dataURL.slice(0, 3000),
-                completed: false,
-            }),
-        }).then(async res => id = await res.text())
+        if (barElement) barreifica(i)
 
-        for (i = 3000; i <= dataURL.length; i += 3000) {
-            await fetch(`/api/img/${id}`, {
+        if (dataURL.length <= 3000) {
+            await fetch("/api/img/single", {
                 method: "POST",
                 headers: { "Content-Type": "application/json; charset=UTF-8" },
                 body: JSON.stringify({
-                    string: dataURL.slice(i, i + 3000),
-                    completed: !(i + 3000 < dataURL.length),
-                }),
-            })
-        }
+                    string: dataURL,
+                    completed: true,
+                })
+            }).then(async res => id = await res.text())
+        } else {
+            await fetch("/api/img", {
+                method: "POST",
+                headers: { "Content-Type": "application/json; charset=UTF-8" },
+                body: JSON.stringify({
+                    string: dataURL.slice(0, 3000),
+                    completed: false,
+                })
+            }).then(async res => id = await res.text())
 
+            for (i = 3000; i <= dataURL.length; i += 3000) {
+                await fetch(`/api/img/${id}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json; charset=UTF-8" },
+                    body: JSON.stringify({
+                        string: dataURL.slice(i, i + 3000),
+                        completed: !(i + 3000 < dataURL.length),
+                    })
+                })
+                if (barElement) barreifica(i)
+            }
+        }
         return id
+
+        function barreifica(index) {
+            let size = 10
+
+            const percentage = index / dataURL.length
+            const progress = Math.round((size * percentage))
+            const emptyProgress = size - progress
+            const progressText = '▇'.repeat(progress)
+            const emptyProgressText = '—'.repeat(emptyProgress)
+            const bar = progressText + emptyProgressText
+            let percentageText = Math.round(percentage * 100)
+
+            if (!percentageText) percentageText = 0
+
+            barElement.innerText = `[ ${bar} ] ${percentageText}%`
+        }
     }
     /**
      * @param {string} id imgId
@@ -95,7 +124,7 @@ export default class util {
 
         switch (resposta) {
             case false:
-                fetch("/api/login/create", {
+                await fetch("/api/login/create", {
                     method: "POST",
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
                     body: JSON.stringify(info),
@@ -330,5 +359,16 @@ Object.assign(String.prototype, {
     },
     uncap() {
         return this.charAt(0).toLowerCase() + this.slice(1)
+    }
+})
+
+Object.assign(Array.prototype, {
+    shuffle() {
+        let newArr = [...this]
+        for (let i = newArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArr[i], newArr[j]] = [newArr[j], newArr[i]]
+        }
+        return newArr
     }
 })
