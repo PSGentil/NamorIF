@@ -1,0 +1,33 @@
+img.galery {
+    width: 30em;
+    box-shadow: 0 0 5em black inset;
+}
+
+figcaption {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+}
+
+img[role=button] {
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+}
+
+#prev-icon {
+    left: 0.5em;
+}
+
+#next-icon {
+    right: 1em;
+}
+
+.sumir {
+    display: none;
+}
+
+.aparecer {
+    display: block;
+}

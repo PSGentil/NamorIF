@@ -44,6 +44,7 @@ section#nextProfile {
 .next {
     animation: slideUp 1s;
 }
+
 .appear {
     animation: appear 1s;
 }
@@ -62,10 +63,12 @@ section#nextProfile {
         top: -200%;
     }
 }
+
 @keyframes appear {
     0% {
-        top:-200%;
+        top: -200%;
     }
+
     1% {
         opacity: 1;
         top: 200%;
@@ -116,6 +119,7 @@ section#nextProfile {
     width: 90%;
     text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
         1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+    overflow-wrap: break-word;
 }
 
 p#sexualidade {
@@ -125,6 +129,15 @@ p#sexualidade {
     top: 2em;
     text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
         1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+}
+
+#prev-icon, #next-icon {
+    width: 50px;
+    z-index: 300;
+}
+
+#prev-icon:hover, #next-icon:hover {
+    cursor: pointer;
 }
 
 .botao {
@@ -145,11 +158,6 @@ p#sexualidade {
     width: 3em;
     cursor: pointer;
     transition: .3s;
-}
-
-#profile {
-    width: 30em;
-    box-shadow: 0 0 5em black inset;
 }
 
 #noAccountSection {

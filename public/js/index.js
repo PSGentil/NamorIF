@@ -14,14 +14,15 @@ if (!localStorage.getItem('isLogged')) {
 } else {
     document.getElementById('noAccountSection').style.display = 'none'
     document.getElementById('nextProfile').style.display = 'block'
+    checkNotifications()
     await findProfile()
 }
 
 document.querySelector('button#criar').addEventListener('click', () => {
     document.querySelector('button#emailCreate').click()
     document.querySelector("div#logPage").style.display = 'none'
-
 })
+
 document.querySelector('button#logar').addEventListener('click', () => {
     document.querySelector('img#loginIcon').click()
     if (['none', ''].includes(document.querySelector('#getEmail').style.display)) {
@@ -38,7 +39,7 @@ document.querySelector('img#love').addEventListener('click', async e => {
             email: localStorage.getItem('email'),
             pass: localStorage.getItem('pass'),
             // Loved person
-            id: atualProfile
+            id: atualProfile.id
         })
     })
     profile.className = 'next'
@@ -62,7 +63,7 @@ document.querySelector('img#deny').addEventListener('click', async e => {
             email: localStorage.getItem('email'),
             pass: localStorage.getItem('pass'),
             // Denied person
-            id: atualProfile
+            id: atualProfile.id
         })
     })
     await findProfile()
@@ -72,7 +73,7 @@ async function findProfile() {
     await fetch(`/api/social/profile/${localStorage.getItem('id')}`, { method: 'GET' }).then(async res => {
         if (res.ok) {
             let body = await res.json()
-            atualProfile = body.id
+            atualProfile = body
             displayProfile(body)
         } else {
             displayProfile(null)
@@ -86,6 +87,17 @@ async function displayProfile(atual) {
         nome.innerText = `${atual.name} ${atual.lastname}`
         desc.innerText = atual.bio ?? ''
         sexualidade.innerText = atual.sexuality
+
+        if (!atualProfile.photos) {
+            document.querySelector('#next-icon').style.display = 'none'
+            document.querySelector('#prev-icon').style.display = 'none'
+        } else if (!atualProfile.photos.some(p => p != null)) {
+            document.querySelector('#next-icon').style.display = 'none'
+            document.querySelector('#prev-icon').style.display = 'none'
+        } else {
+            document.querySelector('#next-icon').style.display = 'block'
+            document.querySelector('#prev-icon').style.display = 'block'
+        }
     } else {
         img.src = '../images/notfound.png'
         nome.innerText = 'Não foi possível encontrar outro perfil'
@@ -93,6 +105,48 @@ async function displayProfile(atual) {
         sexualidade.innerText = ''
         document.querySelector('#options').style.display = 'none'
         profile.style.borderRadius = '0'
+
+        document.querySelector('#next-icon').style.display = 'none'
+        document.querySelector('#prev-icon').style.display = 'none'
+    }
+}
+
+//carrossel
+let photos = document.querySelectorAll('.galery')
+let index = 0
+
+document.querySelector('#next-icon').addEventListener('click', passar)
+document.querySelector('#prev-icon').addEventListener('click', despassar)
+
+async function passar() {
+    photos[index].classList.remove('aparecer')
+    photos[index].classList.add('sumir')
+    if (index == photos.length - 1) index = -1
+    photos[++index].classList.add('aparecer')
+    photos[index].classList.remove('sumir')
+    if (atualProfile.photos && index != 0) {
+        if (atualProfile.photos[index]) {
+            if (!atualProfile.photos[index].startsWith('data:')) {
+                atualProfile.photos[index] = await util.getImg(atualProfile.photos[index])
+            }
+            photos[index].src = atualProfile.photos[index]
+        } else passar()
+    }
+}
+
+async function despassar() {
+    photos[index].classList.remove('aparecer')
+    photos[index].classList.add('sumir')
+    if (index == 0) index = photos.length
+    photos[--index].classList.add('aparecer')
+    photos[index].classList.remove('sumir')
+    if (atualProfile.photos && index != 0) {
+        if (atualProfile.photos[index]) {
+            if (!atualProfile.photos[index].startsWith('data:')) {
+                atualProfile.photos[index] = await util.getImg(atualProfile.photos[index])
+            }
+            photos[index].src = atualProfile.photos[index]
+        } else despassar()
     }
 }
 
@@ -128,6 +182,5 @@ async function checkNotifications() {
         }
     })
 
-    if (!changed)setTimeout(checkNotifications, 900)
+    if (!changed) setTimeout(checkNotifications, 900)
 }
-checkNotifications()

@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <script src="./js/autologin.js" type="module"></script>
-        <script defer src="./js/nav.js" type="module"></script>
-        <script defer src="./js/index.js" type="module"></script>
-        <title>NamorIF 💕</title>
-        <link rel="icon" type="image/x-icon" href="images/icon.png">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-    </head>
-    <body>
-        <main>
-            <!--Unlogged section-->
-            <section id="noAccountSection">
-                <img src="images/namorif.png" id="namorif">
-                <div id="introduction">
-                    <div id="aboutNamorif">
-                        <p>Você procura um site que te permita conhecer novas pessoas? Pois achou!
-                           O NamorIF está aqui para te ajudar a encontrar aquele par perfeito. Junte-se a nós e
-                           crie uma conta agora mesmo, ou se já tiver uma conta, basta logar!
-                        </p>
-                    </div>
-                    <div id="buttons">
-                        <button id="criar">Criar Uma Conta Agora</button>
-                        <button id="logar">Entrar em uma conta</button>
-                    </div>
-                </div>
-                
-                
-            </section>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="./js/autologin.js" type="module"></script>
+		<script defer src="./js/nav.js" type="module"></script>
+		<script defer src="./js/index.js" type="module"></script>
+		<title>NamorIF 💕</title>
+		<link rel="icon" type="image/x-icon" href="images/icon.png">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" type="text/css" href="css/galery.css">
+	</head>
+	<body>
+		<main>
+			<!--Unlogged section-->
+			<section id="noAccountSection">
+				<img src="images/namorif.png" id="namorif">
+				<div id="introduction">
+					<div id="aboutNamorif">
+						<p>Você procura um site que te permita conhecer novas pessoas? Pois achou!
+							O NamorIF está aqui para te ajudar a encontrar aquele par perfeito. Junte-se a nós e
+							crie uma conta agora mesmo, ou se já tiver uma conta, basta logar!
+						</p>
+					</div>
+					<div id="buttons">
+						<button id="criar">Criar Uma Conta Agora</button>
+						<button id="logar">Entrar em uma conta</button>
+					</div>
+				</div>
 
-            <!-- Profile section -->
-            <section id="nextProfile">
-                <div id="foto">
-                    <h1 id="nome"></h1>
-                    <p id="descricao"></p>
-                    <p id="sexualidade"></p>
-                    <figure>
-                        <img id="profile" src="../images/notfound.png"  alt="">
-                    </figure>
-                </div>
-                <div id="options">
-                    <div id="legenda">
-                        <img src="images/love_red.png" type="button" id="love" class="botao">
-                        <img src="images/block_red.png" type="button" id="deny" class="botao">
-                    </div>
-                </div>
-            </section>
-            
-        </main>
-    </body>
+			</section>
+
+			<!-- Profile section -->
+			<section id="nextProfile">
+
+				<!--Carousel-->
+				<div id="foto">
+					<h1 id="nome"></h1>
+					<p id="descricao"></p>
+					<p id="sexualidade"></p>
+					<figure>
+						<img id="profile" class="galery" src="../images/notfound.png">
+						<img class="galery sumir" src="../images/notfound.png">
+						<img class="galery sumir" src="../images/notfound.png">
+						<img class="galery sumir" src="../images/notfound.png">
+					</figure>
+					<figcaption>
+						<img src="./images/seta_tras.png" role="button" id="prev-icon">
+						<img src="./images/seta_frente.png" role="button" id="next-icon">
+					</figcaption>
+				</div>
+				<div id="options">
+					<div id="legenda">
+						<img src="images/love_red.png" type="button" id="love" class="botao">
+						<img src="images/block_red.png" type="button" id="deny" class="botao">
+					</div>
+				</div>
+			</section>
+
+		</main>
+	</body>
 </html>

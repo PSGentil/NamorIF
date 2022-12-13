@@ -1,9 +1,9 @@
 import util from './util.js'
 
-let profilePhoto = await util.getImg(localStorage.getItem('profilePhoto'))
+let photo = await util.getImg(localStorage.getItem('profilePhoto'))
 
 document.getElementsByTagName('title')[0].innerText = localStorage.getItem('username')
-document.getElementById('profilePhoto').src = profilePhoto
+document.getElementById('profilePhoto').src = photo
 
 //painel genero
 for (const p of document.querySelectorAll('#painelGenero p')) {
@@ -30,7 +30,7 @@ document.querySelector(`#profileImage img.editIcon`).addEventListener('click', e
         reader.addEventListener('load', async () => {
             await fetch(`/api/img/${localStorage.getItem('profilePhoto')}`, { method: 'DELETE' })
 
-            profilePhoto = await util.uploadImg(await util.cropImage(reader.result))
+            photo = await util.uploadImg(await util.cropImage(reader.result), document.querySelector('#uploadProgress'))
 
             await fetch('/api/account/edit', {
                 method: 'POST',
@@ -38,7 +38,7 @@ document.querySelector(`#profileImage img.editIcon`).addEventListener('click', e
                 body: JSON.stringify({
                     email: localStorage.getItem('email'),
                     pass: localStorage.getItem('pass'),
-                    profilePhoto: profilePhoto
+                    profilePhoto: photo
                 })
             }).then(async res => {
                 if (res.status == 202) {
@@ -95,7 +95,7 @@ document.querySelector(`#bio img.editIcon`).addEventListener('click', e => {
     let display = document.querySelector(`#bio textarea`).style.display
     const bio = localStorage.getItem('bio')
 
-    document.querySelector('#bio textarea').innerText = bio
+    document.querySelector('#bio textarea').innerHTML = bio
     document.querySelector(`#bio p`).innerText = bio
 
     document.querySelector(`#bio textarea`).style.display = (display == 'inline' ? 'none' : 'inline')
@@ -125,3 +125,70 @@ document.querySelector(`#bio img.saveIcon`).addEventListener('click', async e =>
         util.errorMessage(validate)
     }
 })
+
+//  ------------------------------ gallery ------------------------------------------------------
+
+//display
+const galleryImgs = document.querySelectorAll('#gallery figure img')
+const photos = localStorage.getItem('photos').indexOf(',') != -1 ? localStorage.getItem('photos').split(',') : [localStorage.getItem('photos')]
+for (let i = 0; i < galleryImgs.length; i++) {
+    if (photos[i]) {
+        galleryImgs[i].src = await util.getImg(photos[i])
+    }
+}
+//input setup
+const galleryInputs = document.querySelectorAll('#gallery input')
+for (const input of galleryInputs) {
+    input.addEventListener('change', () => {
+        const reader = new FileReader()
+        reader.readAsDataURL(input.files[0])
+        reader.addEventListener('load', async () => {
+            photo = await util.uploadImg(await util.cropImage(reader.result), document.querySelector('#progress-bar-gallery'))
+            await fetch('/api/gallery/edit', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json; charset=UTF-8" },
+                body: JSON.stringify({
+                    email: localStorage.getItem('email'),
+                    pass: localStorage.getItem('pass'),
+                    photos: {
+                        [Number(input.id.replace('gallery-image-', '')) - 1]: photo
+                    }
+                })
+            }).then(async res => {
+                if (res.ok) {
+                    let body = await res.json()
+                    util.save(body)
+                    window.location.reload()
+                }
+            })
+        })
+    })
+}
+
+//delete buttons
+const clearButtons = document.querySelectorAll('.clear-gallery-image')
+for (let i = 0; i < clearButtons.length; i++) {
+
+    clearButtons[i].addEventListener('click', async e => {
+        e.preventDefault()
+        if (photos[i]) {
+            await fetch('/api/gallery', {
+                method: 'DELETE',
+                headers: { "Content-Type": "application/json; charset=UTF-8" },
+                body: JSON.stringify({
+                    email: localStorage.getItem('email'),
+                    pass: localStorage.getItem('pass'),
+                    photos: {
+                        [i]: photos[i]
+                    }
+                })
+            }).then(async res => {
+                if (res.ok) {
+                    let body = await res.json()
+                    util.save(body)
+                    window.location.reload()
+                }
+            })
+        }
+    })
+}

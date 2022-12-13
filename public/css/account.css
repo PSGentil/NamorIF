@@ -9,11 +9,10 @@ body {
 
 figure#profileImage {
     position: absolute;
-    width: fit-content;
+    width: 20em;
     height: fit-content;
     z-index: 0;
     display: inline-block;
-    width: 20em;
     left: 8%;
     top: 5em;
     border: 5px solid white;
@@ -34,6 +33,7 @@ figure figcaption:hover {
     color: white;
     font-weight: bold;
 }
+
 div#painelGenero {
     background-color: white;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.200);
@@ -47,6 +47,7 @@ div#painelGenero {
     flex-direction: column;
     align-items: center;
 }
+
 div#painelGenero p {
     margin: 1.7em;
     font-size: larger;
@@ -87,13 +88,14 @@ div#header {
     background: linear-gradient(20deg, #00C9FF 0%, #92FE9D 100%);
 }
 
-div.userInfo {
+div#userInfo {
     width: max-content;
     display: inline-block;
     position: absolute;
     top: 10.8em;
     left: 35%;
 }
+
 div input, div textarea {
     padding: 10px;
     border: 3px solid rgb(115, 243, 190);
@@ -101,25 +103,80 @@ div input, div textarea {
     border-radius: 10px;
     box-shadow: inset 0 0 .5em rgba(0, 0, 0, 0.295);
 }
-div input[type = image] {
+
+div input[type=image] {
     border: none;
 }
 
 h1 {
     display: inline;
 }
+
 input {
     display: none;
 }
-textarea{
+
+textarea {
     display: none;
     resize: none;
 }
+
 #name {
     font-size: 2em;
 }
+
 #bio p {
     width: 25em;
     display: inline;
     overflow-wrap: break-word;
+}
+
+div#gallery {
+    position: absolute;
+    top: 65%;
+    left: 9%;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.205);
+}
+
+div.gallery-images {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+#gallery figure {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    border: 2px rgb(253, 251, 251) solid;
+    width: 6em;
+    height: 6em;
+}
+
+#gallery figure:hover {
+    background-color: rgba(0, 0, 0, 0.192);
+}
+
+#gallery figure img:hover:not(.visit) {
+    cursor: pointer;
+}
+
+img.clear-gallery-image {
+    width: 1.5em;
+    position: absolute;
+    top: 0;
+}
+
+img.clear-gallery-image:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+figcaption {
+    opacity: 0;
 }

@@ -1,66 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <script defer src="../js/account.js" type="module"></script>
-        <script defer src="../js/nav.js" type="module"></script>
-        <link rel="stylesheet" type="text/css" href="../css/account.css" />
-        <link rel="icon" type="image/x-icon" href="../images/icon.png">
 
-        <title>User Account</title>
-    </head>
-    <body>
-        <main>
-            <div id="header">
-                <figure id="profileImage">
-                    <img id="profilePhoto">
-                    <figcaption>
-                        <img src="../images/editIcon.png" class="editIcon">
-                        <p>Editar Foto</p>
-                        <input type="file" name="imagem" id="profileImg" accept="image/jpeg, image/png, image/jpg">
-                    </figcaption>
-                </figure>
-                <div id="painelGenero">
-                    <p id="gender" title="Gênero"></p>
-                    <p id="sexuality" title="Sexualidade"></p>
-                </div>
-                <div class="userInfo">
-                    <div id="name">
-                        <h1 title="Nome">Nome</h1>
-                        <img src="../images/editIcon.png" class="editIcon">
-                        <img src="../images/save.png" class="saveIcon">
-                        <input type="text">
-                    </div>
-                    
-                    <div id="lastname">
-                        <h1 title="Sobrenome">Sobrenome</h1>
-                        <img src="../images/editIcon.png" class="editIcon">
-                        <img src="../images/save.png" class="saveIcon">
-                        <input type="text">
-                    </div>
-                    
-                    <div id="username">
-                        <h1 title="Nome de usuário">Nome de Usuário</h1>
-                        <img src="../images/editIcon.png" class="editIcon">
-                        <img src="../images/save.png" class="saveIcon">
-                        <input type="text">
-                    </div>
-                    
-                    <div id="birthdate">
-                        <h1 title="Data de Nascimento">Data de Nascimento</h1>
-                        <img src="../images/editIcon.png" class="editIcon">
-                        <img src="../images/save.png" class="saveIcon">
-                        <input type="date">
-                    </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="../js/account.js" type="module"></script>
+    <script defer src="../js/nav.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../css/account.css" />
+    <link rel="icon" type="image/x-icon" href="../images/icon.png">
 
-                    <div id="bio">
-                        <p title="Biografia"></p>
-                        <textarea cols="30" rows="10"></textarea><br>
-                        <img src="../images/editIcon.png" class="editIcon">
-                        <img src="../images/save.png" class="saveIcon">
-                    </div>
-                </div>
+    <title>User Account</title>
+</head>
+
+<body>
+    <main>
+        <div id="header">
+            <figure id="profileImage">
+                <img id="profilePhoto">
+                <figcaption>
+                    <img src="../images/editIcon.png" class="editIcon">
+                    <p>Editar Foto</p>
+                    <input type="file" name="imagem" id="profileImg" accept="image/jpeg, image/png, image/jpg">
+                </figcaption>
+                <div id="uploadProgress"></div>
+            </figure>
+            <div id="painelGenero">
+                <p id="gender" title="Gênero"></p>
+                <p id="sexuality" title="Sexualidade"></p>
             </div>
-       </main>
-    </body>
+        </div>
+
+        <div id="userInfo">
+            <div id="name">
+                <h1 title="Nome">Nome</h1>
+                <img src="../images/editIcon.png" class="editIcon">
+                <img src="../images/save.png" class="saveIcon">
+                <input type="text">
+            </div>
+
+            <div id="lastname">
+                <h1 title="Sobrenome">Sobrenome</h1>
+                <img src="../images/editIcon.png" class="editIcon">
+                <img src="../images/save.png" class="saveIcon">
+                <input type="text">
+            </div>
+
+            <div id="username">
+                <h1 title="Nome de usuário">Nome de Usuário</h1>
+                <img src="../images/editIcon.png" class="editIcon">
+                <img src="../images/save.png" class="saveIcon">
+                <input type="text">
+            </div>
+
+            <div id="birthdate">
+                <h1 title="Data de Nascimento">Data de Nascimento</h1>
+                <img src="../images/editIcon.png" class="editIcon">
+                <img src="../images/save.png" class="saveIcon">
+                <input type="date">
+            </div>
+
+            <div id="bio">
+                <p title="Biografia"></p>
+                <textarea cols="30" rows="10"></textarea><br>
+                <img src="../images/editIcon.png" class="editIcon">
+                <img src="../images/save.png" class="saveIcon">
+            </div>
+        </div>
+
+        <!--Galeria-->
+        <div id="gallery">
+            <!--imagem 1-->
+            <div class="gallery-image">
+                <label for="gallery-image-1">
+                    <figure>
+                        <img src="../images/addPhoto.png">
+                    </figure>
+                </label>
+                <img src="../images/deleteIcon.png" role="button" class="clear-gallery-image">
+                <input id="gallery-image-1" type="file">
+            </div>
+
+            <!--imagem 2-->
+            <div class="gallery-image">
+                
+                <label for="gallery-image-2">
+                    <figure>
+                        <img src="../images/addPhoto.png">
+                    </figure>
+                </label>
+                <img src="../images/deleteIcon.png" role="button" class="clear-gallery-image">
+                <input id="gallery-image-2" type="file">
+            </div>
+
+            <!--imagem 3-->
+            <div class="gallery-image">
+                <label for="gallery-image-3">
+                    <figure>
+                        <img src="../images/addPhoto.png">
+                    </figure>
+                </label>
+                <img src="../images/deleteIcon.png" role="button" class="clear-gallery-image">
+                <input id="gallery-image-3" type="file">
+            </div>
+
+            <!--Barra de progresso-->
+            <div id="progress-bar-gallery"></div>
+        </div>
+
+    </main>
+</body>
+
 </html>

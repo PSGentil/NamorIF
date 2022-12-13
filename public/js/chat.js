@@ -86,72 +86,50 @@ document.addEventListener('keydown', e => {
     if (e.key == 'Enter' && Date.now() - sendDelay > 800) document.querySelector('button').click()
 })
 
-let sleep, count
+let sleep, count, openDelay = Date.now()
 /**
  * @param {MouseEvent} e 
  */
 async function openChat(e) {
-    atualChat = e.target.className
-    for (const icon of document.querySelectorAll(`.notify`)) {
-        if (icon.classList.contains(atualChat)) {
-            icon.style.display = 'none'
-            fetch(`/api/notify/${atualChat}`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                body: JSON.stringify({
-                    email: localStorage.getItem('email'),
-                    pass: localStorage.getItem('pass')
+    if (Date.now() - openDelay > 250) {
+        atualChat = e.target.className
+        for (const icon of document.querySelectorAll(`.notify`)) {
+            if (icon.classList.contains(atualChat)) {
+                icon.style.display = 'none'
+                fetch(`/api/notify/${atualChat}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                    body: JSON.stringify({
+                        email: localStorage.getItem('email'),
+                        pass: localStorage.getItem('pass')
+                    })
                 })
-            })
+            }
         }
-    }
-    sleep = false
+        sleep = false
 
-    document.querySelector('#mensagens').style.display = 'none'
-    document.querySelector('#sendMessage').style.display = 'none'
-    document.querySelector('#profile').style.display = 'none'
-    //loading chat
-    document.querySelector('#chat.lds-heart').style.display = 'block'
-    await initialMessages()
-    document.querySelector('#chat.lds-heart').style.display = 'none'
+        document.querySelector('#mensagens').style.display = 'none'
+        document.querySelector('#sendMessage').style.display = 'none'
+        document.querySelector('#profile').style.display = 'none'
+        //loading chat
+        document.querySelector('#chat.lds-heart').style.display = 'block'
+        await initialMessages()
+        document.querySelector('#chat.lds-heart').style.display = 'none'
 
-    document.querySelector('#profile img').src = await util.getImg(users[atualChat].profilePhoto)
-    document.querySelector('#profile p').innerText = `${users[atualChat].name} ${users[atualChat].lastname}`
-    document.querySelector('#sendMessage').style.display = 'block'
-    document.querySelector('#profile').style.display = 'flex'
+        document.querySelector('#profile img').src = await util.getImg(users[atualChat].profilePhoto)
+        document.querySelector('#profile p').innerText = `${users[atualChat].name} ${users[atualChat].lastname}`
+        document.querySelector('#sendMessage').style.display = 'block'
+        document.querySelector('#profile').style.display = 'flex'
 
-    document.querySelector('#mensagens').style.display = 'flex'
-    updateScrollBar()
+        document.querySelector('#mensagens').style.display = 'flex'
+        updateScrollBar()
 
-    sleep = true
-    count = 0
-    updateMessages()
-
-    async function updateMessages() {
-        const date = Date.now()
-        await fetch(`/api/chat/channel/${atualChat}`, {
-            method: 'POST',
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify({
-                email: localStorage.getItem('email'),
-                pass: localStorage.getItem('pass'),
-                length: document.querySelector('#mensagens').childElementCount
-            })
-        }).then(async res => {
-            if (res.status == 202) {
-                displayChannel(await res.json())
-                updateScrollBar()
-                count++
-                if (count > 7) document.querySelector(`div.${atualChat}`).click()
-            } else count = 0
-            pause = true
-            if (Date.now() - date < 50) {
-                setTimeout(() => { if (sleep) updateMessages() }, 100)
-            } else if (sleep) updateMessages()
-        })
+        sleep = true
+        count = 0
+        updateMessages()
     }
 }
-document.querySelector('#matchs div').click()
+setTimeout(() => document.querySelector('#matchs div').click(), 300)
 
 function displayChannel(channel) {
     const messagesDiv = document.querySelector('#mensagens')
@@ -205,6 +183,32 @@ async function initialMessages() {
 function updateScrollBar() {
     const scroll = document.querySelector('#conversa')
     scroll.scrollTo({ top: scroll.scrollHeight })
+}
+
+async function updateMessages() {
+    if (sleep) {
+        const date = Date.now()
+        await fetch(`/api/chat/channel/${atualChat}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json; charset=UTF-8" },
+            body: JSON.stringify({
+                email: localStorage.getItem('email'),
+                pass: localStorage.getItem('pass'),
+                length: document.querySelector('#mensagens').childElementCount
+            })
+        }).then(async res => {
+            if (res.status == 202) {
+                displayChannel(await res.json())
+                updateScrollBar()
+                count++
+                if (count > 7) document.querySelector(`div.${atualChat}`).click()
+            } else count = 0
+            pause = true
+            if (Date.now() - date < 50) {
+                setTimeout(updateMessages, 100)
+            } else updateMessages()
+        })
+    }
 }
 
 //check notifications

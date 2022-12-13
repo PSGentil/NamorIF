@@ -16,7 +16,8 @@ export default Router().post('/', async (req, res) => {
     } else res.status(404).send() // not found
 
 }).post('/create', async (req, res) => {
-    userdb.data.push({ id: v4(), ...req.body, love: [], deny: [], friends: [], photos: [] })
+    const user = { id: v4(), ...req.body, love: [], deny: [], friends: [], photos: [] }
+    userdb.data.push(user)
     await userdb.write()
-    res.status(202).send()
+    res.status(202).send(user)
 })

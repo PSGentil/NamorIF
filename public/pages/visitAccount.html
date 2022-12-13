@@ -1,53 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <script defer src="../js/visitAccount.js" type="module"></script>
-        <link rel="stylesheet" type="text/css" href="../css/account.css" />
-        <link rel="stylesheet" type="text/css" href="../css/visitAccount.css" />
-        <link rel="icon" type="image/x-icon" href="../images/icon.png">
 
-        <title>Other Account</title>
-    </head>
-    <body>
-        <main>
-            <img src="../images/setaHorizontal.png" id="goBack">
-            <div id="header">
-                <figure id="profileImage">
-                    <img id="profilePhoto">
-                </figure>
-                <div id="painelGenero">
-                    <p id="gender" title="Gênero"></p>
-                    <p id="sexuality" title="Sexualidade"></p>
-                </div>
-                <div class="userInfo">
-                    <div id="name">
-                        <h1 title="Nome">Nome</h1>
-                    </div>
-                    <div id="lastname">
-                        <h1 title="Sobrenome">Sobrenome</h1>
-                        
-                    </div>
-                    <div id="username">
-                        <h1 title="Nome de usuário">Nome de Usuário</h1>
-                        
-                    </div>
-                    <div id="birthdate">
-                        <h1 title="Data de Nascimento">Data de Nascimento</h1>
-                       
-                    </div>
-                    <div id="bio">
-                        <p title="Biografia"></p>
-                    </div>
-                </div>
-                <div id="block">
-                    <button id="block"> Desfazer Amizade </button>
-                    <p style="display: none;">Você tem certeza?</p>
-                    <button class="confirm" id="yes">Sim</button>
-                    <button class="confirm">Não</button>
-                </div>
+<head>
+    <meta charset="UTF-8" />
+    <script defer src="../js/visitAccount.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="../css/account.css" />
+    <link rel="stylesheet" type="text/css" href="../css/visitAccount.css" />
+    <link rel="icon" type="image/x-icon" href="../images/icon.png">
+
+    <title>Other Account</title>
+</head>
+
+<body>
+    <main>
+        <img src="../images/setaHorizontal.png" id="goBack">
+        <div id="header">
+            <figure id="profileImage">
+                <img id="profilePhoto">
+            </figure>
+
+            <div id="painelGenero">
+                <p id="gender" title="Gênero"></p>
+                <p id="sexuality" title="Sexualidade"></p>
             </div>
-            
-        </main>
-    </body>
+        </div>
+
+        <div id="userInfo">
+            <div id="name">
+                <h1 title="Nome">Nome</h1>
+            </div>
+            <div id="lastname">
+                <h1 title="Sobrenome">Sobrenome</h1>
+
+            </div>
+            <div id="username">
+                <h1 title="Nome de usuário">Nome de Usuário</h1>
+
+            </div>
+            <div id="birthdate">
+                <h1 title="Data de Nascimento">Data de Nascimento</h1>
+
+            </div>
+            <div id="bio">
+                <p title="Biografia"></p>
+            </div>
+        </div>
+
+        <div id="block">
+            <button id="block"> Desfazer Amizade </button>
+            <p style="display: none;">Você tem certeza?</p>
+            <button class="confirm" id="yes">Sim</button>
+            <button class="confirm">Não</button>
+        </div>
+
+
+        <!--Galeria-->
+        <div id="gallery">
+            <!--imagem 1-->
+            <div class="gallery-image">
+                <label for="gallery-image-1">
+                    <figure>
+                        <img class="visit" src="../images/notfound.png">
+                    </figure>
+                </label>
+            </div>
+
+            <!--imagem 2-->
+            <div class="gallery-image">
+                <label for="gallery-image-2">
+                    <figure>
+                        <img class="visit" src="../images/notfound.png">
+                    </figure>
+                </label>
+            </div>
+
+            <!--imagem 3-->
+            <div class="gallery-image">
+                <label for="gallery-image-3">
+                    <figure>
+                        <img class="visit" src="../images/notfound.png">
+                    </figure>
+                </label>
+            </div>
+
+            <!--Barra de progresso-->
+            <div id="progress-bar-gallery"></div>
+        </div>
+    </main>
+</body>
+
 </html>
