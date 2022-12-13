@@ -8,7 +8,7 @@ export default class util {
 
         if (barElement) barreifica(i)
 
-        if (dataURL.length <= 3000) {
+        if (dataURL.length <= 50000) {
             await fetch("/api/img/single", {
                 method: "POST",
                 headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -22,18 +22,18 @@ export default class util {
                 method: "POST",
                 headers: { "Content-Type": "application/json; charset=UTF-8" },
                 body: JSON.stringify({
-                    string: dataURL.slice(0, 3000),
+                    string: dataURL.slice(0, 50000),
                     completed: false,
                 })
             }).then(async res => id = await res.text())
 
-            for (i = 3000; i <= dataURL.length; i += 3000) {
+            for (i = 50000; i <= dataURL.length; i += 50000) {
                 await fetch(`/api/img/${id}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
                     body: JSON.stringify({
-                        string: dataURL.slice(i, i + 3000),
-                        completed: !(i + 3000 < dataURL.length),
+                        string: dataURL.slice(i, i + 50000),
+                        completed: !(i + 50000 < dataURL.length),
                     })
                 })
                 if (barElement) barreifica(i)
@@ -64,7 +64,7 @@ export default class util {
     static async getImg(id) {
         const img = { id: id, string: "", completed: false }
 
-        for (let i = 0; !img.completed; i += 3000) {
+        for (let i = 0; !img.completed; i += 100000) {
             let status = await fetch(`/api/img/${id}/${i}`, { method: "GET" }).then(async res => {
                 if (res.ok) {
                     let body = await res.json()
@@ -73,8 +73,7 @@ export default class util {
                         img.completed = true
                     }
                 } else return 404
-            }
-            )
+            })
             if (status == 404) break
         }
 
@@ -129,12 +128,8 @@ export default class util {
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
                     body: JSON.stringify(info),
                 }).then(async (res) => {
-                    if (res.ok) {
-                        for (const key in info) {
-                            localStorage.setItem(key, info[key])
-                        }
-                        localStorage.setItem("isLogged", true)
-
+                    if (res.status == 202) {
+                        util.save(await res.json())
                         window.location.href = "../pages/account.html"
                     }
                 })
@@ -344,6 +339,12 @@ export default class util {
 
     static save(body) {
         for (const key in body) {
+            if (['friends', 'love', 'deny'].includes(key)) continue
+
+            if (key == 'photos') {
+                localStorage.setItem(key, JSON.stringify(body[key]))
+            }
+
             localStorage.setItem(key, body[key])
         }
     }

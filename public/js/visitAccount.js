@@ -36,6 +36,7 @@ document.querySelector('title').innerText = visitInfos['username']
 for (const key in visitInfos) {
     switch (key) {
         case 'id': break
+        case 'photos': break
         case 'gender':
             document.querySelector(`p#${key}`).innerText = (visitInfos[key] == 'nonbinarie' ? 'Não binário' : visitInfos[key].cap())
             break
@@ -57,3 +58,14 @@ for (const key in visitInfos) {
 document.querySelector('img#goBack').addEventListener('click', () => {
     window.close()
 })
+
+//display
+const galleryImgs = document.querySelectorAll('#gallery img')
+if (visitInfos['photos']) {
+    const photos = visitInfos['photos']
+    for (let i = 0; i < galleryImgs.length; i++) {
+        if (photos[i]) {
+            galleryImgs[i].src = await util.getImg(photos[i])
+        }
+    }
+}

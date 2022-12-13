@@ -66,11 +66,11 @@ export default Router().post('/', async (req, res) => {
 		}
 
 		res.status(200).send({
-			string: img.string.slice(req.params.part, req.params.part + 3000),
-			completed: !(req.params.part + 3000 < img.string.length)
+			string: img.string.slice(Number(req.params.part), Number(req.params.part) + 100000),
+			completed: !(Number(req.params.part) + 100000 < img.string.length)
 		})
 
-		if (!(req.params.part + 3000 < img.string.length)) {
+		if (!(Number(req.params.part) + 100000 < img.string.length)) {
 			delete img.string
 			await imgdb.write()
 		}

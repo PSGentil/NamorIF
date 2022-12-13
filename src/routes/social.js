@@ -48,7 +48,8 @@ export default Router().post('/love', async (req, res) => {
             sexuality: nextUser.sexuality,
             gender: nextUser.gender,
             birthdate: nextUser.birthdate,
-            profilePhoto: nextUser.profilePhoto
+            profilePhoto: nextUser.profilePhoto,
+            photos: nextUser.photos
         })
     }
     res.status(404).send(null)
@@ -67,7 +68,8 @@ export default Router().post('/love', async (req, res) => {
                 sexuality: friend.sexuality,
                 gender: friend.gender,
                 birthdate: friend.birthdate,
-                profilePhoto: friend.profilePhoto
+                profilePhoto: friend.profilePhoto,
+                photos: friend.photos
             })
         }
         if (friends.length) res.status(200).send({ friends })
