@@ -125,11 +125,11 @@ async function passar() {
     photos[++index].classList.add('aparecer')
     photos[index].classList.remove('sumir')
     if (atualProfile.photos && index != 0) {
-        if (atualProfile.photos[index]) {
-            if (!atualProfile.photos[index].startsWith('data:')) {
-                atualProfile.photos[index] = await util.getImg(atualProfile.photos[index])
+        if (atualProfile.photos[index - 1]) {
+            if (!atualProfile.photos[index - 1].startsWith('data:')) {
+                atualProfile.photos[index - 1] = await util.getImg(atualProfile.photos[index - 1])
             }
-            photos[index].src = atualProfile.photos[index]
+            photos[index].src = atualProfile.photos[index - 1]
         } else passar()
     }
 }
@@ -141,11 +141,11 @@ async function despassar() {
     photos[--index].classList.add('aparecer')
     photos[index].classList.remove('sumir')
     if (atualProfile.photos && index != 0) {
-        if (atualProfile.photos[index]) {
-            if (!atualProfile.photos[index].startsWith('data:')) {
-                atualProfile.photos[index] = await util.getImg(atualProfile.photos[index])
+        if (atualProfile.photos[index - 1]) {
+            if (!atualProfile.photos[index - 1].startsWith('data:')) {
+                atualProfile.photos[index - 1] = await util.getImg(atualProfile.photos[index - 1])
             }
-            photos[index].src = atualProfile.photos[index]
+            photos[index].src = atualProfile.photos[index - 1]
         } else despassar()
     }
 }
