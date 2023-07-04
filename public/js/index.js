@@ -1,3 +1,4 @@
+import './conSpeed.js'
 import util from './util.js'
 
 let img = document.querySelector('img#profile')

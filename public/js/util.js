@@ -5,10 +5,11 @@ export default class util {
      */
     static async uploadImg(dataURL, barElement) {
         let i = 0, id
-
+        const netSpeed = localStorage.getItem("netSpeed") ? parseInt(localStorage.getItem("netSpeed")) / 2 : 50000
+        console.log(netSpeed)
         if (barElement) barreifica(i)
 
-        if (dataURL.length <= 50000) {
+        if (dataURL.length <= netSpeed) {
             await fetch("/api/img/single", {
                 method: "POST",
                 headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -22,18 +23,18 @@ export default class util {
                 method: "POST",
                 headers: { "Content-Type": "application/json; charset=UTF-8" },
                 body: JSON.stringify({
-                    string: dataURL.slice(0, 50000),
+                    string: dataURL.slice(0, netSpeed),
                     completed: false,
                 })
             }).then(async res => id = await res.text())
 
-            for (i = 50000; i <= dataURL.length; i += 50000) {
+            for (i = netSpeed; i <= dataURL.length; i += netSpeed) {
                 await fetch(`/api/img/${id}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
                     body: JSON.stringify({
-                        string: dataURL.slice(i, i + 50000),
-                        completed: !(i + 50000 < dataURL.length),
+                        string: dataURL.slice(i, i + netSpeed),
+                        completed: !(i + netSpeed < dataURL.length),
                     })
                 })
                 if (barElement) barreifica(i)
@@ -62,10 +63,11 @@ export default class util {
      * @returns {Promise<string> | null} `dataURL` **OR** `null` if not found
      */
     static async getImg(id) {
+        const netSpeed = localStorage.getItem("netSpeed") ? parseInt(localStorage.getItem("netSpeed")) * 0.75 : 100000
         const img = { id: id, string: "", completed: false }
 
-        for (let i = 0; !img.completed; i += 100000) {
-            let status = await fetch(`/api/img/${id}/${i}`, { method: "GET" }).then(async res => {
+        for (let i = 0; !img.completed; i += netSpeed) {
+            let status = await fetch(`/api/img/${id}/${netSpeed}/${i}`, { method: "GET" }).then(async res => {
                 if (res.ok) {
                     let body = await res.json()
                     img.string += body.string

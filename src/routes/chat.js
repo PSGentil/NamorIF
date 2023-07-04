@@ -4,7 +4,7 @@ import { JSONFile } from "lowdb/node"
 import { userdb } from '../index.js'
 
 export const chatdb = new Low(new JSONFile("./src/database/chatdb.json"))
-await chatdb.read(); chatdb.data ||= {}; await chatdb.write()
+await chatdb.read(); chatdb.data ||= []; await chatdb.write()
 
 export default Router().post('/channel/initial/:id/:index', async (req, res) => {
     const user = userdb.data.find(u => u.email == req.body.email && u.pass == req.body.pass)

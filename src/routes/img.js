@@ -57,7 +57,7 @@ export default Router().post('/', async (req, res) => {
 	} else {
 		res.status(400).send()
 	}
-}).get('/:id/:part', async (req, res) => {
+}).get('/:id/:speed/:part', async (req, res) => {
 	let img = imgdb.data.find(i => i.id == req.params.id)
 
 	if (img) {
@@ -66,11 +66,11 @@ export default Router().post('/', async (req, res) => {
 		}
 
 		res.status(200).send({
-			string: img.string.slice(Number(req.params.part), Number(req.params.part) + 100000),
-			completed: !(Number(req.params.part) + 100000 < img.string.length)
+			string: img.string.slice(Number(req.params.part), Number(req.params.part) + Number(req.params.speed)),
+			completed: !(Number(req.params.part) + Number(req.params.speed) < img.string.length)
 		})
 
-		if (!(Number(req.params.part) + 100000 < img.string.length)) {
+		if (!(Number(req.params.part) + Number(req.params.speed) < img.string.length)) {
 			delete img.string
 			await imgdb.write()
 		}
