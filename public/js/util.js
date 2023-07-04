@@ -5,7 +5,7 @@ export default class util {
      */
     static async uploadImg(dataURL, barElement) {
         let i = 0, id
-        const netSpeed = localStorage.getItem("netSpeed") ? parseInt(localStorage.getItem("netSpeed")) / 2 : 50000
+        const netSpeed = localStorage.getItem("netSpeed") ? Math.min(parseInt(Number(localStorage.getItem("netSpeed")) / 2), 1048576) : 50000
         console.log(netSpeed)
         if (barElement) barreifica(i)
 
@@ -63,7 +63,7 @@ export default class util {
      * @returns {Promise<string> | null} `dataURL` **OR** `null` if not found
      */
     static async getImg(id) {
-        const netSpeed = localStorage.getItem("netSpeed") ? parseInt(localStorage.getItem("netSpeed")) * 0.75 : 100000
+        const netSpeed = localStorage.getItem("netSpeed") ? Math.min(parseInt(Number(localStorage.getItem("netSpeed")) * 0.75), 1048576) : 100000
         const img = { id: id, string: "", completed: false }
 
         for (let i = 0; !img.completed; i += netSpeed) {
