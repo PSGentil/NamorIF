@@ -7,6 +7,9 @@ import fs from 'fs'
 export const imgdb = new Low(new JSONFile("./src/database/imgdb.json"))
 await imgdb.read(); imgdb.data ||= []; await imgdb.write()
 
+imgdb.data = imgdb.data.filter(i => !i.string)
+await imgdb.write()
+
 export default Router().post('/', async (req, res) => {
 	//começar upload
 	let id = v4()
@@ -57,24 +60,6 @@ export default Router().post('/', async (req, res) => {
 	} else {
 		res.status(400).send()
 	}
-}).get('/:id/:speed/:part', async (req, res) => {
-	let img = imgdb.data.find(i => i.id == req.params.id)
-
-	if (img) {
-		if (!img.string) {
-			img.string = 'data:image/png;base64,' + fs.readFileSync(img.path).toString('base64')
-		}
-
-		res.status(200).send({
-			string: img.string.slice(Number(req.params.part), Number(req.params.part) + Number(req.params.speed)),
-			completed: !(Number(req.params.part) + Number(req.params.speed) < img.string.length)
-		})
-
-		if (!(Number(req.params.part) + Number(req.params.speed) < img.string.length)) {
-			delete img.string
-			await imgdb.write()
-		}
-	} else res.status(404).send()
 }).delete('/:id', async (req, res) => {
 	let img = imgdb.data.findIndex(i => i.id == req.params.id)
 
@@ -85,10 +70,3 @@ export default Router().post('/', async (req, res) => {
 		res.status(200).send()
 	} else res.status(404).send()
 })
-
-const imgs = imgdb.data.filter(i => !i.completed)
-for (const img of imgs) {
-	const imgIndex = imgdb.data.findIndex(i => i.id == img.id)
-	if (imgIndex != -1) imgdb.data.splice(imgIndex, 1)
-}
-await imgdb.write()

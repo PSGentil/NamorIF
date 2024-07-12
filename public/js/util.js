@@ -63,25 +63,7 @@ export default class util {
      * @returns {Promise<string> | null} `dataURL` **OR** `null` if not found
      */
     static async getImg(id) {
-        const netSpeed = localStorage.getItem("netSpeed") ? Math.min(parseInt(Number(localStorage.getItem("netSpeed")) * 0.75), 1048576) : 100000
-        const img = { id: id, string: "", completed: false }
-
-        for (let i = 0; !img.completed; i += netSpeed) {
-            let status = await fetch(`/api/img/${id}/${netSpeed}/${i}`, { method: "GET" }).then(async res => {
-                if (res.ok) {
-                    let body = await res.json()
-                    img.string += body.string
-                    if (body.completed) {
-                        img.completed = true
-                    }
-                } else return 404
-            })
-            if (status == 404) break
-        }
-
-        if (img.completed) {
-            return img.string
-        } else return null
+       return "/images/" + id + ".png" 
     }
     /**
      * @param {string} token

@@ -127,7 +127,7 @@ async function passar() {
     photos[index].classList.remove('sumir')
     if (atualProfile.photos && index != 0) {
         if (atualProfile.photos[index - 1]) {
-            if (!atualProfile.photos[index - 1].startsWith('data:')) {
+            if (!atualProfile.photos[index - 1].startsWith('/images/')) {
                 atualProfile.photos[index - 1] = await util.getImg(atualProfile.photos[index - 1])
             }
             photos[index].src = atualProfile.photos[index - 1]
@@ -143,7 +143,7 @@ async function despassar() {
     photos[index].classList.remove('sumir')
     if (atualProfile.photos && index != 0) {
         if (atualProfile.photos[index - 1]) {
-            if (!atualProfile.photos[index - 1].startsWith('data:')) {
+            if (!atualProfile.photos[index - 1].startsWith('/images/')) {
                 atualProfile.photos[index - 1] = await util.getImg(atualProfile.photos[index - 1])
             }
             photos[index].src = atualProfile.photos[index - 1]
